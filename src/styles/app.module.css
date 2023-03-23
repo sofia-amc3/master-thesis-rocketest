@@ -1,0 +1,51 @@
+/* Application Layout */
+.app_layout {
+  display: flex;
+}
+.app_layout:first-child {
+  flex: 0;
+}
+.app_layout:last-child() {
+  flex: 1;
+}
+
+/* SideMenu ---------------------------------- */
+.sideMenu {
+  min-width: 18rem;
+  width: 18rem;
+  height: 100vh;
+  background-color: var(--color-rocketest-8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* SideMenu Buttons ---------------------------------- */
+.menuBtn {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.menuBtn:hover,
+.menuBtn.active {
+  background-color: var(--color-rocketest-6);
+}
+
+.menuBtn .active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 100%;
+  border-radius: 8px;
+  background-color: var(--color-rocketest-3);
+}
+
+.menuBtn .icon {
+  margin: 0 0.7rem 0 1.5rem;
+}
+
+.menuBtn .text {
+  flex-grow: 1;
+}
