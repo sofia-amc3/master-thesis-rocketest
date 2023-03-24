@@ -5,7 +5,7 @@
 .app_layout:first-child {
   flex: 0;
 }
-.app_layout:last-child() {
+.app_layout:last-child {
   flex: 1;
 }
 
@@ -16,6 +16,10 @@
   height: 100vh;
   background-color: var(--color-rocketest-8);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.signoutContainer {
+  margin-top: 80px;
 }
 
 .sideMenu .logoContainer {
@@ -40,8 +44,18 @@
 .sideMenu .profile .profilePic {
   position: inherit !important;
   margin-bottom: 15px;
+  border-radius: 10px;
   width: 44% !important;
   height: auto !important;
+  max-width: 128px;
+  min-height: 128px;
+  background-color: var(--color-rocketest-3);
+}
+
+.sideMenu .profile span:last-child {
+  /* User Name */
+  margin-top: 5px;
+  font-weight: 600;
 }
 
 /* SideMenu Buttons ---------------------------------- */
@@ -72,6 +86,13 @@
   margin: 0 1.5rem 0 3.2rem;
 }
 
+.menuBtn.active .text {
+  /* Text of the selected (active) page */
+  font-weight: 700;
+}
+
 .menuBtn .text {
   flex-grow: 1;
+  font-weight: 500;
+  color: var(--color-rocketest-2);
 }

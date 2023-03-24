@@ -11,7 +11,7 @@ const SideMenu = () => {
     <div className={styles.sideMenu}>
       {/* LOGO */}
       <div className={styles.logoContainer}>
-        <Link href="/">
+        <Link href="/tests">
           <Image
             className={styles.logo}
             src="/logo-lightBg.png"
@@ -25,7 +25,7 @@ const SideMenu = () => {
         <Link href="/profile">
           <Image
             className={styles.profilePic}
-            src="/userExampleImg.png"
+            src=""
             alt="Profile Picture"
             fill
           />
@@ -71,15 +71,14 @@ const SideMenu = () => {
           link="/settings"
           active={router.pathname === "/settings"}
         />
-      </div>
-      {/* SIGN OUT */}
-      <div>
-        <MenuBtn
-          text="Sign Out"
-          icon="signout"
-          link="/signout"
-          active={router.pathname === "/signout"}
-        />
+        <div className={styles.signoutContainer}>
+          <MenuBtn
+            text="Sign Out"
+            icon="signout"
+            link="/signout"
+            active={router.pathname === "/signout"}
+          />
+        </div>
       </div>
     </div>
   );
