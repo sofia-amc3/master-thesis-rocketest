@@ -9,9 +9,8 @@
   flex: 1;
 }
 
-/* SideMenu ---------------------------------- */
+/* SideMenu ------------------------- */
 .sideMenu {
-  min-width: 18rem;
   width: 18rem;
   height: 100vh;
   background-color: var(--color-rocketest-8);
@@ -19,11 +18,11 @@
 }
 
 .signoutContainer {
-  margin-top: 80px;
+  margin-top: 5rem;
 }
 
 .sideMenu .logoContainer {
-  margin: 44px 0 74px 0;
+  margin: 2.75rem 0 4.6rem 0;
   text-align: center;
 }
 
@@ -36,9 +35,9 @@
 .sideMenu .profile {
   display: grid;
   text-align: center;
-  margin-bottom: 74px;
+  margin-bottom: 4.6rem;
   color: var(--color-rocketest-3);
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .sideMenu .profile .profilePic {
@@ -47,8 +46,8 @@
   border-radius: 10px;
   width: 44% !important;
   height: auto !important;
-  max-width: 128px;
-  min-height: 128px;
+  max-width: 8rem;
+  min-height: 8rem;
   background-color: var(--color-rocketest-3);
 }
 
@@ -58,7 +57,7 @@
   font-weight: 600;
 }
 
-/* SideMenu Buttons ---------------------------------- */
+/* SideMenu Buttons ------------------------- */
 .menuBtn {
   position: relative;
   display: flex;
@@ -95,4 +94,35 @@
   flex-grow: 1;
   font-weight: 500;
   color: var(--color-rocketest-2);
+}
+
+/* ---------------------------------------- TESTS PAGE ---------------------------------------------------- */
+.testsTopMenu {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 2.9rem 0 0 5.6rem;
+  width: 33rem;
+  height: 1.9rem;
+  color: var(--color-rocketest-2);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.testsTopMenu a {
+  position: relative;
+  width: fit-content;
+}
+
+.testsTopMenu .topMenuActiveBorder,
+.testsTopMenu a:hover {
+  font-weight: 700;
+}
+
+.testsTopMenu .topMenuActiveBorder div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0.2rem;
+  border-radius: 5rem;
+  background-color: var(--color-rocketest-3);
 }

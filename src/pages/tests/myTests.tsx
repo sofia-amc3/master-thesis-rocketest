@@ -9,11 +9,11 @@ interface PropsExample {
   d?: boolean;
 }
 
-const Overview = (props: PropsExample) => {
+const MyTests = (props: PropsExample) => {
   return (
     <>
       <Head>
-        <title>Overview | Rocketest</title>
+        <title>My Tests | Rocketest</title>
       </Head>
       <main>
         <TestsTopMenu></TestsTopMenu>
@@ -22,4 +22,4 @@ const Overview = (props: PropsExample) => {
   );
 };
 
-export default Overview;
+export default MyTests;

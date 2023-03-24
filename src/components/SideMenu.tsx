@@ -39,44 +39,44 @@ const SideMenu = () => {
           text="Tests"
           icon="tests"
           link="/tests"
-          active={router.pathname === "/tests"}
+          active={router.pathname.includes("/tests")}
         />
         <MenuBtn
           text="Notifications"
           icon="notifications"
           link="/notifications"
-          active={router.pathname === "/notifications"}
+          active={router.pathname.includes("/notifications")}
         />
         <MenuBtn
           text="Messages"
           icon="messages"
           link="/messages"
-          active={router.pathname === "/messages"}
+          active={router.pathname.includes("/messages")}
         />
         <MenuBtn
           text="Wallet"
           icon="wallet"
           link="/wallet"
-          active={router.pathname === "/wallet"}
+          active={router.pathname.includes("/wallet")}
         />
         <MenuBtn
           text="Profile"
           icon="profile"
           link="/profile"
-          active={router.pathname === "/profile"}
+          active={router.pathname.includes("/profile")}
         />
         <MenuBtn
           text="Settings"
           icon="settings"
           link="/settings"
-          active={router.pathname === "/settings"}
+          active={router.pathname.includes("/settings")}
         />
         <div className={styles.signoutContainer}>
           <MenuBtn
             text="Sign Out"
             icon="signout"
             link="/signout"
-            active={router.pathname === "/signout"}
+            active={router.pathname.includes("/signout")}
           />
         </div>
       </div>
