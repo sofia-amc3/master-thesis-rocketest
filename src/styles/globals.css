@@ -71,3 +71,8 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+input {
+  font-family: "Montserrat";
+  font-weight: 400;
+}

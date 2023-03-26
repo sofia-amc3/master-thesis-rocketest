@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import TestsTopMenu from "@/components/TestsTopMenu";
+import SearchBar from "@/components/SearchBar";
 
 interface PropsExample {
   a: string;
@@ -17,6 +18,7 @@ const Overview = (props: PropsExample) => {
       </Head>
       <main>
         <TestsTopMenu></TestsTopMenu>
+        <SearchBar></SearchBar>
       </main>
     </>
   );
