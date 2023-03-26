@@ -76,3 +76,18 @@ input {
   font-family: "Montserrat";
   font-weight: 400;
 }
+
+h1 {
+  margin: 0 0 2.5rem 5.6rem;
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.03em;
+  color: var(--color-rocketest-2);
+}
+
+main {
+  flex: 1;
+  height: 100vh;
+  overflow: auto;
+  position: relative;
+}

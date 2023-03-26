@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import SideMenu from "@/components/SideMenu";
 import styles from "@/styles/app.module.css";
 import Head from "next/head";
+import BackToTopArrow from "@/components/BackToTopArrow";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <div className={styles.app_layout}>
         <SideMenu />
         <Component {...pageProps} />
+        <BackToTopArrow />
       </div>
     </>
   );

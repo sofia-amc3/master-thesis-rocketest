@@ -2,12 +2,6 @@
 .app_layout {
   display: flex;
 }
-.app_layout:first-child {
-  flex: 0;
-}
-.app_layout:last-child {
-  flex: 1;
-}
 
 /* SideMenu ------------------------- */
 .sideMenu {
@@ -100,7 +94,7 @@
 .searchbar {
   position: absolute;
   top: 2rem;
-  right: 5.6rem;
+  right: 4rem;
 }
 
 .searchbar input {
@@ -126,11 +120,19 @@
   pointer-events: none;
 }
 
+/* Back To Top Arrow ----------------------- */
+.backToTopArrow {
+  position: absolute;
+  bottom: 2rem;
+  right: 4rem;
+  cursor: pointer;
+}
+
 /* ---------------------------------------- TESTS PAGE ---------------------------------------------------- */
 .testsTopMenu {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  margin: 2.9rem 0 0 5.6rem;
+  margin: 2.9rem 0 3.3rem 5.6rem;
   width: 33rem;
   height: 1.9rem;
   color: var(--color-rocketest-2);
@@ -155,4 +157,41 @@
   height: 0.2rem;
   border-radius: 5rem;
   background-color: var(--color-rocketest-3);
+}
+
+.dashboardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 4rem 0 5.6rem;
+  max-width: 150rem;
+}
+
+.dashboardCard {
+  margin-bottom: 2rem;
+  padding: 1.5rem 2.5rem 1.5rem 2.5rem;
+  border-radius: 1.6rem;
+  height: 18.8rem;
+  background-color: var(--color-rocketest-8);
+}
+
+.dashboardCard.oneAndHalf_col {
+  width: 26rem;
+}
+
+.dashboardCard.two_col {
+  width: 35.4rem;
+}
+
+.dashboardCard.three_col {
+  width: 54rem;
+}
+
+.dashboardCard span {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--color-rocketest-3);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
 }

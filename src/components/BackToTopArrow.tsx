@@ -1,0 +1,35 @@
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import styles from "@/styles/app.module.css";
+
+const BackToTopArrow = () => {
+  const [showButton, setShowButton] = useState(false);
+  const mainWindow = document.getElementsByTagName("main")[0];
+
+  mainWindow.addEventListener("scroll", () => {
+    if (mainWindow.scrollTop > 50) {
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+  });
+
+  const scrollToTop = () => {
+    mainWindow.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return showButton ? (
+    <Image
+      className={styles.backToTopArrow}
+      src="icons/arrow.svg"
+      alt="Back To Top Arrow"
+      width={40}
+      height={40}
+      onClick={scrollToTop}
+    />
+  ) : (
+    <></>
+  );
+};
+
+export default BackToTopArrow;
