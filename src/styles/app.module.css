@@ -201,6 +201,7 @@
 .testsFiltersContainer {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2.9rem;
   width: 54.75rem;
 }
 
@@ -249,4 +250,57 @@
 img.arrowRotate {
   top: 1rem;
   transform: rotate(-90deg);
+}
+
+.testCardsContainer {
+  justify-content: left;
+  margin-left: -1.6rem;
+}
+
+.testCardsContainer a {
+  margin: 0 0 1.6rem 1.6rem;
+}
+
+.testCardInfoContainer {
+  padding: 1.6rem 1.25rem 1.6rem 1.25rem;
+  border-radius: 0 0 1.6rem 1.6rem;
+  background-color: var(--color-rocketest-8);
+}
+
+.testCardImgContainer {
+  border-radius: 1.6rem 1.6rem 0 0;
+  width: 16.9rem;
+  height: 8.9rem;
+  overflow: hidden;
+}
+
+.testCardImgContainer img {
+  object-fit: cover;
+}
+
+.testCardInfoContainer > span {
+  /* Test Title */
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--color-rocketest-3);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 3%;
+  text-transform: uppercase;
+}
+
+.testCardInfoContainer .testInfo {
+  display: flex;
+  margin-bottom: 0.6rem;
+}
+
+.testCardInfoContainer .testInfo:last-of-type {
+  margin-bottom: 0;
+}
+
+.testCardInfoContainer .testInfo span {
+  display: block;
+  margin-left: 0.9rem;
+  color: var(--color-rocketest-2);
+  font-size: 0.8rem;
 }
