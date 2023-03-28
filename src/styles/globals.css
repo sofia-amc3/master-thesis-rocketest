@@ -78,7 +78,7 @@ input {
 }
 
 h1 {
-  margin: 0 0 2.5rem 5.6rem;
+  margin: 0 0 2.5rem 0;
   font-weight: 700;
   font-size: 1.6rem;
   letter-spacing: 0.03em;
@@ -86,8 +86,9 @@ h1 {
 }
 
 main {
+  position: relative;
+  padding-left: 5.6rem;
   flex: 1;
   height: 100vh;
   overflow: auto;
-  position: relative;
 }

@@ -4,19 +4,23 @@ import styles from "@/styles/app.module.css";
 
 const BackToTopArrow = () => {
   const [showButton, setShowButton] = useState(false);
-  const mainWindow = document.getElementsByTagName("main")[0];
-
-  mainWindow.addEventListener("scroll", () => {
-    if (mainWindow.scrollTop > 50) {
-      setShowButton(true);
-    } else {
-      setShowButton(false);
-    }
-  });
+  let mainWindow: HTMLElement;
 
   const scrollToTop = () => {
     mainWindow.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  useEffect(() => {
+    mainWindow = document.getElementsByTagName("main")[0];
+
+    mainWindow.addEventListener("scroll", () => {
+      if (mainWindow.scrollTop > 50) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    });
+  });
 
   return showButton ? (
     <Image

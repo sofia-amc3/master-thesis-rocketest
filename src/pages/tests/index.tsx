@@ -19,8 +19,8 @@ const Overview = (props: PropsExample) => {
         <title>Overview | Rocketest</title>
       </Head>
       <main>
-        <TestsTopMenu></TestsTopMenu>
-        <SearchBar></SearchBar>
+        <TestsTopMenu />
+        <SearchBar />
         <h1>Dashboard</h1>
         <div className={styles.dashboardContainer}>
           <DashboardCard

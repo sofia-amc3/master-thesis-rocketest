@@ -128,11 +128,11 @@
   cursor: pointer;
 }
 
-/* ---------------------------------------- TESTS PAGE ---------------------------------------------------- */
+/* ---------------------------------------- TESTS PAGE: GENERAL ---------------------------------------------------- */
 .testsTopMenu {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  margin: 2.9rem 0 3.3rem 5.6rem;
+  margin: 2.9rem 0 3.3rem 0;
   width: 33rem;
   height: 1.9rem;
   color: var(--color-rocketest-2);
@@ -159,11 +159,12 @@
   background-color: var(--color-rocketest-3);
 }
 
+/* ---------------------------------------- TESTS PAGE: OVERVIEW ---------------------------------------------------- */
 .dashboardContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 0 4rem 0 5.6rem;
+  margin: 0 4rem 0 0;
   max-width: 150rem;
 }
 
@@ -194,4 +195,37 @@
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.03em;
+}
+
+/* ---------------------------------------- TESTS PAGE: MY TESTS ---------------------------------------------------- */
+.testsFiltersContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 54.75rem;
+}
+
+.testsSearchbar {
+  position: relative;
+  top: 0;
+  right: 0;
+}
+
+.testsFiltersContainer select {
+  padding: 0 1.2rem 0 1.2rem;
+  border-radius: 9.75rem;
+  width: 9.75rem;
+  background-color: var(--color-rocketest-8);
+  font-family: "Montserrat";
+  font-size: 0.9rem;
+  cursor: pointer;
+  appearance: none;
+}
+
+.testsFiltersContainer .sortIconContainer {
+  padding-top: 0.8rem;
+  border-radius: 50%;
+  width: 2.8rem;
+  background-color: var(--color-rocketest-8);
+  text-align: center;
+  cursor: pointer;
 }
