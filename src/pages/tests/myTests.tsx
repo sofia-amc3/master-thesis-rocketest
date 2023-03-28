@@ -6,10 +6,8 @@ import TestCard from "@/components/TestCard";
 import styles from "@/styles/app.module.css";
 
 interface PropsExample {
-  a: string;
-  b: string;
-  c?: string;
-  d?: boolean;
+  title: string;
+  subtitle: string;
 }
 
 const MyTests = (props: PropsExample) => {
@@ -21,6 +19,8 @@ const MyTests = (props: PropsExample) => {
       <main>
         <TestsTopMenu />
         <TestsSearch />
+        <h1>In Progress</h1>
+        <h4>Click in any test to edit it.</h4>
         <div
           className={`${styles.dashboardContainer} && ${styles.testCardsContainer}`}
         >

@@ -78,10 +78,16 @@ input {
 }
 
 h1 {
-  margin: 0 0 2.5rem 0;
   font-weight: 700;
   font-size: 1.6rem;
   letter-spacing: 0.03em;
+  color: var(--color-rocketest-2);
+}
+
+h4 {
+  margin-top: 0.6rem;
+  font-weight: 400;
+  font-size: 0.9rem;
   color: var(--color-rocketest-2);
 }
 
