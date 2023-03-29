@@ -25,7 +25,7 @@ const BackToTopArrow = () => {
   return showButton ? (
     <Image
       className={styles.backToTopArrow}
-      src="icons/arrow.svg"
+      src="/icons/arrow.svg"
       alt="Back To Top Arrow"
       width={40}
       height={40}

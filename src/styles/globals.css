@@ -84,6 +84,13 @@ h1 {
   color: var(--color-rocketest-2);
 }
 
+h2 {
+  margin-top: 2.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-rocketest-2);
+}
+
 h4 {
   margin-top: 0.6rem;
   font-weight: 400;
@@ -93,7 +100,7 @@ h4 {
 
 main {
   position: relative;
-  padding-left: 5.6rem;
+  padding: 0 0 4rem 5.6rem;
   flex: 1;
   height: 100vh;
   overflow: auto;

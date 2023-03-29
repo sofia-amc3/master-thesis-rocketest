@@ -12,7 +12,7 @@ interface Props {
   page: string;
 }
 
-const DashboardCard = (props: Props) => {
+const TestCard = (props: Props) => {
   return (
     <Link href={props.page}>
       <div className={styles.testCardImgContainer}>
@@ -59,4 +59,4 @@ const DashboardCard = (props: Props) => {
   );
 };
 
-export default DashboardCard;
+export default TestCard;

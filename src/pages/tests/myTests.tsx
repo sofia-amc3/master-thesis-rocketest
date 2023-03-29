@@ -25,7 +25,7 @@ const MyTests = (props: PropsExample) => {
           className={`${styles.dashboardContainer} && ${styles.testCardsContainer}`}
         >
           <TestCard
-            imageSrc="/imageExample.jpg"
+            imageSrc="/tests_imgs/a-b-testing.jpg"
             testTitle="Test Name"
             testType="A/B Test"
             noTesters="100"
@@ -33,7 +33,7 @@ const MyTests = (props: PropsExample) => {
             page=""
           />
           <TestCard
-            imageSrc="/imageExample.jpg"
+            imageSrc="/tests_imgs/a-b-testing.jpg"
             testTitle="Test Name"
             testType="A/B Test"
             noTesters="100"
@@ -41,7 +41,7 @@ const MyTests = (props: PropsExample) => {
             page=""
           />
           <TestCard
-            imageSrc="/imageExample.jpg"
+            imageSrc="/tests_imgs/a-b-testing.jpg"
             testTitle="Test Name"
             testType="A/B Test"
             noTesters="100"
@@ -49,7 +49,7 @@ const MyTests = (props: PropsExample) => {
             page=""
           />
           <TestCard
-            imageSrc="/imageExample.jpg"
+            imageSrc="/tests_imgs/a-b-testing.jpg"
             testTitle="Test Name"
             testType="A/B Test"
             noTesters="100"
@@ -57,7 +57,7 @@ const MyTests = (props: PropsExample) => {
             page=""
           />
           <TestCard
-            imageSrc="/imageExample.jpg"
+            imageSrc="/tests_imgs/a-b-testing.jpg"
             testTitle="Test Name"
             testType="A/B Test"
             noTesters="100"
@@ -65,7 +65,7 @@ const MyTests = (props: PropsExample) => {
             page=""
           />
           <TestCard
-            imageSrc="/imageExample.jpg"
+            imageSrc="/tests_imgs/a-b-testing.jpg"
             testTitle="Test Name"
             testType="A/B Test"
             noTesters="100"
@@ -73,7 +73,7 @@ const MyTests = (props: PropsExample) => {
             page=""
           />
           <TestCard
-            imageSrc="/imageExample.jpg"
+            imageSrc="/tests_imgs/a-b-testing.jpg"
             testTitle="Test Name"
             testType="A/B Test"
             noTesters="100"
@@ -81,7 +81,7 @@ const MyTests = (props: PropsExample) => {
             page=""
           />
           <TestCard
-            imageSrc="/imageExample.jpg"
+            imageSrc="/tests_imgs/a-b-testing.jpg"
             testTitle="Test Name"
             testType="A/B Test"
             noTesters="100"
@@ -89,7 +89,7 @@ const MyTests = (props: PropsExample) => {
             page=""
           />
           <TestCard
-            imageSrc="/imageExample.jpg"
+            imageSrc="/tests_imgs/a-b-testing.jpg"
             testTitle="Test Name"
             testType="A/B Test"
             noTesters="100"

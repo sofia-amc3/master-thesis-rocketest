@@ -258,7 +258,7 @@ img.arrowRotate {
 }
 
 .testCardsContainer a {
-  margin: 0 0 1.6rem 1.6rem;
+  margin: 0 0 2rem 1.6rem;
 }
 
 .testCardInfoContainer {
@@ -278,12 +278,17 @@ img.arrowRotate {
   object-fit: cover;
 }
 
-.testCardInfoContainer > span {
+.testCardInfoContainer {
+  width: 16.9rem;
+}
+
+.testCardInfoContainer > span:first-of-type {
   /* Test Title */
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  height: auto;
   color: var(--color-rocketest-3);
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 3%;
   text-transform: uppercase;
@@ -303,4 +308,15 @@ img.arrowRotate {
   margin-left: 0.9rem;
   color: var(--color-rocketest-2);
   font-size: 0.8rem;
+}
+
+/* ---------------------------------------- TESTS PAGE: CREATE TEST ---------------------------------------------------- */
+.testCardInfoContainer > span {
+  /* Test Description */
+  display: block;
+  height: 4.5rem;
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--color-rocketest-9);
+  overflow: hidden;
 }

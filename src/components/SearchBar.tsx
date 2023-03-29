@@ -10,7 +10,7 @@ const SearchBar = () => {
         type="text"
         id="fname"
         name="fname"
-        placeholder="Search for something..."
+        placeholder="Search for something in this page..."
       />
     </div>
   );
