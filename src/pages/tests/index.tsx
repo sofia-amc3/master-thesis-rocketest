@@ -1,9 +1,9 @@
 import React from "react";
 import Head from "next/head";
-import TestsTopMenu from "@/components/TestsTopMenu";
+import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
 import SearchBar from "@/components/SearchBar";
 import styles from "@/styles/app.module.css";
-import DashboardCard from "@/components/DashboardCard";
+import DashboardCard from "@/components/tests-components/DashboardCard";
 
 interface PropsExample {
   a: string;

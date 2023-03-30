@@ -310,7 +310,6 @@ img.arrowRotate {
   font-size: 0.8rem;
 }
 
-/* ---------------------------------------- TESTS PAGE: CREATE TEST ---------------------------------------------------- */
 .testCardInfoContainer > span {
   /* Test Description */
   display: block;
@@ -319,4 +318,35 @@ img.arrowRotate {
   font-size: 0.8rem;
   color: var(--color-rocketest-9);
   overflow: hidden;
+}
+
+/* ---------------------------------------- TESTS PAGE: CREATE TEST ---------------------------------------------------- */
+.createTestBreadcrumbs {
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.createTestBreadcrumbs a {
+  font-size: 0.75rem;
+  color: var(--color-rocketest-2);
+}
+
+.createTestBreadcrumbs a:hover {
+  color: var(--color-rocketest-3);
+}
+
+.createTestBreadcrumbs a.createTestActivePage,
+.createTestBreadcrumbs a.createTestActivePage:hover {
+  font-weight: 700;
+  color: var(--color-rocketest-2);
+  cursor: default;
+}
+
+.createTestBreadcrumbs img {
+  margin: 0.25rem 0.75rem 0 0.75rem;
+  transform: rotate(-180deg);
+}
+
+.textInput span {
+  visibility: visible;
 }

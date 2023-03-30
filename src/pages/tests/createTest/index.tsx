@@ -1,8 +1,8 @@
 import React from "react";
 import Head from "next/head";
-import TestsTopMenu from "@/components/TestsTopMenu";
+import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
 import SearchBar from "@/components/SearchBar";
-import TestTemplateCard from "@/components/TestTemplateCard";
+import TestTemplateCard from "@/components/my-tests-components/TestTemplateCard";
 import styles from "@/styles/app.module.css";
 
 interface PropsExample {
@@ -23,7 +23,7 @@ const CreateTest = (props: PropsExample) => {
         <SearchBar />
         <h1>Choose a Test Template</h1>
         <h2>Content Testing</h2>
-        <h4>Description</h4>
+        <h6>Description</h6>
 
         <div
           className={`${styles.dashboardContainer} && ${styles.testCardsContainer}`}
@@ -32,7 +32,7 @@ const CreateTest = (props: PropsExample) => {
             imageSrc="/tests_imgs/a-b-testing.jpg"
             testName="A/B Test"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-            page=""
+            page="/tests/createTest/editTest"
           />
           <TestTemplateCard
             imageSrc="/tests_imgs/5-second-test.jpg"
@@ -73,7 +73,7 @@ const CreateTest = (props: PropsExample) => {
         </div>
 
         <h2>Surveys</h2>
-        <h4>Description</h4>
+        <h6>Description</h6>
 
         <div
           className={`${styles.dashboardContainer} && ${styles.testCardsContainer}`}
@@ -105,7 +105,7 @@ const CreateTest = (props: PropsExample) => {
         </div>
 
         <h2>Information Architecture</h2>
-        <h4>Description</h4>
+        <h6>Description</h6>
 
         <div
           className={`${styles.dashboardContainer} && ${styles.testCardsContainer}`}

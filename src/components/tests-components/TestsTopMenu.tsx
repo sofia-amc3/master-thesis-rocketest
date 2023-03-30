@@ -7,12 +7,17 @@ const TestsTopMenu = () => {
   const router = useRouter();
 
   const activeClassName = (url: string) => {
-    return router.pathname === url ? styles.topMenuActiveBorder : "";
+    return router.pathname.includes(url) ? styles.topMenuActiveBorder : "";
   };
 
   return (
     <div className={styles.testsTopMenu}>
-      <Link href="/tests" className={activeClassName("/tests")}>
+      <Link
+        href="/tests"
+        className={
+          router.pathname === "/tests" ? styles.topMenuActiveBorder : ""
+        }
+      >
         Overview
         <div></div>
       </Link>

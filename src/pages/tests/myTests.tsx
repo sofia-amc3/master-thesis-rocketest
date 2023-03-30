@@ -1,8 +1,8 @@
 import React from "react";
 import Head from "next/head";
-import TestsTopMenu from "@/components/TestsTopMenu";
-import TestsSearch from "@/components/TestsSearch";
-import TestCard from "@/components/TestCard";
+import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
+import TestsSearch from "@/components/my-tests-components/TestsSearch";
+import TestCard from "@/components/my-tests-components/TestCard";
 import styles from "@/styles/app.module.css";
 
 interface PropsExample {
@@ -20,7 +20,7 @@ const MyTests = (props: PropsExample) => {
         <TestsTopMenu />
         <TestsSearch />
         <h1>In Progress</h1>
-        <h4>Click in any test to edit it.</h4>
+        <h6>Click in any test to edit it.</h6>
         <div
           className={`${styles.dashboardContainer} && ${styles.testCardsContainer}`}
         >

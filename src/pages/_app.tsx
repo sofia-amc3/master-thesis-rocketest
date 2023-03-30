@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <div className={styles.app_layout}>
         <SideMenu />
         <Component {...pageProps} />
-        <BackToTopArrow />
+        {/* <BackToTopArrow /> */}
       </div>
     </>
   );
