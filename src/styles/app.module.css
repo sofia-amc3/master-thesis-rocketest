@@ -3,6 +3,44 @@
   display: flex;
 }
 
+/*------------------------------------------------ GENERAL ELEMENTS -------------------------------------------------------*/
+/* Inputs -------------------------- */
+.textInput span {
+  visibility: visible;
+}
+
+/* Buttons -------------------------- */
+button.buttonSmall {
+  width: 9.2rem;
+  height: 2.8rem;
+}
+
+button.buttonMedium {
+  width: 13.8rem;
+  height: 2.8rem;
+}
+
+button.buttonLarge {
+  width: 17rem;
+  height: 3.4rem;
+}
+
+button.buttonPrimary {
+  background-color: var(--color-rocketest-2);
+  color: var(--color-rocketest-8);
+}
+
+button.buttonSecondary {
+  border: 1px solid var(--color-rocketest-2);
+  background-color: transparent;
+  color: var(--color-rocketest-2);
+}
+
+button.buttonTertiary {
+  background-color: var(--color-rocketest-3);
+  color: var(--color-rocketest-8);
+}
+
 /* SideMenu ------------------------- */
 .sideMenu {
   width: 18rem;
@@ -345,8 +383,4 @@ img.arrowRotate {
 .createTestBreadcrumbs img {
   margin: 0.25rem 0.75rem 0 0.75rem;
   transform: rotate(-180deg);
-}
-
-.textInput span {
-  visibility: visible;
 }

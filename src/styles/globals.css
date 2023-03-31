@@ -119,3 +119,18 @@ main {
   height: 100vh;
   overflow: auto;
 }
+
+button {
+  display: inline-block;
+  margin-right: 1.75rem;
+  border-radius: 0.6rem;
+  font-family: "Montserrat";
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.85;
+}

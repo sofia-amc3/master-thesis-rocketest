@@ -5,6 +5,7 @@ import SearchBar from "@/components/SearchBar";
 import Breadcrumbs from "@/components/create-test-components/Breadcrumbs";
 import Link from "next/link";
 import TextInput from "@/components/input-components/TextInput";
+import Button from "@/components/Button";
 
 interface PropsExample {
   a: string;
@@ -14,6 +15,10 @@ interface PropsExample {
 }
 
 const EditTest = (props: PropsExample) => {
+  const testFunction = () => {
+    console.log("test");
+  };
+
   return (
     <>
       <Head>
@@ -40,9 +45,20 @@ const EditTest = (props: PropsExample) => {
         <TextInput title="title" placeholder="example" isTextarea />
 
         {/* temp */}
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <Link href="/tests/createTest/testDetails">TEST DETAILS TEMP</Link>
+
+        <br />
+        <br />
+        <Button
+          text="p large"
+          type="primary"
+          size="large"
+          function={testFunction}
+        />
+        <Button text="s medium" type="secondary" size="medium" />
+        <Button text="t small" type="tertiary" size="small" />
       </main>
     </>
   );
