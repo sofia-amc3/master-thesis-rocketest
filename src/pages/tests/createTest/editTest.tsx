@@ -6,6 +6,8 @@ import Breadcrumbs from "@/components/create-test-components/Breadcrumbs";
 import Link from "next/link";
 import TextInput from "@/components/input-components/TextInput";
 import Button from "@/components/Button";
+import OptionInput from "@/components/input-components/OptionInput";
+import styles from "@/styles/app.module.css";
 
 interface PropsExample {
   a: string;
@@ -41,24 +43,59 @@ const EditTest = (props: PropsExample) => {
         <h4>A/B Test</h4>
 
         <h3>General</h3>
-        <TextInput title="title" placeholder="example" mandatory />
-        <TextInput title="title" placeholder="example" isTextarea />
+        <TextInput
+          title="Name of the Test"
+          placeholder="e.g. A/B Testing for [Name of Aplication]"
+          mandatory
+        />
+        <TextInput
+          title="Test Description"
+          placeholder="e.g. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+          isTextarea
+        />
 
-        {/* temp */}
-        <br />
-        <br />
-        <Link href="/tests/createTest/testDetails">TEST DETAILS TEMP</Link>
+        <h3>Test Contents</h3>
+        <h4>Divider 01</h4>
+        <TextInput title="Name of Divider 01" placeholder="e.g. Section 01" />
+        <TextInput
+          title="Description of Divider 01"
+          placeholder="e.g. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+          isTextarea
+        />
+
+        <TextInput
+          title="Question 01"
+          placeholder="e.g. Which of these do you prefer?"
+          mandatory
+        />
+        <span className={styles.optionsText}>Options:</span>
+        <OptionInput letter="A" mandatory />
+        <OptionInput letter="B" mandatory plusIcon />
+        <OptionInput letter="C" plusIcon trashIcon />
+
+        <TextInput
+          title="Question 02"
+          placeholder="e.g. Which of these do you prefer?"
+          mandatory
+        />
+        <span className={styles.optionsText}>Options:</span>
+        <OptionInput letter="A" mandatory />
+        <OptionInput letter="B" mandatory plusIcon />
 
         <br />
         <br />
+        <br />
+        <br />
+        <Button text="Back" type="secondary" size="large" />
         <Button
-          text="p large"
+          text="Next"
           type="primary"
           size="large"
           function={testFunction}
         />
-        <Button text="s medium" type="secondary" size="medium" />
-        <Button text="t small" type="tertiary" size="small" />
+
+        {/* temp */}
+        <Link href="/tests/createTest/testDetails">TEST DETAILS TEMP</Link>
       </main>
     </>
   );

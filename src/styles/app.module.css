@@ -5,8 +5,74 @@
 
 /*------------------------------------------------ GENERAL ELEMENTS -------------------------------------------------------*/
 /* Inputs -------------------------- */
-.textInput span {
-  visibility: visible;
+.textInput,
+.optionInput {
+  width: 35.5rem;
+}
+
+.textInput label,
+.textInput span,
+.optionsText,
+.optionInput label {
+  display: inline-block;
+  margin: 1.8rem 0 0.9rem 0;
+  color: var(--color-rocketest-3);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.textInput span,
+.optionInput span {
+  margin-right: 0;
+  color: var(--color-rocketest-10);
+}
+
+.textInput input,
+.textInput textarea,
+.optionInput input {
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  width: 35.5rem;
+  height: 2.8rem;
+  border: 1px solid var(--color-rocketest-4);
+  border-radius: 0.6rem;
+  background-color: transparent;
+}
+
+.textInput textarea {
+  max-width: 35.5rem;
+  min-height: 5.4rem;
+  max-height: 14rem;
+}
+
+.optionInput input {
+  margin: 0 0 0.9rem 1.34rem;
+  width: 33.5rem;
+}
+
+input.mandatoryOptInput {
+  margin: 0 0 0.9rem 0.92rem;
+}
+
+.optionInput button {
+  margin-left: 2rem;
+}
+
+.optionInput span.uploadedImgDetails {
+  margin-right: 0.75rem;
+  color: var(--color-rocketest-9);
+  font-size: 0.8rem;
+}
+
+.optionInput .deleteImgIcon {
+  margin-bottom: -2px;
+  cursor: pointer;
+}
+
+.optionInput .addOptionIcon,
+.optionInput .deleteOptionIcon {
+  float: right;
+  margin: 0.8rem 0 0 1.75rem;
+  cursor: pointer;
 }
 
 /* Buttons -------------------------- */
