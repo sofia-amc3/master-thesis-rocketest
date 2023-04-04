@@ -4,8 +4,24 @@ import SideMenu from "@/components/SideMenu";
 import styles from "@/styles/app.module.css";
 import Head from "next/head";
 import BackToTopArrow from "@/components/BackToTopArrow";
+import { useEffect, useState } from "react";
+import SideMenuAuth from "@/components/SideMenuAuth";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [auth, setAuth] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const loadPage = async () => {
+    setLoading(true);
+    await setAuth(localStorage.getItem("auth"));
+    console.log(auth);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    loadPage();
+  }, []);
+
   return (
     <>
       <Head>
@@ -14,9 +30,15 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.app_layout}>
-        <SideMenu />
-        <Component {...pageProps} />
-        {/* <BackToTopArrow /> */}
+        {loading ? (
+          <>Loading...</>
+        ) : (
+          <>
+            {auth ? <SideMenu /> : <SideMenuAuth />}
+            <Component {...pageProps} />
+            <BackToTopArrow />
+          </>
+        )}
       </div>
     </>
   );

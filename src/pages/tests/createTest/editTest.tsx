@@ -8,6 +8,7 @@ import TextInput from "@/components/input-components/TextInput";
 import Button from "@/components/Button";
 import OptionInput from "@/components/input-components/OptionInput";
 import styles from "@/styles/app.module.css";
+import TestContentsMenu from "@/components/create-test-components/TestContentsMenu";
 
 interface PropsExample {
   a: string;
@@ -53,6 +54,8 @@ const EditTest = (props: PropsExample) => {
           placeholder="e.g. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
           isTextarea
         />
+
+        <TestContentsMenu />
 
         <h3>Test Contents</h3>
         <h4>Divider 01</h4>

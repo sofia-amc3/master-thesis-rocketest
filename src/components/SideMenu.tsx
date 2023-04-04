@@ -11,7 +11,7 @@ const SideMenu = () => {
     <div className={styles.sideMenu}>
       {/* LOGO */}
       <div className={styles.logoContainer}>
-        <Link href="/tests">
+        <Link href="/">
           <Image
             className={styles.logo}
             src="/logo-lightBg.png"

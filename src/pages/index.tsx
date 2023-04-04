@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
+import Link from "next/link";
 
 interface PropsExample {
   a: string;
@@ -12,22 +12,11 @@ const Home = (props: PropsExample) => {
   return (
     <>
       <Head>
-        <title>PAGE EXAMPLE</title>
+        <title>Rocketest | Sign In</title>
       </Head>
-      <main>{/* HEAD AND MAIN TAGS CAN BE REMOVED IF IT'S A COMPONENT */}</main>
+      <main>{/* Sign In */}</main>
     </>
   );
 };
 
 export default Home;
-
-/*export default function Home() {
-  return (
-    <>
-      <Head>
-        <title>Rocketest</title>
-      </Head>
-      <main></main>
-    </>
-  );
-}*/

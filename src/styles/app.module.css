@@ -39,6 +39,7 @@
 }
 
 .textInput textarea {
+  min-width: 35.5rem;
   max-width: 35.5rem;
   min-height: 5.4rem;
   max-height: 14rem;
@@ -230,6 +231,10 @@ button.buttonTertiary {
   bottom: 2rem;
   right: 4rem;
   cursor: pointer;
+}
+
+.backToTopArrow:hover {
+  opacity: 0.85;
 }
 
 /* ---------------------------------------- TESTS PAGE: GENERAL ---------------------------------------------------- */
@@ -449,4 +454,54 @@ img.arrowRotate {
 .createTestBreadcrumbs img {
   margin: 0.25rem 0.75rem 0 0.75rem;
   transform: rotate(-180deg);
+}
+
+.testContentsMenu {
+  position: absolute;
+  left: 44rem;
+}
+
+.testContentsMenuFixed {
+  position: fixed;
+  left: 60.9rem;
+}
+
+.testContentsMenu,
+.testContentsMenuFixed {
+  top: 39.3rem;
+  padding: 1.2rem;
+  border-radius: 1.5rem;
+  background-color: var(--color-rocketest-8);
+}
+
+.testContentsMenuRow {
+  display: flex;
+  margin-top: 0.9rem;
+}
+
+.testContentsMenuRow:first-of-type {
+  margin-top: 0;
+}
+
+.testContentsMenuRow span {
+  display: block;
+  margin: 0.5rem 0 0 1.4rem;
+  width: 5.6rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--color-rocketest-2);
+  cursor: pointer;
+}
+
+.testContentsMenuRow img {
+  cursor: pointer;
+}
+
+.testContentsMenuRow span:hover,
+.testContentsMenuRow img:hover {
+  opacity: 0.85;
+}
+
+.testContentsMenuRow img.rotateArrow {
+  transform: rotate(180deg);
 }
