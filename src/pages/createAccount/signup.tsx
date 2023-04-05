@@ -4,11 +4,11 @@ import styles from "@/styles/app.module.css";
 import TextInput from "@/components/input-components/TextInput";
 import Button from "@/components/Button";
 
-const SignIn = () => {
+const SignUp = () => {
   return (
     <>
       <Head>
-        <title>Rocketest | Sign In</title>
+        <title>Rocketest | Sign Up</title>
       </Head>
       <main className={styles.bgColorLight}>
         <div className={styles.authContainer}>
@@ -37,11 +37,11 @@ const SignIn = () => {
           <Button text="Sign In" type="primary" size="extra-large" />
 
           <span>Don&apos;t have an account?</span>
-          <Link href="/createAccount">Register</Link>
+          <Link href="/signup">Register</Link>
         </div>
       </main>
     </>
   );
 };
 
-export default SignIn;
+export default SignUp;

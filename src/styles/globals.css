@@ -96,8 +96,15 @@ h3 {
 h4 {
   margin-top: 0.9rem;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-rocketest-2);
+}
+
+h5 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--color-rocketest-8);
+  letter-spacing: 3%;
 }
 
 h6 {
@@ -105,6 +112,12 @@ h6 {
   font-weight: 400;
   font-size: 0.9rem;
   color: var(--color-rocketest-2);
+}
+
+p {
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+  color: var(--color-rocketest-8);
 }
 
 main {

@@ -3,9 +3,14 @@
   display: flex;
 }
 
+main.bgColorLight {
+  display: flex;
+  padding: 0;
+  background-color: var(--color-rocketest-8);
+}
+
 /*------------------------------------------------ GENERAL ELEMENTS -------------------------------------------------------*/
 /* Inputs -------------------------- */
-.textInput,
 .optionInput {
   width: 35.5rem;
 }
@@ -30,12 +35,23 @@
 .textInput input,
 .textInput textarea,
 .optionInput input {
-  padding: 1rem 1.5rem 1rem 1.5rem;
-  width: 35.5rem;
+  padding: 1rem 1.5rem;
   height: 2.8rem;
   border: 1px solid var(--color-rocketest-4);
   border-radius: 0.6rem;
   background-color: transparent;
+}
+
+.textInput .inputLarge {
+  width: 35.5rem;
+}
+
+.textInput .inputSmall {
+  width: 30.4rem;
+}
+
+.textInput input[type="password"] {
+  font-size: 1.2rem;
 }
 
 .textInput textarea {
@@ -92,6 +108,12 @@ button.buttonLarge {
   height: 3.4rem;
 }
 
+button.buttonExtraLarge {
+  margin-right: 0 !important;
+  width: 30.4rem;
+  height: 2.8rem;
+}
+
 button.buttonPrimary {
   background-color: var(--color-rocketest-2);
   color: var(--color-rocketest-8);
@@ -109,7 +131,8 @@ button.buttonTertiary {
 }
 
 /* SideMenu ------------------------- */
-.sideMenu {
+.sideMenu,
+.sideMenuAuth {
   width: 18rem;
   height: 100vh;
   background-color: var(--color-rocketest-8);
@@ -120,12 +143,14 @@ button.buttonTertiary {
   margin-top: 5rem;
 }
 
-.sideMenu .logoContainer {
+.sideMenu .logoContainer,
+.sideMenuAuth .logoContainer {
   margin: 2.75rem 0 4.6rem 0;
   text-align: center;
 }
 
-.sideMenu .logoContainer .logo {
+.sideMenu .logoContainer .logo,
+.sideMenuAuth .logoContainer .logo {
   position: inherit !important;
   width: 57% !important;
   height: auto !important;
@@ -235,6 +260,105 @@ button.buttonTertiary {
 
 .backToTopArrow:hover {
   opacity: 0.85;
+}
+
+/* ----------------------------------------------- AUTHENTICATION --------------------------------------------------------- */
+/* Side Menu ----------------- */
+.sideMenuAuth {
+  position: relative;
+  padding: 3.75rem 5rem;
+  width: 38%;
+  min-width: 30rem;
+  max-width: 45.5rem;
+  background-color: var(--color-rocketest-2);
+}
+
+.sideMenuAuth .bottomContainer {
+  position: absolute;
+  bottom: 3.75rem;
+}
+
+.sideMenuAuth h5 {
+  margin: 15.4rem 0 2.25rem 0;
+}
+
+.sideMenuAuth .socialMediaContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 7.1rem;
+  margin-bottom: 2rem;
+}
+
+.sideMenuAuth .linksContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 23.4rem;
+}
+
+.sideMenuAuth .linksContainer a,
+.sideMenuAuth .linksContainer span {
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: var(--color-rocketest-8);
+}
+
+.sideMenuAuth .linksContainer span {
+  font-weight: 300;
+}
+
+.sideMenuAuth .socialMediaContainer img:hover,
+.sideMenuAuth .linksContainer a:hover {
+  opacity: 0.85;
+}
+
+/* Right Side Content -------- */
+.authContainer {
+  margin: auto;
+  width: min-content;
+  height: min-content;
+}
+
+.authContainer h4 {
+  margin-bottom: 1.5rem;
+}
+
+.authContainer .checkboxAndForgotPwContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.3rem;
+}
+
+.authContainer .checkboxAndForgotPwContainer .checkboxContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 7rem;
+}
+
+.authContainer .checkboxAndForgotPwContainer .checkboxContainer input {
+  cursor: pointer;
+}
+
+.authContainer .checkboxAndForgotPwContainer .checkboxContainer label,
+.authContainer .checkboxAndForgotPwContainer a,
+.authContainer > span,
+.authContainer > a {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-rocketest-2);
+}
+
+.authContainer > span {
+  font-weight: 400;
+  margin-right: 0.2rem;
+}
+
+.authContainer > a:hover,
+.authContainer .checkboxAndForgotPwContainer a:hover {
+  opacity: 0.85;
+}
+
+.authContainer button {
+  margin: 1.9rem 0 1.3rem 0;
 }
 
 /* ---------------------------------------- TESTS PAGE: GENERAL ---------------------------------------------------- */
