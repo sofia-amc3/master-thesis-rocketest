@@ -361,6 +361,48 @@ button.buttonTertiary {
   margin: 1.9rem 0 1.3rem 0;
 }
 
+/* User Type ------------ */
+.authContainer .userTypeBtnContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.authContainer .userTypeBtn {
+  margin: 0;
+  padding: 1.5rem 3.4rem;
+  border: 1px solid var(--color-rocketest-3);
+  width: 14.25rem;
+  height: 19rem;
+  background-color: transparent;
+}
+
+.authContainer .userTypeBtn.selected {
+  background-color: var(--color-rocketest-6);
+}
+
+.authContainer span.userTypeTitle,
+.authContainer span.userTypeDescription {
+  display: block;
+  width: 7.3rem;
+  text-transform: none;
+  text-align: left;
+}
+
+.authContainer span.userTypeTitle {
+  margin: 1.6rem 0 0.7rem 0;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-rocketest-2);
+}
+
+.authContainer span.userTypeDescription {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--color-rocketest-9);
+  letter-spacing: 0;
+}
+
 /* ---------------------------------------- TESTS PAGE: GENERAL ---------------------------------------------------- */
 .testsTopMenu {
   display: grid;
