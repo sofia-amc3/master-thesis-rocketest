@@ -17,7 +17,14 @@ const TextInput = (props: Props) => {
       {props.mandatory && <span>*</span>}
       <br />
       {props.isTextarea ? (
-        <textarea placeholder={props.placeholder}></textarea>
+        <textarea
+          placeholder={props.placeholder}
+          className={
+            props.size === "small"
+              ? `${styles.inputSmall}`
+              : `${styles.inputLarge}`
+          }
+        ></textarea>
       ) : (
         <input
           type={props.type ? props.type : "text"}

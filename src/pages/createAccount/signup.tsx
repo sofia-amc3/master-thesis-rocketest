@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "@/styles/app.module.css";
 import TextInput from "@/components/input-components/TextInput";
 import Button from "@/components/Button";
@@ -9,14 +10,89 @@ import { useEffect, useState } from "react";
 const SignUpUxResearcher = () => {
   return (
     <div className={styles.authContainer}>
+      <Link href="/createAccount">
+        <Image
+          src="/icons/arrow-left.svg"
+          alt="Back Arrow"
+          width={16}
+          height={16}
+          className={styles.backArrow}
+        />
+      </Link>
+
       <h1>Create an Account</h1>
       <h4>Sign up by entering the information below.</h4>
+
+      <TextInput
+        title="Company Name"
+        placeholder="e.g. Usability Inc."
+        size="small"
+        mandatory
+      />
+      <div
+        className={`${styles.checkboxContainer} ${styles.checkboxCompanyContainer}`}
+      >
+        <input type="checkbox" name="isCompany" value="isCompany" />
+        <label>Company</label>
+      </div>
       <TextInput
         title="E-mail"
-        placeholder="e.g. username@rocketest.com"
+        placeholder="e.g. user@rocketest.com"
+        size="small"
+        mandatory
+      />
+      <TextInput
+        title="Password"
+        placeholder=""
+        type="password"
+        size="small"
+        mandatory
+      />
+      <TextInput
+        title="Confirm Password"
+        placeholder=""
+        type="password"
+        size="small"
+        mandatory
+      />
+      {/* if not company */}
+      <TextInput
+        title="Job Title"
+        placeholder="e.g. UX Researcher"
         size="small"
       />
-      <TextInput title="Password" placeholder="" type="password" size="small" />
+      <TextInput
+        title="Location"
+        placeholder="e.g. Porto, Portugal"
+        size="small"
+      />
+      <TextInput
+        title="Website"
+        placeholder="e.g. https://www.usabilityinc.com/"
+        size="small"
+      />
+      <TextInput
+        title="Description"
+        placeholder="e.g. Our company's mission is to..."
+        size="small"
+        isTextarea
+      />
+
+      {/* PROFILE PHOTO INPUT */}
+
+      <div className={styles.checkboxTAndCGeneral}>
+        <div
+          className={`${styles.checkboxContainer} ${styles.checkboxTandCContainer}`}
+        >
+          <input
+            type="checkbox"
+            name="termsAndConditions"
+            value="termsAndConditions"
+          />
+          <label>I have read and accept the</label>
+        </div>
+        <Link href="/termsAndConditions">Terms and Conditions</Link>
+      </div>
 
       <Button text="Sign Up" type="primary" size="extra-large" />
 

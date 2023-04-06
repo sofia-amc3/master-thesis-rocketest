@@ -42,11 +42,11 @@ main.bgColorLight {
   background-color: transparent;
 }
 
-.textInput .inputLarge {
+.textInput input.inputLarge {
   width: 35.5rem;
 }
 
-.textInput .inputSmall {
+.textInput input.inputSmall {
   width: 30.4rem;
 }
 
@@ -54,9 +54,16 @@ main.bgColorLight {
   font-size: 1.2rem;
 }
 
-.textInput textarea {
+.textInput textarea.inputLarge {
   min-width: 35.5rem;
   max-width: 35.5rem;
+  min-height: 5.4rem;
+  max-height: 14rem;
+}
+
+.textInput textarea.inputSmall {
+  min-width: 30.4rem;
+  max-width: 30.4rem;
   min-height: 5.4rem;
   max-height: 14rem;
 }
@@ -316,6 +323,13 @@ button.buttonTertiary {
   margin: auto;
   width: min-content;
   height: min-content;
+  padding: 4rem 0;
+}
+
+.authContainer .backArrow {
+  position: absolute;
+  top: 4.5rem;
+  left: 17rem;
 }
 
 .authContainer h4 {
@@ -329,19 +343,48 @@ button.buttonTertiary {
 }
 
 .authContainer .checkboxAndForgotPwContainer .checkboxContainer {
-  display: flex;
-  justify-content: space-between;
   width: 7rem;
 }
 
-.authContainer .checkboxAndForgotPwContainer .checkboxContainer input {
+.authContainer .checkboxCompanyContainer {
+  margin-top: 0.6rem;
+  width: 5.4rem;
+}
+
+.authContainer .checkboxTandCContainer {
+  margin-top: 0.6rem;
+  width: 12rem;
+}
+
+.authContainer .checkboxTAndCGeneral {
+  display: flex;
+  justify-content: space-between;
+  width: 20.9rem;
+}
+
+.authContainer .checkboxCompanyContainer label,
+.authContainer .checkboxTandCContainer label {
+  color: var(--color-rocketest-4);
+}
+
+.authContainer .checkboxTAndCGeneral a {
+  margin-top: 0.57rem;
+}
+
+.checkboxContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkboxContainer input {
   cursor: pointer;
 }
 
-.authContainer .checkboxAndForgotPwContainer .checkboxContainer label,
+.checkboxContainer label,
 .authContainer .checkboxAndForgotPwContainer a,
 .authContainer > span,
-.authContainer > a {
+.authContainer > a,
+.authContainer .checkboxTAndCGeneral a {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--color-rocketest-2);
@@ -353,7 +396,8 @@ button.buttonTertiary {
 }
 
 .authContainer > a:hover,
-.authContainer .checkboxAndForgotPwContainer a:hover {
+.authContainer .checkboxAndForgotPwContainer a:hover,
+.authContainer .checkboxTAndCGeneral a:hover {
   opacity: 0.85;
 }
 

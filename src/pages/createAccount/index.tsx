@@ -12,7 +12,6 @@ const CreateAccount = () => {
 
   const selectedUserType = (type: number) => {
     setUserType(type);
-    console.log("test");
   };
 
   const goToNextPage = () => {
