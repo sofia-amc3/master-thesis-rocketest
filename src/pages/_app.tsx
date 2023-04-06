@@ -15,7 +15,6 @@ export default function App({ Component, pageProps }: AppProps) {
     setLoading(true);
     await setAuth(localStorage.getItem("auth"));
     setLoading(false);
-    console.log("test");
   };
 
   useEffect(() => {

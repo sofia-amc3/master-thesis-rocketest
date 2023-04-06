@@ -18,7 +18,8 @@ main.bgColorLight {
 .textInput label,
 .textInput span,
 .optionsText,
-.optionInput label {
+.optionInput label,
+.profilePicInputContainer label {
   display: inline-block;
   margin: 1.8rem 0 0.9rem 0;
   color: var(--color-rocketest-3);
@@ -27,9 +28,12 @@ main.bgColorLight {
 }
 
 .textInput span,
-.optionInput span {
+.optionInput span,
+.profilePicInputContainer > span {
   margin-right: 0;
   color: var(--color-rocketest-10);
+  font-weight: 700;
+  font-size: 0.9rem;
 }
 
 .textInput input,
@@ -97,6 +101,42 @@ input.mandatoryOptInput {
   float: right;
   margin: 0.8rem 0 0 1.75rem;
   cursor: pointer;
+}
+
+/* Profile Picture Upload Input ----- */
+.profilePicInputContainer .profilePicInputContent {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.profilePicInputContainer .profilePicInputContent .profilePicContainer {
+  border: 2px dashed var(--color-rocketest-8);
+  border-radius: 1.1rem;
+  width: 9.2rem;
+  height: 9.2rem;
+  background-color: var(--color-rocketest-5);
+  overflow: hidden;
+}
+
+.profilePicInputContainer .profilePicInputContent .profilePicContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profilePicInputContainer
+  .profilePicInputContent
+  .profilePicUploadContainer
+  button {
+  display: block;
+}
+
+.profilePicInputContainer
+  .profilePicInputContent
+  .profilePicUploadContainer
+  span {
+  display: inline-block;
 }
 
 /* Buttons -------------------------- */
@@ -320,6 +360,7 @@ button.buttonTertiary {
 
 /* Right Side Content -------- */
 .authContainer {
+  position: relative;
   margin: auto;
   width: min-content;
   height: min-content;
@@ -329,7 +370,7 @@ button.buttonTertiary {
 .authContainer .backArrow {
   position: absolute;
   top: 4.5rem;
-  left: 17rem;
+  left: -4rem;
 }
 
 .authContainer h4 {

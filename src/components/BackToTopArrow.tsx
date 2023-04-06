@@ -11,6 +11,7 @@ const BackToTopArrow = () => {
   };
 
   useEffect(() => {
+    setShowButton(false);
     mainWindow = document.getElementsByTagName("main")[0];
 
     mainWindow.addEventListener("scroll", () => {

@@ -6,6 +6,7 @@ import TextInput from "@/components/input-components/TextInput";
 import Button from "@/components/Button";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import ProfilePicInput from "@/components/input-components/ProfilePicInput";
 
 const SignUpUxResearcher = () => {
   return (
@@ -79,6 +80,11 @@ const SignUpUxResearcher = () => {
       />
 
       {/* PROFILE PHOTO INPUT */}
+      <ProfilePicInput
+        title="Profile Picture"
+        src=""
+        imgDetails="picture.jpg"
+      />
 
       <div className={styles.checkboxTAndCGeneral}>
         <div
