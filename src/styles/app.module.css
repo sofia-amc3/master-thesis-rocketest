@@ -104,13 +104,18 @@ input.mandatoryOptInput {
 }
 
 /* Profile Picture Upload Input ----- */
-.profilePicInputContainer .profilePicInputContent {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
+.profilePicInputContainer {
+  float: left;
+  clear: both;
 }
 
-.profilePicInputContainer .profilePicInputContent .profilePicContainer {
+.profilePicInputContainer label {
+  display: block;
+}
+
+.profilePicInputContainer .profilePicContainer {
+  float: left;
+  margin-bottom: 1.5rem;
   border: 2px dashed var(--color-rocketest-8);
   border-radius: 1.1rem;
   width: 9.2rem;
@@ -119,27 +124,39 @@ input.mandatoryOptInput {
   overflow: hidden;
 }
 
-.profilePicInputContainer .profilePicInputContent .profilePicContainer img {
+.profilePicInputContainer .profilePicContainer img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.profilePicInputContainer
-  .profilePicInputContent
-  .profilePicUploadContainer
-  button {
-  display: block;
+.profilePicInputContainer .profilePicUploadContainer {
+  float: left;
+  margin-left: 2.8rem;
 }
 
-.profilePicInputContainer
-  .profilePicInputContent
-  .profilePicUploadContainer
-  span {
+.profilePicInputContainer .profilePicUploadContainer button {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.profilePicInputContainer .profilePicUploadContainer span {
   display: inline-block;
+  margin-right: 0.8rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--color-rocketest-9);
 }
 
 /* Buttons -------------------------- */
+.goBackArrow {
+  position: absolute;
+  top: 2.7rem;
+  left: -4rem;
+  background-color: transparent;
+}
+
 button.buttonSmall {
   width: 9.2rem;
   height: 2.8rem;
@@ -367,12 +384,6 @@ button.buttonTertiary {
   padding: 4rem 0;
 }
 
-.authContainer .backArrow {
-  position: absolute;
-  top: 4.5rem;
-  left: -4rem;
-}
-
 .authContainer h4 {
   margin-bottom: 1.5rem;
 }
@@ -403,8 +414,9 @@ button.buttonTertiary {
   width: 20.9rem;
 }
 
-.authContainer .checkboxCompanyContainer label,
-.authContainer .checkboxTandCContainer label {
+.checkboxContainer label {
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--color-rocketest-4);
 }
 
@@ -421,7 +433,6 @@ button.buttonTertiary {
   cursor: pointer;
 }
 
-.checkboxContainer label,
 .authContainer .checkboxAndForgotPwContainer a,
 .authContainer > span,
 .authContainer > a,
@@ -486,6 +497,19 @@ button.buttonTertiary {
   font-size: 0.9rem;
   color: var(--color-rocketest-9);
   letter-spacing: 0;
+}
+
+/* Terms and Conditions ------------ */
+.authContainer p {
+  margin: 2.9rem 0 1.9rem 0;
+  width: 31rem;
+  color: var(--color-rocketest-9);
+  text-align: justify;
+}
+
+/* Contact Us, Forgotten Password ----- */
+.authTwoButtonPages button:last-of-type {
+  margin: 0;
 }
 
 /* ---------------------------------------- TESTS PAGE: GENERAL ---------------------------------------------------- */

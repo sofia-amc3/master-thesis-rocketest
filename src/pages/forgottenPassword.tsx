@@ -16,27 +16,21 @@ const ContactUs = () => {
   return (
     <>
       <Head>
-        <title>Rocketest | Contact Us</title>
+        <title>Rocketest | Forgotten Password</title>
       </Head>
       <main className={styles.bgColorLight}>
         <div className={`${styles.authContainer} ${styles.authTwoButtonPages}`}>
           <GoBackArrow />
 
-          <h1>Contact Us</h1>
+          <h1>Forgotten Password</h1>
 
           <TextInput
-            title="Subject"
-            placeholder="e.g. Bug Report/Feedback"
-            size="small"
-          />
-          <TextInput
-            title="Message"
-            placeholder="Write here your message"
-            isTextarea
+            title="E-mail"
+            placeholder="e.g. user@rocketest.com"
             size="small"
           />
 
-          <Button text="Send Message" type="primary" size="extra-large" />
+          <Button text="Send New Password" type="primary" size="extra-large" />
 
           <Button
             text="Back"

@@ -4,6 +4,7 @@ import Image from "next/image";
 import styles from "@/styles/app.module.css";
 import TextInput from "@/components/input-components/TextInput";
 import Button from "@/components/Button";
+import GoBackArrow from "@/components/GoBackArrow";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ProfilePicInput from "@/components/input-components/ProfilePicInput";
@@ -11,15 +12,7 @@ import ProfilePicInput from "@/components/input-components/ProfilePicInput";
 const SignUpUxResearcher = () => {
   return (
     <div className={styles.authContainer}>
-      <Link href="/createAccount">
-        <Image
-          src="/icons/arrow-left.svg"
-          alt="Back Arrow"
-          width={16}
-          height={16}
-          className={styles.backArrow}
-        />
-      </Link>
+      <GoBackArrow />
 
       <h1>Create an Account</h1>
       <h4>Sign up by entering the information below.</h4>

@@ -16,22 +16,20 @@ const ProfilePicInput = (props: Props) => {
       <label>{props.title}</label>
       {props.mandatory && <span>*</span>}
 
-      <div className={styles.profilePicInputContent}>
-        <div className={styles.profilePicContainer}>
-          <img src={props.src} alt="Profile Picture" />
-        </div>
+      <div className={styles.profilePicContainer}>
+        <img src={props.src} alt="" />
+      </div>
 
-        <div className={styles.profilePicUploadContainer}>
-          <Button text="Upload" type="tertiary" size="small" />
+      <div className={styles.profilePicUploadContainer}>
+        <Button text="Upload" type="tertiary" size="small" />
 
-          <span>{props.imgDetails}</span>
-          <Image
-            src="/icons/bin.svg"
-            alt="Delete Profile Picture Icon"
-            width={18}
-            height={18}
-          />
-        </div>
+        <span>{props.imgDetails}</span>
+        <Image
+          src="/icons/bin.svg"
+          alt="Delete Profile Picture Icon"
+          width={18}
+          height={18}
+        />
       </div>
     </div>
   );
