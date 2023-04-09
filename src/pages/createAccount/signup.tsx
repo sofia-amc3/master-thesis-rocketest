@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import styles from "@/styles/app.module.css";
 import TextInput from "@/components/input-components/TextInput";
 import Button from "@/components/Button";
@@ -101,6 +100,88 @@ const SignUpUxResearcher = () => {
   );
 };
 
+const SignUpTester = () => {
+  return (
+    <div className={styles.authContainer}>
+      <GoBackArrow />
+
+      <h1>Create an Account</h1>
+      <h4>Sign up by entering the information below.</h4>
+
+      <TextInput
+        title="Name"
+        placeholder="e.g. John Smith"
+        size="small"
+        mandatory
+      />
+      <TextInput
+        title="E-mail"
+        placeholder="e.g. user@rocketest.com"
+        size="small"
+        mandatory
+      />
+      <TextInput
+        title="Password"
+        placeholder=""
+        type="password"
+        size="small"
+        mandatory
+      />
+      <TextInput
+        title="Confirm Password"
+        placeholder=""
+        type="password"
+        size="small"
+        mandatory
+      />
+      <TextInput title="Birth Date" placeholder="" type="date" size="small" />
+
+      <TextInput title="Gender" placeholder="" size="small" isSelect />
+
+      <TextInput
+        title="Location"
+        placeholder="e.g. Porto, Portugal"
+        size="small"
+      />
+      <TextInput
+        title="Career"
+        placeholder="e.g. Software Engineer"
+        size="small"
+      />
+
+      {/* Personal Interests and Helpful Attributes: multi-select */}
+
+      {/* Digital Savviness: question + ratio buttons */}
+
+      {/* PROFILE PHOTO INPUT */}
+      <ProfilePicInput
+        title="Profile Picture"
+        src=""
+        imgDetails="picture.jpg"
+      />
+
+      <div className={styles.checkboxTAndCGeneral}>
+        <div
+          className={`${styles.checkboxContainer} ${styles.checkboxTandCContainer}`}
+        >
+          <input
+            type="checkbox"
+            name="termsAndConditions"
+            value="termsAndConditions"
+          />
+          <label>I have read and accept the</label>
+        </div>
+        <Link href="/termsAndConditions">Terms and Conditions</Link>
+      </div>
+
+      <Button text="Sign Up" type="primary" size="extra-large" />
+
+      <span>Already have an account?</span>
+      <Link href="/">Login</Link>
+    </div>
+  );
+};
+
 const SignUp = () => {
   const router = useRouter();
   const [userType, setUserType] = useState(""); // 0 = ux researcher, 1 = tester
@@ -120,7 +201,7 @@ const SignUp = () => {
         <title>Rocketest | Sign Up</title>
       </Head>
       <main className={styles.bgColorLight}>
-        {userType === "1" ? <>TESTER</> : <SignUpUxResearcher />}
+        {userType === "1" ? <SignUpTester /> : <SignUpUxResearcher />}
       </main>
     </>
   );

@@ -38,7 +38,8 @@ main.bgColorLight {
 
 .textInput input,
 .textInput textarea,
-.optionInput input {
+.optionInput input,
+.authSelect select {
   padding: 1rem 1.5rem;
   height: 2.8rem;
   border: 1px solid var(--color-rocketest-4);
@@ -46,11 +47,14 @@ main.bgColorLight {
   background-color: transparent;
 }
 
-.textInput input.inputLarge {
+.textInput input.inputLarge,
+.textInput select.inputLarge {
   width: 35.5rem;
 }
 
-.textInput input.inputSmall {
+.textInput input.inputSmall,
+.textInput select.inputSmall {
+  padding: 1rem 1.2rem;
   width: 30.4rem;
 }
 
@@ -101,6 +105,16 @@ input.mandatoryOptInput {
   float: right;
   margin: 0.8rem 0 0 1.75rem;
   cursor: pointer;
+}
+
+.authSelect select {
+  height: 3rem;
+  cursor: pointer;
+  appearance: none;
+}
+
+.authSelect img.arrowRotate {
+  top: 1.2rem;
 }
 
 /* Profile Picture Upload Input ----- */
@@ -411,7 +425,7 @@ button.buttonTertiary {
 .authContainer .checkboxTAndCGeneral {
   display: flex;
   justify-content: space-between;
-  width: 20.9rem;
+  width: 20.8rem;
 }
 
 .checkboxContainer label {
