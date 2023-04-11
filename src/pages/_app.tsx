@@ -33,9 +33,10 @@ export default function App({ Component, pageProps }: AppProps) {
           <>Loading...</>
         ) : (
           <>
-            {auth ? <SideMenu /> : <SideMenuAuth />}
+            {/* {auth ? <SideMenu /> : <SideMenuAuth />} */}
+            <SideMenu />
             <Component {...pageProps} />
-            <BackToTopArrow />
+            {/* <BackToTopArrow /> */}
           </>
         )}
       </div>

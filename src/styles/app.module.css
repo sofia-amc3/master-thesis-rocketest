@@ -62,6 +62,10 @@ main.bgColorLight {
   font-size: 1.2rem;
 }
 
+.textInput input[type="date"] {
+  font-size: 1.2rem;
+}
+
 .textInput textarea.inputLarge {
   min-width: 35.5rem;
   max-width: 35.5rem;
@@ -192,6 +196,12 @@ button.buttonExtraLarge {
   height: 2.8rem;
 }
 
+button.buttonExtraExtraLarge {
+  margin-right: 0 !important;
+  width: 35.5rem;
+  height: 2.8rem;
+}
+
 button.buttonPrimary {
   background-color: var(--color-rocketest-2);
   color: var(--color-rocketest-8);
@@ -206,6 +216,12 @@ button.buttonSecondary {
 button.buttonTertiary {
   background-color: var(--color-rocketest-3);
   color: var(--color-rocketest-8);
+}
+
+button.buttonTertiarySecondary {
+  border: 1px solid var(--color-rocketest-3);
+  background-color: transparent;
+  color: var(--color-rocketest-3);
 }
 
 /* SideMenu ------------------------- */
@@ -338,6 +354,99 @@ button.buttonTertiary {
 
 .backToTopArrow:hover {
   opacity: 0.85;
+}
+
+/* Follow People Card ------------------------ */
+.followPeopleCard {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.6rem;
+  width: 35.4rem;
+  height: 4.4rem;
+  background-color: var(--color-rocketest-8);
+}
+
+.followPeopleCard .leftContent .userProfilePicContainer {
+  display: inline-block;
+  margin-right: 1.3rem;
+  width: 3.1rem;
+  height: 3.1rem;
+}
+
+.followPeopleCard .leftContent .userProfilePicContainer:hover,
+.followPeopleCard .leftContent span.userNameTxt:hover {
+  opacity: 0.85;
+}
+
+.followPeopleCard .leftContent .userProfilePicContainer img {
+  border-radius: 0.6rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.followPeopleCard .leftContent span.userNameTxt {
+  display: inline-block;
+  margin: 0.3rem 0;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-rocketest-3);
+}
+
+.followPeopleCard .leftContent > span {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--color-rocketest-9);
+}
+
+.followPeopleCard .leftContent > span.bullet {
+  margin: 0 0.2rem;
+}
+
+.followPeopleCard .leftContent a {
+  float: left;
+}
+
+.followPeopleCard .rightContent button {
+  display: block;
+  margin: 3px 0 0 0;
+}
+
+/* Pages Slider ------------------------------------------------------ */
+.pagesSlider {
+  margin: 1.5rem auto 0 auto;
+  display: flex;
+  justify-content: space-between;
+  width: 12.5rem;
+}
+
+.arrowRight {
+  transform: rotate(180deg);
+}
+
+.pagesSlider > * {
+  padding-top: 0.25rem;
+}
+
+.pagesSlider > a {
+  padding-top: 0.32rem;
+}
+
+.pagesSlider span {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--color-rocketest-2);
+}
+
+.pagesSlider span.currentPage {
+  padding-top: 0.25rem;
+  border-radius: 3.4rem;
+  width: 3.4rem;
+  height: 1.75rem;
+  text-align: center;
+  background-color: var(--color-rocketest-8);
 }
 
 /* ----------------------------------------------- AUTHENTICATION --------------------------------------------------------- */
@@ -716,6 +825,96 @@ img.arrowRotate {
   font-size: 0.8rem;
   color: var(--color-rocketest-9);
   overflow: hidden;
+}
+
+/* Test Detail Page ------------------------------- */
+.testDetailContainer {
+  width: 90.6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.testDetailLeftContainer {
+  width: 35.5rem;
+}
+
+.testDetailLeftContainer .testDetailTitle {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.testDetailLeftContainer .testDetailTitle h1 {
+  margin-right: 19.2rem;
+}
+
+.testDetailLeftContainer .testDetailTitle a:hover,
+.testDetailLeftContainer > a:hover {
+  opacity: 0.85;
+}
+
+.testDetailLeftContainer .testImgContainer {
+  height: 15.3rem;
+}
+
+.testDetailLeftContainer .testImgContainer > img {
+  border-radius: 1.6rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testDetailLeftContainer > a {
+  display: block;
+  margin: 0.5rem 0 1.3rem 0;
+  color: var(--color-rocketest-2);
+  font-size: 0.9rem;
+  text-decoration: underline;
+}
+
+.testDetailLeftContainer h2 {
+  margin-top: 3rem;
+}
+
+.testDetailLeftContainer h2:last-of-type {
+  margin-bottom: 1rem;
+}
+
+.testInfoSmall {
+  display: flex;
+}
+
+.testInfoSmall span {
+  display: block;
+  margin: 0.2rem 0 0 0.7rem;
+  font-size: 0.9rem;
+  color: var(--color-rocketest-2);
+}
+
+.testDetailLeftContainer .smallInfoContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  width: 26rem;
+}
+
+.testDetailLeftContainer .testBtnsContainer {
+  margin-top: 3rem;
+}
+
+.testDetailLeftContainer .testBtnsContainer button:first-of-type {
+  margin-bottom: 1rem;
+}
+
+.testDetailRightContainer {
+  border-radius: 1.5rem;
+  padding: 1.8rem 3.1rem;
+  width: 41.2rem;
+  background-color: var(--color-rocketest-5);
+}
+
+.testDetailRightContainer h2 {
+  margin: 0 0 1.5rem 0;
 }
 
 /* ---------------------------------------- TESTS PAGE: CREATE TEST ---------------------------------------------------- */

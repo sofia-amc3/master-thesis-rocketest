@@ -3,8 +3,8 @@ import styles from "@/styles/app.module.css";
 
 interface Props {
   text: string;
-  type: "primary" | "secondary" | "tertiary";
-  size: "small" | "medium" | "large" | "extra-large";
+  type: "primary" | "secondary" | "tertiary" | "tertiary-secondary";
+  size: "small" | "medium" | "large" | "extra-large" | "extra-extra-large";
   function?: Function;
 }
 
@@ -17,7 +17,9 @@ const Button = (props: Props) => {
           ? `${styles.buttonPrimary}`
           : props.type === "secondary"
           ? `${styles.buttonSecondary}`
-          : `${styles.buttonTertiary}`) +
+          : props.type === "tertiary"
+          ? `${styles.buttonTertiary}`
+          : `${styles.buttonTertiarySecondary}`) +
         " " +
         (props.size === "small"
           ? `${styles.buttonSmall}`
@@ -25,7 +27,9 @@ const Button = (props: Props) => {
           ? `${styles.buttonMedium}`
           : props.size === "large"
           ? `${styles.buttonLarge}`
-          : `${styles.buttonExtraLarge}`)
+          : props.size === "extra-large"
+          ? `${styles.buttonExtraLarge}`
+          : `${styles.buttonExtraExtraLarge}`)
       }
       onClick={props.function && props.function.bind(this)}
     >

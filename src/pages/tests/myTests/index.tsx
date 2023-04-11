@@ -30,7 +30,7 @@ const MyTests = (props: PropsExample) => {
             testType="A/B Test"
             noTesters="100"
             deadline="16 Mar 2023"
-            page=""
+            page="/tests/myTests/testDetail"
           />
           <TestCard
             imageSrc="/tests_imgs/a-b-testing.jpg"

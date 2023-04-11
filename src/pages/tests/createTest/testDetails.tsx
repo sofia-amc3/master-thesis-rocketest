@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
 import SearchBar from "@/components/SearchBar";
-import Breadcrumbs from "@/components/create-test-components/Breadcrumbs";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 interface PropsExample {
   a: string;
