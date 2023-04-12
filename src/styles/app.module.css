@@ -63,7 +63,7 @@ main.bgColorLight {
 }
 
 .textInput input[type="date"] {
-  font-size: 1.2rem;
+  font-size: 0.83rem;
 }
 
 .textInput textarea.inputLarge {
@@ -112,7 +112,7 @@ input.mandatoryOptInput {
 }
 
 .authSelect select {
-  height: 3rem;
+  height: 3.21rem;
   cursor: pointer;
   appearance: none;
 }
@@ -434,6 +434,10 @@ button.buttonTertiarySecondary {
   padding-top: 0.32rem;
 }
 
+.pagesSlider > a:hover {
+  opacity: 0.65;
+}
+
 .pagesSlider span {
   font-weight: 500;
   font-size: 0.9rem;
@@ -745,6 +749,7 @@ button.buttonTertiarySecondary {
 
 .selectContainer {
   position: relative;
+  width: fit-content;
 }
 
 .selectContainer img {
@@ -915,6 +920,120 @@ img.arrowRotate {
 
 .testDetailRightContainer h2 {
   margin: 0 0 1.5rem 0;
+}
+
+/* Find Testers Page ------------------------------- */
+.findTestersMain h6 {
+  margin-bottom: 3rem;
+}
+
+.findTestersMain span.labelSpan {
+  display: inline-block;
+  color: var(--color-rocketest-3);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.findTestersMain .findTestersSearch {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  width: 43rem;
+}
+
+.findTestersMain .findTestersSearch .textInput > label {
+  margin-top: 0;
+}
+
+.findTestersMain .findTestersSearch button {
+  margin-top: 2.25rem;
+}
+
+/* Find Testers Search Bar & Filters */
+.findTestersFiltersContainer {
+  margin: 1rem 0 1.5rem 0;
+  width: 39rem;
+}
+
+.testersSelectAllCheckbox {
+  display: flex;
+  justify-content: space-between;
+  width: 5.6rem;
+  margin-top: 0.7rem;
+}
+
+.testersSelectAllCheckbox input,
+.testerCheckboxCard input {
+  width: 1rem;
+  height: 1rem;
+}
+
+.testersSelectAllCheckbox label {
+  color: var(--color-rocketest-2);
+  font-size: 0.9rem;
+}
+
+/* Testers Checkbox Card */
+.testerCheckboxCard {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1.75rem 1rem 0;
+  width: 16.7rem;
+}
+
+.testerCheckboxCard input {
+  margin-top: 1rem;
+}
+
+.testerCheckboxCardContacted .testerSmallCard {
+  opacity: 0.5;
+}
+
+.testerCheckboxCard .testerSmallCard {
+  border-radius: 0.625rem;
+  width: 14.625rem;
+  background-color: var(--color-rocketest-8);
+}
+
+.testerCheckboxCard .testerSmallCard > div {
+  /* User Profile Picture Container */
+  float: left;
+  width: 3.125rem;
+  height: 3.125rem;
+}
+
+.testerCheckboxCard .testerSmallCard > div > img {
+  /* User Profile Picture */
+  border-radius: 0.625rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testerCheckboxCard .testerSmallCard span {
+  margin-left: 0.9rem;
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--color-rocketest-2);
+}
+
+.testerCheckboxCard .testerSmallCard span:first-of-type {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-weight: 600;
+}
+
+/* Testers Checkbox Container */
+.testersResultsContainer {
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+  max-width: 93rem;
+}
+
+/* Testers Message Container */
+.findTestersMain .findTestersMsg button {
+  margin: 1rem 0 3rem 0;
 }
 
 /* ---------------------------------------- TESTS PAGE: CREATE TEST ---------------------------------------------------- */

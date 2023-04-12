@@ -8,8 +8,9 @@ import Button from "@/components/Button";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FollowPeople from "@/components/list-cards-components/FollowPeople";
 import SmallInfo from "@/components/my-tests-components/SmallInfo";
-import styles from "@/styles/app.module.css";
 import PagesSlider from "@/components/PagesSlider";
+import { useRouter } from "next/router";
+import styles from "@/styles/app.module.css";
 
 interface PropsExample {
   title: string;
@@ -17,10 +18,20 @@ interface PropsExample {
 }
 
 const TestDetail = (props: PropsExample) => {
+  const router = useRouter();
+
+  const goToFindTestersPage = () => {
+    router.push("/tests/myTests/testDetail/findTesters");
+  };
+
+  const goToTestResultsPage = () => {
+    router.push("/tests/myTests/testDetail/testResults");
+  };
+
   return (
     <>
       <Head>
-        <title>My Tests | Rocketest</title>
+        <title>My Tests - Test Detail | Rocketest</title>
       </Head>
       <main>
         <TestsTopMenu />
@@ -87,11 +98,13 @@ const TestDetail = (props: PropsExample) => {
                 text="Find Testers"
                 type="primary"
                 size="extra-extra-large"
+                function={goToFindTestersPage}
               />
               <Button
                 text="View Results"
                 type="secondary"
                 size="extra-extra-large"
+                function={goToTestResultsPage}
               />
             </div>
           </div>

@@ -136,7 +136,15 @@ const SignUpTester = () => {
       />
       <TextInput title="Birth Date" placeholder="" type="date" size="small" />
 
-      <TextInput title="Gender" placeholder="" size="small" isSelect />
+      <TextInput
+        title="Gender"
+        placeholder=""
+        size="small"
+        isSelect
+        option1="Female"
+        option2="Male"
+        option3="Other"
+      />
 
       <TextInput
         title="Location"

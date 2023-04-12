@@ -10,6 +10,12 @@ interface Props {
   mandatory?: boolean;
   isTextarea?: boolean;
   isSelect?: boolean;
+  option1?: string;
+  option2?: string;
+  option3?: string;
+  option4?: string;
+  option5?: string;
+  option6?: string;
 }
 
 const TextInput = (props: Props) => {
@@ -30,16 +36,26 @@ const TextInput = (props: Props) => {
       ) : props.isSelect ? (
         <div className={`${styles.selectContainer} ${styles.authSelect}`}>
           <select
-            name="gender"
             className={
               props.size === "small"
                 ? `${styles.inputSmall}`
                 : `${styles.inputLarge}`
             }
           >
-            <option value="female">Female</option>
-            <option value="male">Male</option>
-            <option value="other">Other</option>
+            <option value={props.option1}>{props.option1}</option>
+            <option value={props.option2}>{props.option2}</option>
+            {props.option3 && (
+              <option value={props.option3}>{props.option3}</option>
+            )}
+            {props.option4 && (
+              <option value={props.option4}>{props.option4}</option>
+            )}
+            {props.option5 && (
+              <option value={props.option5}>{props.option5}</option>
+            )}
+            {props.option6 && (
+              <option value={props.option6}>{props.option6}</option>
+            )}
           </select>
           <Image
             src="/icons/arrow-left.svg"
