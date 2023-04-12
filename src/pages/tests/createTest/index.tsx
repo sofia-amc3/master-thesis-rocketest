@@ -5,14 +5,7 @@ import SearchBar from "@/components/SearchBar";
 import TestTemplateCard from "@/components/my-tests-components/TestTemplateCard";
 import styles from "@/styles/app.module.css";
 
-interface PropsExample {
-  a: string;
-  b: string;
-  c?: string;
-  d?: boolean;
-}
-
-const CreateTest = (props: PropsExample) => {
+const CreateTest = () => {
   return (
     <>
       <Head>

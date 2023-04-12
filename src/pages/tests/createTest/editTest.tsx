@@ -7,6 +7,7 @@ import Link from "next/link";
 import TextInput from "@/components/input-components/TextInput";
 import Button from "@/components/Button";
 import OptionInput from "@/components/input-components/OptionInput";
+import { useRouter } from "next/router";
 import styles from "@/styles/app.module.css";
 import TestContentsMenu from "@/components/create-test-components/TestContentsMenu";
 
@@ -18,8 +19,14 @@ interface PropsExample {
 }
 
 const EditTest = (props: PropsExample) => {
-  const testFunction = () => {
-    console.log("test");
+  const router = useRouter();
+
+  const goToTestDetailsPage = () => {
+    router.push("/tests/createTest/testDetails");
+  };
+
+  const goToCreateTestPage = () => {
+    router.push("/tests/createTest/");
   };
 
   return (
@@ -89,16 +96,18 @@ const EditTest = (props: PropsExample) => {
         <br />
         <br />
         <br />
-        <Button text="Back" type="secondary" size="large" />
+        <Button
+          text="Back"
+          type="secondary"
+          size="large"
+          function={goToCreateTestPage}
+        />
         <Button
           text="Next"
           type="primary"
           size="large"
-          function={testFunction}
+          function={goToTestDetailsPage}
         />
-
-        {/* temp */}
-        <Link href="/tests/createTest/testDetails">TEST DETAILS TEMP</Link>
       </main>
     </>
   );

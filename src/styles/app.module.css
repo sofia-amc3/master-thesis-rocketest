@@ -97,6 +97,7 @@ input.mandatoryOptInput {
   margin-right: 0.75rem;
   color: var(--color-rocketest-9);
   font-size: 0.8rem;
+  font-weight: 400;
 }
 
 .optionInput .deleteImgIcon {
