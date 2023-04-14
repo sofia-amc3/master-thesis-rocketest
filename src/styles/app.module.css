@@ -179,6 +179,18 @@ input.mandatoryOptInput {
   color: var(--color-rocketest-9);
 }
 
+/* Case: Double Input */
+.doubleInputContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.doubleInputContainer input,
+.doubleInputContainer select {
+  width: 16.8rem !important;
+  height: 3.21rem !important;
+}
+
 /* ##################################################################################----- */
 
 /* Buttons -------------------------- */
@@ -1144,11 +1156,20 @@ img.arrowRotate {
   width: 91.6rem;
 }
 
-.leftSide,
-.rightSide {
+.testDetailsContainer .leftSide,
+.testDetailsContainer .rightSide {
   width: 35.6rem;
 }
 
 .testDetailsContainer .leftSide h2 {
   display: inline-block;
+}
+
+.testDetailsContainer .rightSide button {
+  margin-top: 8.75rem;
+  margin-right: 0;
+}
+
+.testDetailsContainer .rightSide button:first-of-type {
+  margin-right: 1.6rem;
 }

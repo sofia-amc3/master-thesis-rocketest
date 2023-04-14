@@ -6,7 +6,7 @@ interface Props {
   title: string;
   placeholder: string;
   size?: "small" | "large";
-  type?: "text" | "password" | "date";
+  type?: "text" | "password" | "date" | "time" | "number";
   mandatory?: boolean;
   isTextarea?: boolean;
   isSelect?: boolean;

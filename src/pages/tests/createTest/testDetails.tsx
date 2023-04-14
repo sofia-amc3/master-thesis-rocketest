@@ -17,7 +17,7 @@ const TestDetails = () => {
   };
 
   const saveTest = () => {
-    // Save Test & go to Test Details
+    // Save Test & Go To Test Details
     router.push("/tests/myTests/testDetail");
   };
 
@@ -58,46 +58,72 @@ const TestDetails = () => {
 
             {/* Age Range - Input Range Component */}
 
-            <TextInput
-              title="Gender"
-              placeholder=""
-              isSelect
-              option1="Female"
-              option2="Male"
-              option3="Other"
-              size="small"
-            />
-            <TextInput
-              title="Location"
-              placeholder="e.g. Porto, Portugal"
-              size="small"
-            />
-            <TextInput
-              title="Career"
-              placeholder="e.g. Software Engineer"
-              size="small"
-            />
+            <div className={styles.doubleInputContainer}>
+              <TextInput
+                title="Gender"
+                placeholder=""
+                isSelect
+                option1="Female"
+                option2="Male"
+                option3="Other"
+                size="small"
+              />
+              <TextInput
+                title="Location"
+                placeholder="e.g. Porto, Portugal"
+                size="small"
+              />
+            </div>
+
+            {/* Career - Multiselect Component */}
 
             {/* Personal Interests - Multiselect Component */}
 
-            {/* Digital Savviness - Ratio Buttons Input Component */}
+            {/* Digital Savviness - Checkboxes Input Component */}
           </div>
 
           <div className={styles.rightSide}>
             <h2>Test&apos;s Information</h2>
-            {/* Double Input Deadline */}
-            {/* Double Input Incentive */}
+            <div className={styles.doubleInputContainer}>
+              <TextInput
+                title="Deadline"
+                placeholder=""
+                size="small"
+                type="date"
+                mandatory
+              />
+              <TextInput title="Time" placeholder="" size="small" type="time" />
+            </div>
+
+            <div className={styles.doubleInputContainer}>
+              <TextInput
+                title="Incentive"
+                placeholder=""
+                size="small"
+                type="date"
+                isSelect
+                option1="Money Transfer"
+                option2="Amazon Voucher"
+              />
+              <TextInput
+                title="Amount (€)"
+                placeholder="e.g. 25€"
+                size="small"
+                type="number"
+              />
+            </div>
+
             {/* Privacy - Ratio Buttons Input Component */}
 
             <Button
               text="Back"
-              size="medium"
+              size="large"
               type="secondary"
               function={goToEditTestPage}
             />
             <Button
               text="Save"
-              size="medium"
+              size="large"
               type="primary"
               function={saveTest}
             />
