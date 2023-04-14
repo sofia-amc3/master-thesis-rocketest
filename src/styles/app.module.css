@@ -10,6 +10,17 @@ main.bgColorLight {
 }
 
 /*------------------------------------------------ GENERAL ELEMENTS -------------------------------------------------------*/
+/* Information Icon Tooltip */
+.infoIcon {
+  display: inline-block;
+  margin-left: 0.625rem;
+  width: 0.9rem;
+}
+
+.infoIcon:hover {
+  cursor: help;
+}
+
 /* Inputs -------------------------- */
 .optionInput {
   width: 35.5rem;
@@ -69,14 +80,14 @@ main.bgColorLight {
 .textInput textarea.inputLarge {
   min-width: 35.5rem;
   max-width: 35.5rem;
-  min-height: 5.4rem;
+  min-height: 6.4rem;
   max-height: 14rem;
 }
 
 .textInput textarea.inputSmall {
   min-width: 30.4rem;
   max-width: 30.4rem;
-  min-height: 5.4rem;
+  min-height: 6.4rem;
   max-height: 14rem;
 }
 
@@ -167,6 +178,8 @@ input.mandatoryOptInput {
   font-size: 0.9rem;
   color: var(--color-rocketest-9);
 }
+
+/* ##################################################################################----- */
 
 /* Buttons -------------------------- */
 .goBackArrow {
@@ -1033,6 +1046,16 @@ img.arrowRotate {
 }
 
 /* Testers Message Container */
+.findTestersMain .findTestersMsg {
+  position: relative;
+}
+
+.findTestersMain .findTestersMsg img {
+  position: absolute;
+  top: 1.95rem;
+  left: 18.7rem;
+}
+
 .findTestersMain .findTestersMsg button {
   margin: 1rem 0 3rem 0;
 }
@@ -1112,4 +1135,20 @@ img.arrowRotate {
 
 .testContentsMenuRow img.rotateArrow {
   transform: rotate(180deg);
+}
+
+/* Test Details Page -------- */
+.testDetailsContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 91.6rem;
+}
+
+.leftSide,
+.rightSide {
+  width: 35.6rem;
+}
+
+.testDetailsContainer .leftSide h2 {
+  display: inline-block;
 }

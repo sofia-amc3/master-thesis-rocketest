@@ -115,6 +115,12 @@ const FindTesters = (props: PropsExample) => {
             size="small"
             isTextarea
           />
+          <img
+            src="/icons/test-information.svg"
+            alt="Information Icon"
+            title="Info Here"
+            className={styles.infoIcon}
+          />
           <Button text="Send Message" size="medium" type="tertiary" />
         </div>
 
