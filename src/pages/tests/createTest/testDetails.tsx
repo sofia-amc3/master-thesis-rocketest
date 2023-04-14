@@ -1,6 +1,4 @@
-import React from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Button from "@/components/Button";
 import TextInput from "@/components/input-components/TextInput";
 import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
@@ -8,8 +6,20 @@ import SearchBar from "@/components/SearchBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import styles from "@/styles/app.module.css";
 import { useRouter } from "next/router";
+import React, { useState } from "react";
+import Select from "react-select";
+import { HobbiesList } from "@/utils/hobbies";
+import { CareersList } from "@/utils/careers";
+
+export interface OptionList {
+  value: string;
+  label: string;
+}
 
 const TestDetails = () => {
+  const [selectedOption, setSelectedOption] = useState<
+    null | readonly OptionList[]
+  >(null);
   const router = useRouter();
 
   const goToEditTestPage = () => {
@@ -76,8 +86,20 @@ const TestDetails = () => {
             </div>
 
             {/* Career - Multiselect Component */}
+            <Select
+              defaultValue={selectedOption}
+              onChange={setSelectedOption}
+              options={CareersList}
+              isMulti
+            />
 
             {/* Personal Interests - Multiselect Component */}
+            <Select
+              defaultValue={selectedOption}
+              onChange={setSelectedOption}
+              options={HobbiesList}
+              isMulti
+            />
 
             {/* Digital Savviness - Checkboxes Input Component */}
           </div>
