@@ -73,19 +73,24 @@ const TestDetails = () => {
                 title="Gender"
                 placeholder=""
                 isSelect
-                option1="Female"
-                option2="Male"
-                option3="Other"
+                options={["Female", "Male", "Other"]}
                 size="small"
+                onChange={(e) => {
+                  console.log("gender", e.target.value);
+                }}
               />
               <TextInput
                 title="Location"
                 placeholder="e.g. Porto, Portugal"
                 size="small"
+                onChange={(e) => {
+                  console.log("Location", e.target.value);
+                }}
               />
             </div>
 
             {/* Career - Multiselect Component */}
+            <span className={styles.inputLabel}>Career</span>
             <Select
               defaultValue={selectedOption}
               onChange={setSelectedOption}
@@ -94,6 +99,7 @@ const TestDetails = () => {
             />
 
             {/* Personal Interests - Multiselect Component */}
+            <span className={styles.inputLabel}>Hobbies</span>
             <Select
               defaultValue={selectedOption}
               onChange={setSelectedOption}
@@ -124,12 +130,11 @@ const TestDetails = () => {
                 size="small"
                 type="date"
                 isSelect
-                option1="Money Transfer"
-                option2="Amazon Voucher"
+                options={["Money Transfer", "Amazon Voucher"]}
               />
               <TextInput
                 title="Amount (€)"
-                placeholder="e.g. 25€"
+                placeholder="e.g. 25"
                 size="small"
                 type="number"
               />

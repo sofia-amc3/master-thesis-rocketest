@@ -142,3 +142,27 @@ button {
 button:hover {
   opacity: 0.85;
 }
+
+/* React Multiselect Component */
+.css-13cymwt-control {
+  background-color: transparent !important;
+  border-color: var(--color-rocketest-4) !important;
+}
+
+.css-13cymwt-control * {
+  color: var(--color-rocketest-9) !important;
+}
+
+.css-1p3m7a8-multiValue {
+  background-color: var(--color-rocketest-3) !important;
+}
+
+.css-1p3m7a8-multiValue * {
+  color: var(--color-rocketest-8) !important;
+}
+
+.css-12a83d4-MultiValueRemove:hover,
+.css-1xc3v61-indicatorContainer:hover {
+  background-color: unset !important;
+  cursor: pointer;
+}

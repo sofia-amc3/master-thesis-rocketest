@@ -30,7 +30,8 @@ main.bgColorLight {
 .textInput span,
 .optionsText,
 .optionInput label,
-.profilePicInputContainer label {
+.profilePicInputContainer label,
+span.inputLabel {
   display: inline-block;
   margin: 1.8rem 0 0.9rem 0;
   color: var(--color-rocketest-3);
