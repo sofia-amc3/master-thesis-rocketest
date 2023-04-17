@@ -26,7 +26,7 @@ main.bgColorLight {
   width: 35.5rem;
 }
 
-.textInput label,
+.textInput > label,
 .textInput span,
 .optionsText,
 .optionInput label,
@@ -132,6 +132,35 @@ input.mandatoryOptInput {
 
 .authSelect img.arrowRotate {
   top: 1.2rem;
+}
+
+/* Checkbox Input ------------------- */
+.checkboxInputContainer {
+  margin-bottom: 1rem;
+}
+
+.checkboxInputContainer:last-of-type {
+  margin-bottom: 0;
+}
+
+.checkboxInputContainer input {
+  margin-right: 0.8rem;
+  height: unset;
+  cursor: pointer;
+}
+
+.checkboxInputContainer label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--color-rocketest-9);
+  font-weight: 500;
+}
+
+.checkboxInputContainer span.description {
+  margin: 0.2rem 0 0 1.6rem;
+  color: var(--color-rocketest-3);
+  font-size: 0.8rem;
+  font-weight: 400;
 }
 
 /* Profile Picture Upload Input ----- */
@@ -1166,8 +1195,20 @@ img.arrowRotate {
   display: inline-block;
 }
 
+.testDetailsContainer .leftSide .ageRangeContainer {
+  margin-bottom: 0.5rem;
+}
+
+.testDetailsContainer .leftSide .ageRangeContainer label {
+  display: block;
+  margin: 1.8rem 0 0.9rem 0;
+  color: var(--color-rocketest-3);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
 .testDetailsContainer .rightSide button {
-  margin-top: 8.75rem;
+  margin-top: 7.9rem;
   margin-right: 0;
 }
 

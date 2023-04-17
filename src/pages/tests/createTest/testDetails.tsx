@@ -10,6 +10,8 @@ import React, { useState } from "react";
 import Select from "react-select";
 import { HobbiesList } from "@/utils/hobbies";
 import { CareersList } from "@/utils/careers";
+import CheckboxRatioBtnInput from "@/components/input-components/CheckboxRatioBtnInput";
+import MultiRangeSlider from "@/components/multi-range-slider/MultiRangeSlider";
 
 export interface OptionList {
   value: string;
@@ -67,6 +69,16 @@ const TestDetails = () => {
             />
 
             {/* Age Range - Input Range Component */}
+            <div className={styles.ageRangeContainer}>
+              <label>Age Range</label>
+              <MultiRangeSlider
+                min={0}
+                max={100}
+                onChange={({ min, max }) =>
+                  console.log(`min = ${min}, max = ${max}`)
+                }
+              />
+            </div>
 
             <div className={styles.doubleInputContainer}>
               <TextInput
@@ -108,19 +120,44 @@ const TestDetails = () => {
             />
 
             {/* Digital Savviness - Checkboxes Input Component */}
+            <CheckboxRatioBtnInput
+              title="Digital Savviness"
+              options={[
+                { value: "Not digitally savvy testers." },
+                { value: "Somewhat digitally savvy testers." },
+                { value: "Very digitally savvy testers." },
+              ]}
+              type="checkbox"
+              name="digitalSavviness"
+              onChange={(e) => {
+                console.log("Digital Savviness", e.target.checked);
+              }}
+            />
           </div>
 
           <div className={styles.rightSide}>
             <h2>Test&apos;s Information</h2>
             <div className={styles.doubleInputContainer}>
               <TextInput
-                title="Deadline"
+                title="Deadline Date"
                 placeholder=""
                 size="small"
                 type="date"
                 mandatory
+                onChange={(e) => {
+                  console.log("Deadline Date", e.target.value);
+                }}
               />
-              <TextInput title="Time" placeholder="" size="small" type="time" />
+              <TextInput
+                title="Deadline Time"
+                placeholder=""
+                size="small"
+                type="time"
+                mandatory
+                onChange={(e) => {
+                  console.log("Deadline Time", e.target.value);
+                }}
+              />
             </div>
 
             <div className={styles.doubleInputContainer}>
@@ -131,16 +168,41 @@ const TestDetails = () => {
                 type="date"
                 isSelect
                 options={["Money Transfer", "Amazon Voucher"]}
+                onChange={(e) => {
+                  console.log("Incentive", e.target.value);
+                }}
               />
               <TextInput
                 title="Amount (€)"
                 placeholder="e.g. 25"
                 size="small"
                 type="number"
+                onChange={(e) => {
+                  console.log("Amount", e.target.value);
+                }}
               />
             </div>
 
             {/* Privacy - Ratio Buttons Input Component */}
+            <CheckboxRatioBtnInput
+              title="Privacy"
+              options={[
+                {
+                  value: "Public",
+                  description: "Anyone in Rocketest can access this test",
+                },
+                {
+                  value: "Private",
+                  description: "Only people with the link can access this test",
+                },
+              ]}
+              type="radio"
+              name="privacy"
+              onChange={(e) => {
+                console.log("Privacy", e.target.checked);
+              }}
+              mandatory
+            />
 
             <Button
               text="Back"

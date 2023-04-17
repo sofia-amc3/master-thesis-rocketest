@@ -145,6 +145,7 @@ button:hover {
 
 /* React Multiselect Component */
 .css-13cymwt-control {
+  font-size: 0.9rem;
   background-color: transparent !important;
   border-color: var(--color-rocketest-4) !important;
 }
