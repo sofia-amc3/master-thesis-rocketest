@@ -1166,6 +1166,34 @@ img.arrowRotate {
   margin: 1rem 0 3rem 0;
 }
 
+/* Test Results Page ------------------------------- */
+.noTestersContainer {
+  margin: 0.5rem 0;
+}
+
+.noTestersContainer > span {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-rocketest-2);
+  vertical-align: top;
+}
+
+.pieChartsContainer {
+  margin: 2.5rem 0 3rem -1.75rem;
+  width: 92rem;
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+
+.pieChartsContainer > * {
+  margin-left: 1.75rem;
+  width: 30%;
+  height: 14rem;
+  font-size: 1rem;
+}
+
 /* ---------------------------------------- TESTS PAGE: CREATE TEST ---------------------------------------------------- */
 .createTestBreadcrumbs {
   display: inline-block;
