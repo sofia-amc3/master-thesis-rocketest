@@ -34,7 +34,7 @@ const SignIn = () => {
   return (
     <>
       <Head>
-        <title>Rocketest | Sign In</title>
+        <title>Sign In | Rocketest</title>
       </Head>
       <main className={styles.bgColorLight}>
         <div className={styles.authContainer}>

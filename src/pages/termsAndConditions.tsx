@@ -15,7 +15,7 @@ const TermsAndConditions = () => {
   return (
     <>
       <Head>
-        <title>Rocketest | Terms and Conditions</title>
+        <title>Terms and Conditions | Rocketest</title>
       </Head>
       <main className={styles.bgColorLight}>
         <div className={styles.authContainer}>

@@ -16,7 +16,7 @@ const ContactUs = () => {
   return (
     <>
       <Head>
-        <title>Rocketest | Contact Us</title>
+        <title>Contact Us | Rocketest</title>
       </Head>
       <main className={styles.bgColorLight}>
         <div className={`${styles.authContainer} ${styles.authTwoButtonPages}`}>

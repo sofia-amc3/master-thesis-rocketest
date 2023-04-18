@@ -1,20 +1,25 @@
 import React from "react";
 import Head from "next/head";
+import PopUp from "@/components/PopUp";
 
-interface PropsExample {
-  a: string;
-  b: string;
-  c?: string;
-  d?: boolean;
-}
+const Signout = () => {
+  const signOut = () => {
+    console.log("Sign Out");
+  };
 
-const Signout = (props: PropsExample) => {
   return (
     <>
       <Head>
         <title>Signout | Rocketest</title>
       </Head>
-      <main></main>
+      <main>
+        <PopUp
+          title="Sign Out"
+          content="Are you sure you want to sign out of your account?"
+          primaryBtnText="Sign Out"
+          primaryBtnFunction={signOut}
+        />
+      </main>
     </>
   );
 };

@@ -18,7 +18,6 @@ const GoBackArrow = () => {
         alt="Back Arrow"
         width={16}
         height={16}
-        className={styles.backArrow}
       />
     </button>
   );

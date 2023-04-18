@@ -9,6 +9,13 @@ import TextInput from "@/components/input-components/TextInput";
 const ContactUs = () => {
   const router = useRouter();
 
+  const sendNewPassword = () => {
+    // Verify if e-mail exists
+    // Send an e-mail with the new password
+    // Update database with new password when clicking on e-mail link?
+    router.push("/forgottenPassword/recoverPassword");
+  };
+
   const goBack = () => {
     router.back();
   };
@@ -16,7 +23,7 @@ const ContactUs = () => {
   return (
     <>
       <Head>
-        <title>Rocketest | Forgotten Password</title>
+        <title>Forgotten Password | Rocketest</title>
       </Head>
       <main className={styles.bgColorLight}>
         <div className={`${styles.authContainer} ${styles.authTwoButtonPages}`}>
@@ -28,9 +35,17 @@ const ContactUs = () => {
             title="E-mail"
             placeholder="e.g. user@rocketest.com"
             size="small"
+            onChange={(e) => {
+              console.log("E-mail", e.target.value);
+            }}
           />
 
-          <Button text="Send New Password" type="primary" size="extra-large" />
+          <Button
+            text="Send New Password"
+            type="primary"
+            size="extra-large"
+            function={sendNewPassword}
+          />
 
           <Button
             text="Back"

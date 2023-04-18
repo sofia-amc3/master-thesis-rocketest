@@ -32,7 +32,7 @@ const EditTest = (props: PropsExample) => {
   return (
     <>
       <Head>
-        <title>PAGE EXAMPLE</title>
+        <title>Edit Test | Rocketest</title>
       </Head>
       <main>
         <TestsTopMenu></TestsTopMenu>
