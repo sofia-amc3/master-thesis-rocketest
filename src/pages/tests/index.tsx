@@ -68,10 +68,6 @@ const OverviewTester = () => {
       <SearchBar />
       <h1>Dashboard</h1>
 
-      {/* TEMP */}
-      <br />
-      <Link href={"/tests/testPage"}>TEST EXAMPLE (Tester Only)</Link>
-
       <h2>Available Tests</h2>
       <br />
       <TestsSearch
@@ -88,7 +84,7 @@ const OverviewTester = () => {
           testType="A/B Test"
           noTesters="100"
           deadline="16 Mar 2023"
-          page="/tests/testPage"
+          page="/tests/test/01"
           paymentAmount="5.99€"
         />
       </div>

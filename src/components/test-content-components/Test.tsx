@@ -1,33 +1,43 @@
 import React from "react";
-import Button from "@/components/Button";
-import Section from "@/components/test-content-components/Section";
-import Question from "@/components/test-content-components/Question";
-import Option from "@/components/test-content-components/Option";
+import Section, {
+  SectionData,
+} from "@/components/test-content-components/Section";
 import styles from "@/styles/app.module.css";
 
+interface TestData {
+  name: string;
+  author: string;
+  type: string;
+  description: string;
+  sections: SectionData[];
+}
 interface Props {
-  testName: string;
-  testAuthor: string;
-  testDescription: string;
+  testData: TestData;
 }
 
 const Test = (props: Props) => {
   return (
     <>
-      <h1>{props.testName}</h1>
-      <h4>A/B Test from {props.testAuthor}</h4>
+      <h1>{props.testData.name}</h1>
+      <h4>
+        {props.testData.type} from {props.testData.author}
+      </h4>
 
-      <span className={styles.testSectionDescription}>
-        {props.testDescription}
-      </span>
+      {props.testData.description && (
+        <span className={styles.testSectionDescription}>
+          {props.testData.description}
+        </span>
+      )}
 
-      {/* Test Content: Sections, Questions, Answers */}
-
-      {/* Submit / Cancel  */}
-      <div className={styles.testButtonsContainer}>
-        <Button text="Cancel" size="large" type="secondary" />
-        <Button text="Submit" size="large" type="primary" />
-      </div>
+      {props.testData.sections.map((section, sectionKey) => {
+        return (
+          <Section
+            sectionNr={sectionKey + 1}
+            section={section}
+            key={sectionKey}
+          />
+        );
+      })}
     </>
   );
 };

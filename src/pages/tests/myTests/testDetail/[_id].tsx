@@ -9,6 +9,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import FollowPeople from "@/components/list-cards-components/FollowPeople";
 import SmallInfo from "@/components/my-tests-components/SmallInfo";
 import PagesSlider from "@/components/PagesSlider";
+import Test from "@/components/test-content-components/Test";
 import { useRouter } from "next/router";
 import styles from "@/styles/app.module.css";
 
@@ -33,14 +34,6 @@ const TestDetailUXResearcher = () => {
         <div className={styles.testDetailLeftContainer}>
           <div className={styles.testDetailTitle}>
             <h1>Name of Test</h1>
-            <Link href="">
-              <Image
-                src="/icons/editProfile.svg"
-                alt="Edit Test Icon"
-                width={25}
-                height={25}
-              />
-            </Link>
             <Link href="">
               <Image
                 src="/icons/trash.svg"
@@ -175,13 +168,117 @@ const TestDetailUXResearcher = () => {
 };
 
 const TestDetailTester = () => {
+  const router = useRouter();
+  const { _id } = router.query;
+
+  const goToMyTestsPage = () => {
+    router.push("/tests/myTests/");
+  };
+
+  const objectExample = {
+    name: "Test Name",
+    author: "Sofia",
+    type: "A/B Test",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    sections: [
+      {
+        name: "Section 01",
+        description: "section description",
+        questions: [
+          {
+            text: "Which of these do you prefer?",
+            answer: "Option A",
+            options: [
+              {
+                src: "",
+                name: "Option A",
+              },
+              {
+                src: "",
+                name: "Option B",
+              },
+            ],
+          },
+          {
+            text: "Question 02",
+            answer: "Option B",
+            options: [
+              {
+                src: "",
+                name: "Option A",
+              },
+              {
+                src: "",
+                name: "Option B",
+              },
+              {
+                src: "",
+                name: "Option C",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Section 02",
+        description: "section description",
+        questions: [
+          {
+            text: "Which of these do you prefer?",
+            answer: "Option B",
+            options: [
+              {
+                src: "",
+                name: "Option A",
+              },
+              {
+                src: "",
+                name: "Option B",
+              },
+            ],
+          },
+          {
+            text: "Question 02",
+            answer: "Option C",
+            options: [
+              {
+                src: "",
+                name: "Option A",
+              },
+              {
+                src: "",
+                name: "Option B",
+              },
+              {
+                src: "",
+                name: "Option C",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <>
       <TestsTopMenu isTester />
       <SearchBar />
       <Breadcrumbs link="/tests/myTests" pageName="My Tests" imageAppears />
       <Breadcrumbs link="" pageName="Test Name" activePage />
-      {/* Return Test Here */}
+
+      {/* Return Test with Answers Here */}
+      <Test testData={objectExample} />
+
+      <div className={styles.testButtonsContainer}>
+        <Button
+          text="Back"
+          size="large"
+          type="secondary"
+          function={goToMyTestsPage}
+        />
+      </div>
     </>
   );
 };

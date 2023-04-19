@@ -24,7 +24,7 @@ const MyTestsUXResearcher = () => {
           testType="A/B Test"
           noTesters="100"
           deadline="16 Mar 2023"
-          page="/tests/myTests/testDetail"
+          page="/tests/myTests/testDetail/01"
         />
         <TestCard
           imageSrc="/tests_imgs/a-b-testing.jpg"
@@ -114,7 +114,7 @@ const MyTestsTester = () => {
           testType="A/B Test"
           noTesters="100"
           deadline="16 Mar 2023"
-          page="/tests/myTests/testDetail"
+          page="/tests/myTests/testDetail/01"
           paymentAmount="5.99€"
         />
       </div>
