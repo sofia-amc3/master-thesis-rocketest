@@ -790,6 +790,11 @@ button.buttonTertiarySecondary {
   background-color: var(--color-rocketest-3);
 }
 
+.disabled {
+  opacity: 0.55;
+  cursor: auto;
+}
+
 /* ---------------------------------------- TESTS PAGE: OVERVIEW ---------------------------------------------------- */
 .dashboardContainer {
   display: flex;

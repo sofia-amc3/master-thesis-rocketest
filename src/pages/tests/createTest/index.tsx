@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
 import SearchBar from "@/components/SearchBar";
-import TestTemplateCard from "@/components/my-tests-components/TestTemplateCard";
+import TestTemplateCard from "@/components/create-test-components/TestTemplateCard";
 import styles from "@/styles/app.module.css";
 
 const CreateTest = () => {
@@ -32,36 +32,42 @@ const CreateTest = () => {
             testName="5-Second Test"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
           <TestTemplateCard
             imageSrc="/tests_imgs/first-click-test.jpg"
             testName="First-Click Test"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
           <TestTemplateCard
             imageSrc="/tests_imgs/cognitive-walkthrough.jpg"
             testName="Cognitive Walkthrough"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
           <TestTemplateCard
             imageSrc="/tests_imgs/eye-tracking.jpg"
             testName="Eye Tracking"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
           <TestTemplateCard
             imageSrc="/tests_imgs/focus-groups.jpg"
             testName="Focus Groups"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
           <TestTemplateCard
             imageSrc="/tests_imgs/affordances-grid.jpg"
             testName="Affordances Grid"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
         </div>
 
@@ -76,24 +82,28 @@ const CreateTest = () => {
             testName="Feedback Survey"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
           <TestTemplateCard
             imageSrc="/tests_imgs/sus.jpg"
             testName="System Usability Scale"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
           <TestTemplateCard
             imageSrc="/tests_imgs/heuristic-evaluation.jpg"
             testName="Heuristic Evaluation"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
           <TestTemplateCard
             imageSrc="/tests_imgs/ueq.jpg"
             testName="UX Questionnaire (UEQ)"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
         </div>
 
@@ -108,12 +118,14 @@ const CreateTest = () => {
             testName="Card Sorting"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
           <TestTemplateCard
             imageSrc="/tests_imgs/tree-testing.jpg"
             testName="Tree Test"
             testDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             page=""
+            disabled
           />
         </div>
       </main>

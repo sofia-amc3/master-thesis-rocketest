@@ -8,12 +8,17 @@ interface Props {
   testName: string;
   testDescription: string;
   page: string;
+  disabled?: boolean;
 }
 
 const TestTemplateCard = (props: Props) => {
   return (
     <Link href={props.page}>
-      <div className={styles.testCardImgContainer}>
+      <div
+        className={`${styles.testCardImgContainer} ${
+          props.disabled && styles.disabled
+        }`}
+      >
         <Image
           src={props.imageSrc}
           alt={`${props.testName} Image`}
@@ -22,7 +27,11 @@ const TestTemplateCard = (props: Props) => {
         />
       </div>
 
-      <div className={styles.testCardInfoContainer}>
+      <div
+        className={`${styles.testCardInfoContainer} ${
+          props.disabled && styles.disabled
+        }`}
+      >
         <span>{props.testName}</span>
         <span>{props.testDescription}</span>
       </div>
