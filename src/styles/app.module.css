@@ -810,6 +810,83 @@ button.buttonTertiarySecondary {
   cursor: auto;
 }
 
+/* ---------------------------------------- TESTS PAGE: TEST -------------------------------------------------------- */
+.testSectionDescription {
+  display: block;
+  margin-top: 0.75rem;
+  color: var(--color-rocketest-9);
+  font-size: 1rem;
+}
+
+.testSectionDescription:first-of-type {
+  margin-top: 1.5rem;
+  color: var(--color-rocketest-1);
+}
+
+.testSectionTitle {
+  display: block;
+  margin-top: 2.1rem;
+  font-size: 1rem;
+  color: var(--color-rocketest-3);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.testQuestionIndicator {
+  display: block;
+  margin: 1.6rem 0 0.625rem 0;
+  color: var(--color-rocketest-1);
+  font-size: 0.9rem;
+}
+
+.testQuestionTitle {
+  display: block;
+  margin-bottom: 1.2rem;
+  color: var(--color-rocketest-2);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.testImgAndOptionContainer {
+  display: inline-block;
+  margin-right: 1.75rem;
+}
+
+.testImgAndOptionContainer:last-of-type {
+  margin-right: 0;
+}
+
+.testImgAndOptionContainer .testImgContainer {
+  margin-bottom: 0.9rem;
+  border-radius: 1.6rem;
+  width: 29rem;
+  height: 29rem;
+  background-color: #fff;
+}
+
+.testImgAndOptionContainer .testImgContainer img {
+  border-radius: 1.6rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testImgAndOptionContainer .testOptionContainer {
+  margin-bottom: 1.75rem;
+}
+
+.testImgAndOptionContainer .testOptionContainer input {
+  margin-right: 0.5rem;
+}
+
+.testImgAndOptionContainer .testOptionContainer label {
+  color: var(--color-rocketest-9);
+}
+
+.testButtonsContainer {
+  margin-top: 2rem;
+}
+
 /* ---------------------------------------- TESTS PAGE: OVERVIEW ---------------------------------------------------- */
 .dashboardContainer {
   display: flex;

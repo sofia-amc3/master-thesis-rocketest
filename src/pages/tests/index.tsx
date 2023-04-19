@@ -4,6 +4,7 @@ import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
 import SearchBar from "@/components/SearchBar";
 import styles from "@/styles/app.module.css";
 import DashboardCard from "@/components/tests-components/DashboardCard";
+import Link from "next/link";
 
 interface PropsExample {
   a: string;
@@ -22,6 +23,11 @@ const Overview = (props: PropsExample) => {
         <TestsTopMenu />
         <SearchBar />
         <h1>Dashboard</h1>
+
+        {/* TEMP */}
+        <br />
+        <Link href={"/tests/testPage"}>TEST EXAMPLE (Tester Only)</Link>
+
         <div className={styles.dashboardContainer}>
           <DashboardCard
             two_col
