@@ -3,7 +3,11 @@ import Link from "next/link";
 import styles from "@/styles/app.module.css";
 import { useRouter } from "next/router";
 
-const TestsTopMenu = () => {
+interface Props {
+  isTester?: boolean;
+}
+
+const TestsTopMenu = (props: Props) => {
   const router = useRouter();
 
   const activeClassName = (url: string) => {
@@ -27,13 +31,15 @@ const TestsTopMenu = () => {
         <div></div>
       </Link>
 
-      <Link
-        href="/tests/createTest"
-        className={activeClassName("/tests/createTest")}
-      >
-        Create Test
-        <div></div>
-      </Link>
+      {!props.isTester && (
+        <Link
+          href="/tests/createTest"
+          className={activeClassName("/tests/createTest")}
+        >
+          Create Test
+          <div></div>
+        </Link>
+      )}
     </div>
   );
 };

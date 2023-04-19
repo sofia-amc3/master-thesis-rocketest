@@ -13,8 +13,7 @@ const TestPage = () => {
       </Head>
       <main>
         {/* Falta aviso se clicar em algum sítio irá perder as respostas já dadas */}
-        <TestsTopMenu />
-        <SearchBar />
+        <TestsTopMenu isTester />
         <h1>Test Name</h1>
         <h4>Lorem ipsum dolor sit amet.</h4>
         <span className={styles.testSectionDescription}>

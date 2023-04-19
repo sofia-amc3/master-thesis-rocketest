@@ -8,6 +8,7 @@ import styles from "@/styles/app.module.css";
 const MyTestsUXResearcher = () => {
   return (
     <>
+      <TestsTopMenu />
       <TestsSearch
         options={["In Progress", "Finished"]}
         filters={["Name", "No. Testers", "Date", "Test Type"]}
@@ -97,6 +98,7 @@ const MyTestsUXResearcher = () => {
 const MyTestsTester = () => {
   return (
     <>
+      <TestsTopMenu isTester />
       <TestsSearch
         options={["Paid", "Payment Pending"]}
         filters={["Test Name", "Company", "Date", "Test Type"]}
@@ -127,7 +129,6 @@ const MyTests = () => {
         <title>My Tests | Rocketest</title>
       </Head>
       <main>
-        <TestsTopMenu />
         {/* Check User Type */}
         {/* <MyTestsUXResearcher /> */}
         <MyTestsTester />

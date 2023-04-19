@@ -18,46 +18,60 @@ interface PropsExample {
 
 const OverviewUXResearcher = () => {
   return (
-    <div className={styles.dashboardContainer}>
-      <DashboardCard
-        two_col
-        title="Number of Testers per Test"
-        imageSrc=""
-        page="/tests/myTests"
-      />
-      <DashboardCard
-        oneAndHalf_col
-        title="Latest Transactions"
-        imageSrc=""
-        page="/wallet"
-      />
-      <DashboardCard
-        oneAndHalf_col
-        title="On Going Tests"
-        imageSrc=""
-        page="/wallet"
-      />
-      <DashboardCard two_col title="Test Types" imageSrc="" page="/wallet" />
-      <DashboardCard three_col title="Calendar" imageSrc="" page="/wallet" />
-      <DashboardCard
-        two_col
-        title="Wallet Information"
-        imageSrc=""
-        page="/wallet"
-      />
-      <DashboardCard
-        three_col
-        title="Payment Activity"
-        imageSrc=""
-        page="/wallet"
-      />
-    </div>
+    <>
+      <TestsTopMenu />
+      <SearchBar />
+      <h1>Dashboard</h1>
+
+      <div className={styles.dashboardContainer}>
+        <DashboardCard
+          two_col
+          title="Number of Testers per Test"
+          imageSrc=""
+          page="/tests/myTests"
+        />
+        <DashboardCard
+          oneAndHalf_col
+          title="Latest Transactions"
+          imageSrc=""
+          page="/wallet"
+        />
+        <DashboardCard
+          oneAndHalf_col
+          title="On Going Tests"
+          imageSrc=""
+          page="/wallet"
+        />
+        <DashboardCard two_col title="Test Types" imageSrc="" page="/wallet" />
+        <DashboardCard three_col title="Calendar" imageSrc="" page="/wallet" />
+        <DashboardCard
+          two_col
+          title="Wallet Information"
+          imageSrc=""
+          page="/wallet"
+        />
+        <DashboardCard
+          three_col
+          title="Payment Activity"
+          imageSrc=""
+          page="/wallet"
+        />
+      </div>
+    </>
   );
 };
 
 const OverviewTester = () => {
   return (
     <>
+      <TestsTopMenu isTester />
+      <SearchBar />
+      <h1>Dashboard</h1>
+
+      {/* TEMP */}
+      <br />
+      <Link href={"/tests/testPage"}>TEST EXAMPLE (Tester Only)</Link>
+
       <h2>Available Tests</h2>
       <br />
       <TestsSearch
@@ -119,14 +133,6 @@ const Overview = (props: PropsExample) => {
         <title>Overview | Rocketest</title>
       </Head>
       <main>
-        <TestsTopMenu />
-        <SearchBar />
-        <h1>Dashboard</h1>
-
-        {/* TEMP */}
-        <br />
-        <Link href={"/tests/testPage"}>TEST EXAMPLE (Tester Only)</Link>
-
         {/* Check User Type */}
         {/* <OverviewUXResearcher /> */}
         <OverviewTester />
