@@ -9,18 +9,19 @@ interface PropsExample {
   d?: boolean;
 }
 
-const Wallet = (props: PropsExample) => {
+const EditProfile = (props: PropsExample) => {
   return (
     <>
       <Head>
-        <title>Wallet | Rocketest</title>
+        <title>Edit Profile | Rocketest</title>
       </Head>
       <main>
         {/* Check User Type */}
         <PageTemplate imgSrc="" />
+        {/* Add Back to Profile Btn */}
       </main>
     </>
   );
 };
 
-export default Wallet;
+export default EditProfile;

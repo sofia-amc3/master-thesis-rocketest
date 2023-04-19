@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import PageTemplate from "@/components/PageTemplate";
 
 interface PropsExample {
   a: string;
@@ -14,7 +15,10 @@ const Settings = (props: PropsExample) => {
       <Head>
         <title>Settings | Rocketest</title>
       </Head>
-      <main></main>
+      <main>
+        {/* Change Page Height */}
+        <PageTemplate imgSrc="" />
+      </main>
     </>
   );
 };

@@ -21,7 +21,7 @@ const CreateAccount = () => {
   return (
     <>
       <Head>
-        <title>Rocketest | Sign Up</title>
+        <title>Sign Up | Rocketest</title>
       </Head>
       <main className={styles.bgColorLight}>
         <div className={styles.authContainer}>

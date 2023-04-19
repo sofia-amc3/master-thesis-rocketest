@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import PageTemplate from "@/components/PageTemplate";
 
 interface PropsExample {
   a: string;
@@ -14,7 +15,11 @@ const Profile = (props: PropsExample) => {
       <Head>
         <title>Profile | Rocketest</title>
       </Head>
-      <main></main>
+      <main>
+        {/* Check User Type */}
+        <PageTemplate imgSrc="" />
+        {/* Add Edit Profile Btn */}
+      </main>
     </>
   );
 };

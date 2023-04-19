@@ -1,20 +1,17 @@
 import React from "react";
 import Head from "next/head";
+import PageTemplate from "@/components/PageTemplate";
 
-interface PropsExample {
-  a: string;
-  b: string;
-  c?: string;
-  d?: boolean;
-}
-
-const Notifications = (props: PropsExample) => {
+const Notifications = () => {
   return (
     <>
       <Head>
         <title>Notifications | Rocketest</title>
       </Head>
-      <main></main>
+      <main>
+        {/* Check User Type */}
+        <PageTemplate imgSrc="" />
+      </main>
     </>
   );
 };

@@ -12,7 +12,7 @@ const Example = (props: PropsExample) => {
   return (
     <>
       <Head>
-        <title>PAGE EXAMPLE</title>
+        <title>Example | Rocketest</title>
       </Head>
       <main>{/* HEAD AND MAIN TAGS CAN BE REMOVED IF IT'S A COMPONENT */}</main>
     </>

@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import PageTemplate from "@/components/PageTemplate";
 
 interface PropsExample {
   a: string;
@@ -14,7 +15,9 @@ const Messages = (props: PropsExample) => {
       <Head>
         <title>Messages | Rocketest</title>
       </Head>
-      <main></main>
+      <main>
+        <PageTemplate imgSrc="" />
+      </main>
     </>
   );
 };
