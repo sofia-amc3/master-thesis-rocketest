@@ -10,6 +10,7 @@ interface Props {
   noTesters: string;
   deadline: string;
   page: string;
+  paymentAmount?: string;
 }
 
 const TestCard = (props: Props) => {
@@ -54,6 +55,17 @@ const TestCard = (props: Props) => {
           />
           <span>{`Ends in ${props.deadline}`}</span>
         </div>
+        {props.paymentAmount && (
+          <div className={styles.testInfo}>
+            <Image
+              src="/icons/payment.svg"
+              alt="Payment Icon"
+              width={15}
+              height={15}
+            />
+            <span>{`Pays ${props.paymentAmount}`}</span>
+          </div>
+        )}
       </div>
     </Link>
   );

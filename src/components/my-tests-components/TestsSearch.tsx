@@ -2,7 +2,12 @@ import React from "react";
 import Image from "next/image";
 import styles from "../../styles/app.module.css";
 
-const TestsSearch = () => {
+interface Props {
+  options: string[];
+  filters: string[];
+}
+
+const TestsSearch = (props: Props) => {
   return (
     <div className={styles.testsFiltersContainer}>
       <div className={`${styles.searchbar} ${styles.testsSearchbar}`}>
@@ -21,9 +26,14 @@ const TestsSearch = () => {
       </div>
 
       <div className={styles.selectContainer}>
-        <select name="testStatus">
-          <option value="inProgress">In Progress</option>
-          <option value="finished">Finished</option>
+        <select name="selection">
+          {props.options.map((value, key) => {
+            return (
+              <option key={key} value={value}>
+                {value}
+              </option>
+            );
+          })}
         </select>
         <Image
           src="/icons/arrow-left.svg"
@@ -36,11 +46,13 @@ const TestsSearch = () => {
 
       <div className={styles.selectContainer}>
         <select name="filters">
-          <option value="inProgress">Filter By</option>
-          <option value="nameFilter">Name</option>
-          <option value="noTestersFilter">No. Testers</option>
-          <option value="dateFilter">Date</option>
-          <option value="testTypeFilter">Test Type</option>
+          {props.filters.map((value, key) => {
+            return (
+              <option key={key} value={value}>
+                {value}
+              </option>
+            );
+          })}
         </select>
         <Image
           src="/icons/filter.svg"

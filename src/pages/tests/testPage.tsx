@@ -66,7 +66,7 @@ const TestPage = () => {
           </div>
           <div className={styles.testOptionContainer}>
             <input type="radio" name="test" />
-            <label>Option C</label>
+            <label>Option D</label>
           </div>
         </div>
         <div className={styles.testImgAndOptionContainer}>
@@ -75,7 +75,7 @@ const TestPage = () => {
           </div>
           <div className={styles.testOptionContainer}>
             <input type="radio" name="test" />
-            <label>Option C</label>
+            <label>Option E</label>
           </div>
         </div>
         {/* Submit/Cancel */}

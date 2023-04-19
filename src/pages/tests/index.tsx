@@ -5,6 +5,9 @@ import SearchBar from "@/components/SearchBar";
 import styles from "@/styles/app.module.css";
 import DashboardCard from "@/components/tests-components/DashboardCard";
 import Link from "next/link";
+import TestsSearch from "@/components/my-tests-components/TestsSearch";
+import TestCard from "@/components/my-tests-components/TestCard";
+import PagesSlider from "@/components/PagesSlider";
 
 interface PropsExample {
   a: string;
@@ -12,6 +15,102 @@ interface PropsExample {
   c?: string;
   d?: boolean;
 }
+
+const OverviewUXResearcher = () => {
+  return (
+    <div className={styles.dashboardContainer}>
+      <DashboardCard
+        two_col
+        title="Number of Testers per Test"
+        imageSrc=""
+        page="/tests/myTests"
+      />
+      <DashboardCard
+        oneAndHalf_col
+        title="Latest Transactions"
+        imageSrc=""
+        page="/wallet"
+      />
+      <DashboardCard
+        oneAndHalf_col
+        title="On Going Tests"
+        imageSrc=""
+        page="/wallet"
+      />
+      <DashboardCard two_col title="Test Types" imageSrc="" page="/wallet" />
+      <DashboardCard three_col title="Calendar" imageSrc="" page="/wallet" />
+      <DashboardCard
+        two_col
+        title="Wallet Information"
+        imageSrc=""
+        page="/wallet"
+      />
+      <DashboardCard
+        three_col
+        title="Payment Activity"
+        imageSrc=""
+        page="/wallet"
+      />
+    </div>
+  );
+};
+
+const OverviewTester = () => {
+  return (
+    <>
+      <h2>Available Tests</h2>
+      <br />
+      <TestsSearch
+        options={["All Tests", "Matched Criteria"]}
+        filters={["Test Name", "Company", "Date", "Test Type"]}
+      />
+
+      <div
+        className={`${styles.dashboardContainer} && ${styles.testCardsContainer}`}
+      >
+        <TestCard
+          imageSrc="/tests_imgs/a-b-testing.jpg"
+          testTitle="Test Name"
+          testType="A/B Test"
+          noTesters="100"
+          deadline="16 Mar 2023"
+          page="/tests/testPage"
+          paymentAmount="5.99€"
+        />
+      </div>
+      <PagesSlider
+        currentPageNr={1}
+        nextPageSrc=""
+        totalPagesNr={10}
+        previousPageSrc=""
+        nextPageArrow
+        previousPageArrow
+      />
+      <br />
+      <br />
+      <div className={styles.dashboardContainer}>
+        <DashboardCard
+          oneAndHalf_col
+          title="Current Balance"
+          imageSrc=""
+          page="/wallet"
+        />
+        <DashboardCard
+          oneAndHalf_col
+          title="Latest Transactions"
+          imageSrc=""
+          page="/wallet"
+        />
+        <DashboardCard
+          two_col
+          title="Answered Tests"
+          imageSrc=""
+          page="/wallet"
+        />
+      </div>
+    </>
+  );
+};
 
 const Overview = (props: PropsExample) => {
   return (
@@ -28,50 +127,9 @@ const Overview = (props: PropsExample) => {
         <br />
         <Link href={"/tests/testPage"}>TEST EXAMPLE (Tester Only)</Link>
 
-        <div className={styles.dashboardContainer}>
-          <DashboardCard
-            two_col
-            title="Number of Testers per Test"
-            imageSrc=""
-            page="/tests/myTests"
-          />
-          <DashboardCard
-            oneAndHalf_col
-            title="Latest Transactions"
-            imageSrc=""
-            page="/wallet"
-          />
-          <DashboardCard
-            oneAndHalf_col
-            title="On Going Tests"
-            imageSrc=""
-            page="/wallet"
-          />
-          <DashboardCard
-            two_col
-            title="Test Types"
-            imageSrc=""
-            page="/wallet"
-          />
-          <DashboardCard
-            three_col
-            title="Calendar"
-            imageSrc=""
-            page="/wallet"
-          />
-          <DashboardCard
-            two_col
-            title="Wallet Information"
-            imageSrc=""
-            page="/wallet"
-          />
-          <DashboardCard
-            three_col
-            title="Payment Activity"
-            imageSrc=""
-            page="/wallet"
-          />
-        </div>
+        {/* Check User Type */}
+        {/* <OverviewUXResearcher /> */}
+        <OverviewTester />
       </main>
     </>
   );

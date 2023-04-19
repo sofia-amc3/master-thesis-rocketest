@@ -18,7 +18,10 @@ const MyTests = (props: PropsExample) => {
       </Head>
       <main>
         <TestsTopMenu />
-        <TestsSearch />
+        <TestsSearch
+          options={["In Progress", "Finished"]}
+          filters={["Name", "No. Testers", "Date", "Test Type"]}
+        />
         <h1>In Progress</h1>
         <h6>Click in any test to edit it.</h6>
         <div
