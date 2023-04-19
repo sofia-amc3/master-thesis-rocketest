@@ -60,12 +60,42 @@ const TestResults = () => {
         </div>
 
         <div className={styles.pieChartsContainer}>
-          <Chart chartType="PieChart" data={data} options={options} />
-          <Chart chartType="PieChart" data={data} options={options} />
-          <Chart chartType="PieChart" data={data} options={options} />
-          <Chart chartType="PieChart" data={data} options={options} />
-          <Chart chartType="PieChart" data={data} options={options} />
-          <Chart chartType="PieChart" data={data} options={options} />
+          <Chart
+            chartType="PieChart"
+            data={data}
+            options={options}
+            className={styles.pieChart}
+          />
+          <Chart
+            chartType="PieChart"
+            data={data}
+            options={options}
+            className={styles.pieChart}
+          />
+          <Chart
+            chartType="PieChart"
+            data={data}
+            options={options}
+            className={styles.pieChart}
+          />
+          <Chart
+            chartType="PieChart"
+            data={data}
+            options={options}
+            className={styles.pieChart}
+          />
+          <Chart
+            chartType="PieChart"
+            data={data}
+            options={options}
+            className={styles.pieChart}
+          />
+          <Chart
+            chartType="PieChart"
+            data={data}
+            options={options}
+            className={styles.pieChart}
+          />
         </div>
 
         <Button text="Back" size="large" type="secondary" function={goBack} />

@@ -1188,10 +1188,31 @@ img.arrowRotate {
 }
 
 .pieChartsContainer > * {
-  margin-left: 1.75rem;
+  margin: 0 0 1.75rem 1.75rem;
   width: 30%;
   height: 14rem;
   font-size: 1rem;
+}
+
+.pieChart {
+  padding-top: 1rem;
+  border-radius: 1rem;
+  border: 0.1rem solid var(--color-rocketest-5);
+  background-color: var(--color-rocketest-8);
+}
+
+.pieChart svg > g:first-of-type > text {
+  /* Chart Title */
+  font-weight: 700;
+  fill: var(--color-rocketest-3);
+}
+
+.pieChart text {
+  font-size: 0.8rem;
+}
+
+.pieChart rect {
+  fill: transparent;
 }
 
 /* ---------------------------------------- TESTS PAGE: CREATE TEST ---------------------------------------------------- */
