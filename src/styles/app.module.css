@@ -9,6 +9,10 @@ main.bgColorLight {
   background-color: var(--color-rocketest-8);
 }
 
+.strongMedium {
+  font-weight: 600;
+}
+
 /*------------------------------------------------ GENERAL ELEMENTS -------------------------------------------------------*/
 /* Pages' Images */
 .pageImgContainer {
@@ -593,7 +597,7 @@ button.buttonTertiarySecondary {
 }
 
 .sideMenuAuth h5 {
-  margin: 15.4rem 0 2.25rem 0;
+  margin: 13.5rem 0 2.25rem 0;
 }
 
 .sideMenuAuth .socialMediaContainer {

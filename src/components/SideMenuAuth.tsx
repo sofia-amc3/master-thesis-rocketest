@@ -18,13 +18,21 @@ const SideMenuAuth = () => {
         />
       </Link>
       {/* Introduction Text */}
-      <h5>Lorem Ipsum</h5>
+      <h5>Why Rocketest?</h5>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore.
+        Rocketest has been designed to streamline usability testing processes
+        and make them more efficient. This application aims to help user
+        experience designers and researchers spend{" "}
+        <strong className={styles.strongMedium}>less time on logistics</strong>{" "}
+        and{" "}
+        <strong className={styles.strongMedium}>
+          more time on actually testing and improving their designs
+        </strong>
+        . <br></br>
+        <br></br>Whether you&apos;re testing a new product or a website,
+        Rocketest provides various templates that will help you to get accurate
+        and meaningful results in no time, making it the go-to tool for anyone
+        looking to optimize their usability tests.
       </p>
       <div className={styles.bottomContainer}>
         {/* Social Media */}
