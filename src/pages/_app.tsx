@@ -6,20 +6,31 @@ import Head from "next/head";
 import BackToTopArrow from "@/components/BackToTopArrow";
 import { useEffect, useState } from "react";
 import SideMenuAuth from "@/components/SideMenuAuth";
+import { useRouter } from "next/router";
+
+interface userAuth {
+  id: number;
+  email: string;
+  password: string;
+  type: number;
+}
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [auth, setAuth] = useState<string | null>(null);
+  const [auth, setAuth] = useState<userAuth | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const router = useRouter();
 
   const loadPage = async () => {
     setLoading(true);
-    await setAuth(localStorage.getItem("auth"));
+    const authLogin = await localStorage.getItem("auth");
+    await setAuth(authLogin ? JSON.parse(authLogin) : null);
     setLoading(false);
   };
 
   useEffect(() => {
     loadPage();
-  }, []);
+  }, [router.pathname]);
 
   return (
     <>
@@ -33,9 +44,8 @@ export default function App({ Component, pageProps }: AppProps) {
           <>Loading...</>
         ) : (
           <>
-            {/* {auth ? <SideMenu /> : <SideMenuAuth />} */}
-            <SideMenu />
-            <Component {...pageProps} />
+            {auth ? <SideMenu /> : <SideMenuAuth />}
+            <Component {...pageProps} userType={auth && auth.type} />
             {/* <BackToTopArrow /> */}
           </>
         )}

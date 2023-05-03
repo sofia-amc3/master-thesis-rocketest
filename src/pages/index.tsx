@@ -3,7 +3,9 @@ import Link from "next/link";
 import styles from "@/styles/app.module.css";
 import TextInput from "@/components/input-components/TextInput";
 import Button from "@/components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 interface FormData {
   email: string;
@@ -12,12 +14,9 @@ interface FormData {
 }
 
 const SignIn = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [rememberMe, setRememberMe] = useState(false);
+  const router = useRouter();
 
-  //------------------------------------------------
-
+  const [loading, setLoading] = useState(true);
   const [form, setForm] = useState<FormData>({
     email: "",
     password: "",
@@ -31,7 +30,32 @@ const SignIn = () => {
     });
   };
 
-  return (
+  useEffect(() => {
+    setLoading(true);
+    if (localStorage.getItem("auth")) {
+      router.push("/tests");
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    await axios
+      .post("api/user/login", form)
+      .then(async (res) => {
+        console.log("Log in Info", res.data);
+        await localStorage.setItem("auth", JSON.stringify(res.data));
+
+        router.push("/tests");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return loading ? (
+    <>Loading...</>
+  ) : (
     <>
       <Head>
         <title>Sign In | Rocketest</title>
@@ -44,7 +68,6 @@ const SignIn = () => {
             title="E-mail"
             placeholder="e.g. username@rocketest.com"
             size="small"
-            // onChange={(e) => setEmail(e.target.value)}
             onChange={(e) => updateForm({ email: e.target.value })}
           />
           <TextInput
@@ -52,7 +75,6 @@ const SignIn = () => {
             placeholder=""
             type="password"
             size="small"
-            // onChange={(e) => setPassword(e.target.value)}
             onChange={(e) => updateForm({ password: e.target.value })}
           />
 
@@ -62,7 +84,6 @@ const SignIn = () => {
                 type="checkbox"
                 name="remember_me"
                 value="remember_me"
-                // onChange={(e) => setRememberMe(e.target.checked)}
                 onChange={(e) => updateForm({ rememberMe: e.target.checked })}
                 checked={form.rememberMe}
               />
@@ -75,14 +96,7 @@ const SignIn = () => {
             text="Sign In"
             type="primary"
             size="extra-large"
-            function={() =>
-              console.log(
-                // `Email: ${email}`,
-                // `Password: ${password}`,
-                // `Remember: ${rememberMe}`,
-                form
-              )
-            }
+            function={handleLogin}
           />
 
           <span>Don&apos;t have an account?</span>
