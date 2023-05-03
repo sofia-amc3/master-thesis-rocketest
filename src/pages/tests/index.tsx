@@ -4,23 +4,17 @@ import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
 import SearchBar from "@/components/SearchBar";
 import styles from "@/styles/app.module.css";
 import DashboardCard from "@/components/tests-components/DashboardCard";
-import Link from "next/link";
 import TestsSearch from "@/components/my-tests-components/TestsSearch";
 import TestCard from "@/components/my-tests-components/TestCard";
 import PagesSlider from "@/components/PagesSlider";
 
-interface PropsExample {
-  a: string;
-  b: string;
-  c?: string;
-  d?: boolean;
+export interface PropsTestPage {
+  type: number;
 }
 
 const OverviewUXResearcher = () => {
   return (
     <>
-      <TestsTopMenu />
-      <SearchBar />
       <h1>Dashboard</h1>
 
       <div className={styles.dashboardContainer}>
@@ -64,8 +58,6 @@ const OverviewUXResearcher = () => {
 const OverviewTester = () => {
   return (
     <>
-      <TestsTopMenu isTester />
-      <SearchBar />
       <h1>Dashboard</h1>
 
       <h2>Available Tests</h2>
@@ -122,16 +114,17 @@ const OverviewTester = () => {
   );
 };
 
-const Overview = (props: PropsExample) => {
+const Overview = (props: PropsTestPage) => {
   return (
     <>
       <Head>
         <title>Overview | Rocketest</title>
       </Head>
       <main>
+        <TestsTopMenu isTester={!!props.type} />
+        <SearchBar />
         {/* Check User Type */}
-        {/* <OverviewUXResearcher /> */}
-        <OverviewTester />
+        {props.type ? <OverviewTester /> : <OverviewUXResearcher />}
       </main>
     </>
   );

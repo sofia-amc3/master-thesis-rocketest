@@ -4,11 +4,11 @@ import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
 import TestsSearch from "@/components/my-tests-components/TestsSearch";
 import TestCard from "@/components/my-tests-components/TestCard";
 import styles from "@/styles/app.module.css";
+import { PropsTestPage } from "..";
 
 const MyTestsUXResearcher = () => {
   return (
     <>
-      <TestsTopMenu />
       <TestsSearch
         options={["In Progress", "Finished"]}
         filters={["Name", "No. Testers", "Date", "Test Type"]}
@@ -98,7 +98,6 @@ const MyTestsUXResearcher = () => {
 const MyTestsTester = () => {
   return (
     <>
-      <TestsTopMenu isTester />
       <TestsSearch
         options={["Paid", "Payment Pending"]}
         filters={["Test Name", "Company", "Date", "Test Type"]}
@@ -122,16 +121,16 @@ const MyTestsTester = () => {
   );
 };
 
-const MyTests = () => {
+const MyTests = (props: PropsTestPage) => {
   return (
     <>
       <Head>
         <title>My Tests | Rocketest</title>
       </Head>
       <main>
+        <TestsTopMenu isTester={!!props.type} />
         {/* Check User Type */}
-        {/* <MyTestsUXResearcher /> */}
-        <MyTestsTester />
+        {props.type ? <MyTestsTester /> : <MyTestsUXResearcher />}
       </main>
     </>
   );
