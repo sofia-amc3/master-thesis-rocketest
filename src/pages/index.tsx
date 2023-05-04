@@ -43,7 +43,7 @@ const SignIn = () => {
     await axios
       .post("api/user/login", form)
       .then(async (res) => {
-        console.log("Log in Info", res.data);
+        console.log("Login Info", res.data);
         await localStorage.setItem("auth", JSON.stringify(res.data));
 
         router.push("/tests");

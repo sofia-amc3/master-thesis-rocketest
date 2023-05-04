@@ -8,6 +8,7 @@ interface Props {
   src: string;
   imgDetails: string;
   mandatory?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLImageElement>) => void;
 }
 
 const ProfilePicInput = (props: Props) => {
@@ -17,13 +18,31 @@ const ProfilePicInput = (props: Props) => {
       {props.mandatory && <span>*</span>}
 
       <div className={styles.profilePicContainer}>
+        {/* Uploaded image shows here */}
         <img src={props.src} alt="" />
       </div>
 
       <div className={styles.profilePicUploadContainer}>
-        <Button text="Upload" type="tertiary" size="small" />
+        {/* Upload will provide img src */}
+        <input
+          type="file"
+          id="profilePicture"
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={(e) => console.log(e)}
+        />
+        <Button
+          text="Upload"
+          type="tertiary"
+          size="small"
+          function={() => document.getElementById("profilePicture")!.click()}
+        />
 
+        {/* If image was uploaded */}
+        {/* File name + format */}
         <span>{props.imgDetails}</span>
+        {/* Delete uploaded image */}
+
         <Image
           src="/icons/bin.svg"
           alt="Delete Profile Picture Icon"

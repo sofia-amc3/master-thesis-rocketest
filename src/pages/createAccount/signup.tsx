@@ -4,19 +4,73 @@ import styles from "@/styles/app.module.css";
 import TextInput from "@/components/input-components/TextInput";
 import Button from "@/components/Button";
 import GoBackArrow from "@/components/GoBackArrow";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
 import ProfilePicInput from "@/components/input-components/ProfilePicInput";
 import Select from "react-select";
 import { HobbiesList } from "@/utils/hobbies";
 import CheckboxRatioBtnInput from "@/components/input-components/CheckboxRatioBtnInput";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 export interface OptionList {
   value: string;
   label: string;
 }
+interface FormDataUxResearcher {
+  name: string;
+  isCompany: boolean;
+  email: string;
+  password: string;
+  jobTitle: string;
+  location: string;
+  website: string;
+  description: string;
+  profilePhoto: string;
+}
 
 const SignUpUxResearcher = () => {
+  const router = useRouter();
+
+  const [form, setForm] = useState<FormDataUxResearcher>({
+    name: "",
+    isCompany: false,
+    email: "",
+    password: "",
+    jobTitle: "",
+    location: "",
+    website: "",
+    description: "",
+    profilePhoto: "",
+  });
+
+  const updateForm = (valueToUpdate: Partial<FormDataUxResearcher>) => {
+    setForm({
+      ...form,
+      ...valueToUpdate,
+    });
+  };
+
+  const termsAndConditionsCheck = () => {
+    // check if terms and conditions are checked, else send alert
+    // if checkbox = checked, continue
+    // else alert
+  };
+
+  const handleRegisterUxR = async () => {
+    // check if terms and conditions are checked first
+    await axios
+      .post("/api/user/registerUxResearcher", form)
+      .then(async (res) => {
+        console.log("Register UX R. Info", res.data);
+        await localStorage.setItem("auth", JSON.stringify(res.data));
+
+        router.push("/tests");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className={styles.authContainer}>
       <GoBackArrow />
@@ -24,27 +78,46 @@ const SignUpUxResearcher = () => {
       <h1>Create an Account</h1>
       <h4>Sign up by entering the information below.</h4>
 
-      <TextInput
-        title="Company Name"
-        placeholder="e.g. Usability Inc."
-        size="small"
-        mandatory
-        onChange={(e) => {
-          console.log("Company Name", e.target.value);
-        }}
-      />
+      {form.isCompany ? (
+        <TextInput
+          title="Company Name"
+          placeholder="e.g. Usability Inc."
+          size="small"
+          mandatory
+          onChange={(e) => {
+            updateForm({ name: e.target.value });
+          }}
+        />
+      ) : (
+        <TextInput
+          title="Name"
+          placeholder="e.g. John Smith"
+          size="small"
+          mandatory
+          onChange={(e) => {
+            updateForm({ name: e.target.value });
+          }}
+        />
+      )}
       <div
         className={`${styles.checkboxContainer} ${styles.checkboxCompanyContainer}`}
       >
-        <input type="checkbox" name="isCompany" value="isCompany" />
+        <input
+          type="checkbox"
+          name="isCompany"
+          value="isCompany"
+          onChange={(e) => updateForm({ isCompany: e.target.checked })}
+          checked={form.isCompany}
+        />
         <label>Company</label>
       </div>
       <TextInput
         title="E-mail"
         placeholder="e.g. user@rocketest.com"
         size="small"
+        mandatory
         onChange={(e) => {
-          console.log("E-mail", e.target.value);
+          updateForm({ email: e.target.value });
         }}
       />
       <TextInput
@@ -54,7 +127,7 @@ const SignUpUxResearcher = () => {
         size="small"
         mandatory
         onChange={(e) => {
-          console.log("Password", e.target.value);
+          updateForm({ password: e.target.value });
         }}
       />
       <TextInput
@@ -64,24 +137,26 @@ const SignUpUxResearcher = () => {
         size="small"
         mandatory
         onChange={(e) => {
-          console.log("Confirm Password", e.target.value);
+          console.log("Confirm Password");
         }}
       />
       {/* if not company */}
-      <TextInput
-        title="Job Title"
-        placeholder="e.g. UX Researcher"
-        size="small"
-        onChange={(e) => {
-          console.log("Job Title", e.target.value);
-        }}
-      />
+      {!form.isCompany && (
+        <TextInput
+          title="Job Title"
+          placeholder="e.g. UX Researcher"
+          size="small"
+          onChange={(e) => {
+            updateForm({ jobTitle: e.target.value });
+          }}
+        />
+      )}
       <TextInput
         title="Location"
         placeholder="e.g. Porto, Portugal"
         size="small"
         onChange={(e) => {
-          console.log("Location", e.target.value);
+          updateForm({ location: e.target.value });
         }}
       />
       <TextInput
@@ -89,7 +164,7 @@ const SignUpUxResearcher = () => {
         placeholder="e.g. https://www.usabilityinc.com/"
         size="small"
         onChange={(e) => {
-          console.log("Website", e.target.value);
+          updateForm({ website: e.target.value });
         }}
       />
       <TextInput
@@ -98,21 +173,22 @@ const SignUpUxResearcher = () => {
         size="small"
         isTextarea
         onChange={(e) => {
-          console.log("Description", e.target.value);
+          updateForm({ description: e.target.value });
         }}
       />
 
       {/* PROFILE PHOTO INPUT */}
-      <ProfilePicInput
+      {/* <ProfilePicInput
         title="Profile Picture"
         src=""
         imgDetails="picture.jpg"
-      />
+      /> */}
 
       <div className={styles.checkboxTAndCGeneral}>
         <div
           className={`${styles.checkboxContainer} ${styles.checkboxTandCContainer}`}
         >
+          {/* Must be checked before registering */}
           <input
             type="checkbox"
             name="termsAndConditions"
@@ -123,7 +199,12 @@ const SignUpUxResearcher = () => {
         <Link href="/termsAndConditions">Terms and Conditions</Link>
       </div>
 
-      <Button text="Sign Up" type="primary" size="extra-large" />
+      <Button
+        text="Sign Up"
+        type="primary"
+        size="extra-large"
+        function={handleRegisterUxR}
+      />
 
       <span>Already have an account?</span>
       <Link href="/">Login</Link>

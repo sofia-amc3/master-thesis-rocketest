@@ -6,7 +6,7 @@ import Head from "next/head";
 import BackToTopArrow from "@/components/BackToTopArrow";
 import { useEffect, useState } from "react";
 import SideMenuAuth from "@/components/SideMenuAuth";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 
 interface userAuth {
   id: number;
@@ -14,6 +14,28 @@ interface userAuth {
   password: string;
   type: number;
 }
+
+const unprotectedRoutes = [
+  "/createAccount",
+  "/forgottenPassword",
+  "/termsAndConditions",
+  "/contactUs",
+];
+
+const isUnprotectedRoute = (router: NextRouter) => {
+  const { pathname } = router;
+  let isUnprotected = false;
+
+  // specific verification outside includes bc this expression is included everywhere and had to be checked precisely
+  if (pathname === "/") isUnprotected = true;
+  else {
+    for (let i = 0; i < unprotectedRoutes.length; i++) {
+      if (pathname.includes(unprotectedRoutes[i])) isUnprotected = true;
+    }
+  }
+
+  return isUnprotected;
+};
 
 export default function App({ Component, pageProps }: AppProps) {
   const [auth, setAuth] = useState<userAuth | null>(null);
@@ -25,6 +47,12 @@ export default function App({ Component, pageProps }: AppProps) {
     setLoading(true);
     const authLogin = await localStorage.getItem("auth");
     await setAuth(authLogin ? JSON.parse(authLogin) : null);
+
+    // sends user to login page if he's unauthenticated and inside any page that requires authentication
+    if (!authLogin && !isUnprotectedRoute(router)) {
+      router.push("/");
+    }
+
     setLoading(false);
   };
 
