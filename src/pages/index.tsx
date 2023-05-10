@@ -49,7 +49,11 @@ const SignIn = () => {
         router.push("/tests");
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response && error.response.data) {
+          alert(error.response.data); // specific error messages defined in the login.tsx file
+        } else {
+          alert(error.message); // default error message
+        }
       });
   };
 

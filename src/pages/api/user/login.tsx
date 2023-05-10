@@ -6,20 +6,25 @@ const logInHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     case "POST":
       const { email, password } = req.body;
 
+      // Checks if both fields were fulfilled
+      if (!email || !password)
+        return res.status(400).send("Please provide both e-mail and password.");
+
       try {
         const result = await pool.query(
-          `SELECT * FROM "Users" WHERE email = '${email}' AND password = '${password}';`
+          `SELECT * FROM "Users" WHERE email = '${email}';`
         );
 
         if (result.rows.length === 1) {
-          // Login successful
-          return res.status(200).send(result.rows[0]);
+          const user = result.rows[0];
+
+          if (user.password === password)
+            return res.status(200).send(user); // Login successful
+          else return res.status(400).send("Incorrect Password."); // The password does not match the one in the database
         } else {
-          // Login failed
-          throw "There was an error on login.";
+          return res.status(400).send("Invalid E-mail."); // The e-mail does not exist
         }
       } catch (error) {
-        console.log(error);
         return res.status(400).send(error);
       }
       break;
