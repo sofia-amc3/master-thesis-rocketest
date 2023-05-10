@@ -1,19 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Button from "@/components/Button";
 import styles from "@/styles/app.module.css";
 import { useRouter } from "next/router";
 import GoBackArrow from "@/components/GoBackArrow";
 import TextInput from "@/components/input-components/TextInput";
+import Link from "next/link";
+import axios from "axios";
+import ReactDOMServer from "react-dom/server";
 
-const ContactUs = () => {
+interface FormData {
+  email: string;
+}
+
+const ForgottenPassword = () => {
   const router = useRouter();
 
-  const sendNewPassword = () => {
-    // Verify if e-mail exists
-    // Send an e-mail with the new password
-    // Update database with new password when clicking on e-mail link?
-    router.push("/forgottenPassword/recoverPassword");
+  const [form, setForm] = useState<FormData>({
+    email: "",
+  });
+
+  const updateForm = (valueToUpdate: Partial<FormData>) => {
+    setForm({
+      ...form,
+      ...valueToUpdate,
+    });
+  };
+
+  const sendEmail = async () => {
+    const subject = "Rocketest | Password Recovery",
+      message = ReactDOMServer.renderToString(
+        <>
+          Please click{" "}
+          <a
+            href={`http://localhost:3000/forgottenPassword/setPassword?email=${form.email}`}
+          >
+            here
+          </a>{" "}
+          to recover your password. <br />
+          <br /> If you are receiving this e-mail and no longer require to set a
+          new password please ignore it. <br />
+          <br />
+          <br /> — Rocketest Team
+        </>
+      );
+
+    if (!form.email) {
+      alert("Please provide an e-mail.");
+    } else {
+      await axios
+        .post("api/user/sendEmail", {
+          ...form,
+          subject,
+          message,
+        })
+        .then(async (res) => {
+          alert("An e-mail was sent. Please open it to recover your password.");
+          router.push("/");
+        })
+        .catch((error) => {
+          if (error.response && error.response.data) {
+            alert(error.response.data); // specific error messages
+          } else {
+            alert(error.message); // default error message
+          }
+        });
+    }
   };
 
   const goBack = () => {
@@ -35,16 +87,14 @@ const ContactUs = () => {
             title="E-mail"
             placeholder="e.g. user@rocketest.com"
             size="small"
-            onChange={(e) => {
-              console.log("E-mail", e.target.value);
-            }}
+            onChange={(e) => updateForm({ email: e.target.value })}
           />
 
           <Button
-            text="Send New Password"
+            text="Send E-mail"
             type="primary"
             size="extra-large"
-            function={sendNewPassword}
+            function={sendEmail}
           />
 
           <Button
@@ -59,4 +109,4 @@ const ContactUs = () => {
   );
 };
 
-export default ContactUs;
+export default ForgottenPassword;

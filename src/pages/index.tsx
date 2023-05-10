@@ -41,7 +41,7 @@ const SignIn = () => {
 
   const handleLogin = async () => {
     await axios
-      .post("api/user/login", form)
+      .post("/api/user/login", form)
       .then(async (res) => {
         console.log("Login Info", res.data);
         await localStorage.setItem("auth", JSON.stringify(res.data));
