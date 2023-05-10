@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import GoBackArrow from "@/components/GoBackArrow";
 import TextInput from "@/components/input-components/TextInput";
+import PopUp from "@/components/PopUp";
 
 interface ContactUsFormData {
   subject: string;
@@ -45,6 +46,17 @@ const ContactUs = () => {
     router.back();
   };
 
+  const goBackVerifications = () => {
+    const { subject, message } = form;
+
+    if (!subject && !message) {
+      goBack();
+    } else {
+      console.log("here");
+      if (confirm("By going back, all text fields will be lost.")) goBack();
+    }
+  };
+
   return (
     <>
       <Head>
@@ -52,7 +64,7 @@ const ContactUs = () => {
       </Head>
       <main className={styles.bgColorLight}>
         <div className={`${styles.authContainer} ${styles.authTwoButtonPages}`}>
-          <GoBackArrow />
+          <GoBackArrow function={goBackVerifications} />
 
           <h1>Contact Us</h1>
 
@@ -85,7 +97,7 @@ const ContactUs = () => {
             text="Back"
             type="secondary"
             size="extra-large"
-            function={goBack}
+            function={goBackVerifications}
           />
         </div>
       </main>
