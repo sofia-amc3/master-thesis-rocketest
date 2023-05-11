@@ -19,6 +19,21 @@ const registerUxRHandler = async (
         profilePhoto,
       } = req.body;
 
+      // Checks if mandatory fields were fulfilled
+      if (!name || !email || !password)
+        return res.status(400).send("All mandatory fields must be provided.");
+
+      // Password validation
+      const passwordRegex =
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+      if (!passwordRegex.test(password)) {
+        return res
+          .status(400)
+          .send(
+            "Password must have at least 8 characters, one uppercase letter, one special character, and one number."
+          );
+      }
+
       try {
         const result = await pool.query(
           `WITH tmpUsers AS (
@@ -33,15 +48,16 @@ const registerUxRHandler = async (
                             FROM tmpUsers;`
         );
 
+        // check is user was created
         const createdUser = await pool.query(
           `SELECT * FROM "Users" WHERE email = '${email}' AND password = '${password}';`
         );
 
         if (createdUser.rows.length === 1) {
-          // Authentication successful
+          // Registration successful
           return res.status(200).send(createdUser.rows[0]);
         } else {
-          // Authentication failed
+          // Registration failed
           throw "There was an error registering the user.";
         }
       } catch (error) {

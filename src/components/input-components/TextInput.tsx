@@ -11,6 +11,7 @@ interface Props {
   isTextarea?: boolean;
   isSelect?: boolean;
   options?: string[];
+  textareaMaxLength?: number;
   onChange: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -32,6 +33,7 @@ const TextInput = (props: Props) => {
               ? `${styles.inputSmall}`
               : `${styles.inputLarge}`
           }
+          maxLength={props.textareaMaxLength}
           onChange={props.onChange}
         ></textarea>
       ) : props.isSelect ? (

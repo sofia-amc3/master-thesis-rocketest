@@ -40,6 +40,20 @@ main.bgColorLight {
   cursor: help;
 }
 
+.registerInfoIcon,
+.registerInfoIconTester {
+  position: absolute;
+  left: 4.8rem;
+}
+
+.registerInfoIcon {
+  top: 26.2rem;
+}
+
+.registerInfoIconTester {
+  top: 24.6rem;
+}
+
 /* Inputs -------------------------- */
 .optionInput {
   width: 35.5rem;

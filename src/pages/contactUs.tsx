@@ -28,7 +28,7 @@ const ContactUs = () => {
 
   const sendEmail = () => {
     const { subject, message } = form;
-    const email = "1200185@isep.ipp.pt";
+    const email = "rocketest.team@outlook.com";
 
     const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(
       subject
@@ -37,7 +37,7 @@ const ContactUs = () => {
     if (!subject || !message) {
       alert("Please provide both a subject and a message.");
     } else {
-      window.open(mailtoLink); // send e-mail
+      window.open(mailtoLink); // opens user's default e-mail app to send e-mail
     }
   };
 

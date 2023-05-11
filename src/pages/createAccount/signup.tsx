@@ -21,6 +21,7 @@ interface FormDataUxResearcher {
   isCompany: boolean;
   email: string;
   password: string;
+  confirmPassword: string;
   jobTitle: string;
   location: string;
   website: string;
@@ -36,6 +37,7 @@ const SignUpUxResearcher = () => {
     isCompany: false,
     email: "",
     password: "",
+    confirmPassword: "",
     jobTitle: "",
     location: "",
     website: "",
@@ -50,25 +52,42 @@ const SignUpUxResearcher = () => {
     });
   };
 
-  const termsAndConditionsCheck = () => {
-    // check if terms and conditions are checked, else send alert
-    // if checkbox = checked, continue
-    // else alert
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
   };
 
   const handleRegisterUxR = async () => {
-    // check if terms and conditions are checked first
-    await axios
-      .post("/api/user/registerUxResearcher", form)
-      .then(async (res) => {
-        console.log("Register UX R. Info", res.data);
-        await localStorage.setItem("auth", JSON.stringify(res.data));
-
-        router.push("/tests");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // validations
+    if (!isChecked) {
+      alert("Please accept the Terms and Conditions.");
+    } else if (
+      !form.name ||
+      !form.email ||
+      !form.password ||
+      !form.confirmPassword
+    ) {
+      alert("All mandatory fields must be provided.");
+    } else if (form.password !== form.confirmPassword) {
+      alert("Passwords do not match!");
+    } else {
+      // all validations were successful
+      await axios
+        .post("/api/user/registerUxResearcher", form)
+        .then(async (res) => {
+          console.log("Register UX R. Info", res.data);
+          await localStorage.setItem("auth", JSON.stringify(res.data));
+          router.push("/tests");
+        })
+        .catch((error) => {
+          if (error.response && error.response.data) {
+            alert(error.response.data); // specific error messages defined in the registerUxResearcher.tsx file
+          } else {
+            alert(error.message); // default error message
+          }
+        });
+    }
   };
 
   return (
@@ -130,6 +149,12 @@ const SignUpUxResearcher = () => {
           updateForm({ password: e.target.value });
         }}
       />
+      <img
+        src="/icons/test-information.svg"
+        alt="Information Icon"
+        title="Password must have at least 8 characters, one uppercase letter, one special character, and one number."
+        className={`${styles.infoIcon} ${styles.registerInfoIcon}`}
+      />
       <TextInput
         title="Confirm Password"
         placeholder=""
@@ -175,6 +200,7 @@ const SignUpUxResearcher = () => {
         onChange={(e) => {
           updateForm({ description: e.target.value });
         }}
+        textareaMaxLength={1000}
       />
 
       {/* PROFILE PHOTO INPUT */}
@@ -193,6 +219,8 @@ const SignUpUxResearcher = () => {
             type="checkbox"
             name="termsAndConditions"
             value="termsAndConditions"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
           />
           <label>I have read and accept the</label>
         </div>
@@ -253,6 +281,12 @@ const SignUpTester = () => {
         onChange={(e) => {
           console.log("Password", e.target.value);
         }}
+      />
+      <img
+        src="/icons/test-information.svg"
+        alt="Information Icon"
+        title="Password must have at least 8 characters, one uppercase letter, one special character, and one number."
+        className={`${styles.infoIcon} ${styles.registerInfoIconTester}`}
       />
 
       <TextInput
@@ -350,11 +384,11 @@ const SignUpTester = () => {
       </div>
 
       {/* PROFILE PHOTO INPUT */}
-      <ProfilePicInput
+      {/* <ProfilePicInput
         title="Profile Picture"
         src=""
         imgDetails="picture.jpg"
-      />
+      /> */}
 
       <div className={styles.checkboxTAndCGeneral}>
         <div
