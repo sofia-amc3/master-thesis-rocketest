@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { pool } from "@/lib/db";
 
+const DEFAULT_PROFILE_PHOTO_UXR = "/userExamples/user--05.svg";
+
 const registerUxRHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
@@ -19,11 +21,7 @@ const registerUxRHandler = async (
         profilePhoto,
       } = req.body;
 
-      // Checks if mandatory fields were fulfilled
-      if (!name || !email || !password)
-        return res.status(400).send("All mandatory fields must be provided.");
-
-      // Password validation
+      // password validation
       const passwordRegex =
         /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
       if (!passwordRegex.test(password)) {
@@ -34,31 +32,57 @@ const registerUxRHandler = async (
           );
       }
 
+      // e-mail validation
+      const emailRegex = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/;
+      if (!emailRegex.test(email)) {
+        return res.status(400).send("Invalid E-mail.");
+      }
+
+      // checks if mandatory fields were fulfilled
+      if (!name || !email || !password)
+        return res.status(400).send("All mandatory fields must be provided.");
+
+      // if user did not upload a profile photo, replace it with a default user photo
+      const profilePhotoPath = profilePhoto || DEFAULT_PROFILE_PHOTO_UXR;
+
       try {
-        const result = await pool.query(
-          `WITH tmpUsers AS (
+        // check if the e-mail already exists
+        const existingUser = await pool.query(
+          `SELECT * FROM "Users" WHERE email = '${email}';`
+        );
+
+        if (existingUser.rows.length === 0) {
+          // register the user
+          const result = await pool.query(
+            `WITH tmpUsers AS (
               INSERT INTO "Users"
-                     (email, password, name, career, location, type)
+                     (email, password, name, career, location, "profilePhoto", type)
                      VALUES
-                     ('${email}','${password}','${name}','${jobTitle}','${location}', 0)
+                     ('${email}','${password}','${name}','${jobTitle}','${location}', '${profilePhotoPath}', 0)
                      RETURNING id)
                      INSERT INTO "UX_Researchers"
                             ("userId", "isCompany", website, description)
                             SELECT id, ${isCompany}, '${website}', '${description}'
                             FROM tmpUsers;`
-        );
+          );
 
-        // check is user was created
-        const createdUser = await pool.query(
-          `SELECT * FROM "Users" WHERE email = '${email}' AND password = '${password}';`
-        );
+          // check is user was created
+          const createdUser = await pool.query(
+            `SELECT * FROM "Users" WHERE email = '${email}' AND password = '${password}';`
+          );
 
-        if (createdUser.rows.length === 1) {
-          // Registration successful
-          return res.status(200).send(createdUser.rows[0]);
+          if (createdUser.rows.length === 1) {
+            // registration successful
+            return res.status(200).send(createdUser.rows[0]);
+          } else {
+            // registration failed
+            throw "There was an error registering the user.";
+          }
         } else {
-          // Registration failed
-          throw "There was an error registering the user.";
+          // user already exists
+          return res
+            .status(400)
+            .send("There is already an account using this e-mail.");
         }
       } catch (error) {
         console.log(error);

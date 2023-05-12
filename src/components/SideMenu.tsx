@@ -5,7 +5,12 @@ import MenuBtn from "./MenuBtn";
 import styles from "@/styles/app.module.css";
 import { useRouter } from "next/router";
 
-const SideMenu = () => {
+interface Props {
+  userProfilePhoto: string;
+  userName: string;
+}
+
+const SideMenu = (props: Props) => {
   const router = useRouter();
   return (
     <div className={styles.sideMenu}>
@@ -25,13 +30,13 @@ const SideMenu = () => {
         <Link href="/profile">
           <Image
             className={styles.profilePic}
-            src=""
+            src={props.userProfilePhoto}
             alt="Profile Picture"
             fill
           />
         </Link>
         <span>Welcome back,</span>
-        <span>User Name</span>
+        <span>{props.userName}</span>
       </div>
       {/* MENU PAGES */}
       <div>

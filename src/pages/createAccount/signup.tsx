@@ -26,7 +26,8 @@ interface FormDataUxResearcher {
   location: string;
   website: string;
   description: string;
-  profilePhoto: string;
+  profilePhoto?: string;
+  imgDetails?: string;
 }
 
 const SignUpUxResearcher = () => {
@@ -43,6 +44,7 @@ const SignUpUxResearcher = () => {
     website: "",
     description: "",
     profilePhoto: "",
+    imgDetails: "",
   });
 
   const updateForm = (valueToUpdate: Partial<FormDataUxResearcher>) => {
@@ -50,6 +52,50 @@ const SignUpUxResearcher = () => {
       ...form,
       ...valueToUpdate,
     });
+  };
+
+  const handleProfilePicChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    // get uploaded file
+    const file = event.target.files?.[0];
+
+    if (file) {
+      // checks if the file size is too large (size is in bytes)
+      if (file.size > 1500000) {
+        alert("File too large");
+        return;
+      }
+
+      // creates a FileReader object to read the file
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        // extract the data URL from the FileReader result
+        const dataURL = e.target?.result as string; // base64encoded string
+        setForm((prevForm) => ({
+          ...prevForm,
+          profilePhoto: dataURL,
+          imgDetails: file.name,
+        }));
+      };
+
+      reader.onerror = (error) => {
+        console.log("Error: ", error);
+      };
+
+      // reads the file as a data URL
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleProfilePicDelete = () => {
+    // deletes the uploaded file from the form
+    setForm((prevForm) => ({
+      ...prevForm,
+      profilePhoto: "", // resets the profilePhoto state
+      imgDetails: "", // resets the imgDetails state
+    }));
   };
 
   const [isChecked, setIsChecked] = useState(false);
@@ -60,8 +106,8 @@ const SignUpUxResearcher = () => {
 
   const handleRegisterUxR = async () => {
     // validations
-    if (!isChecked) {
-      alert("Please accept the Terms and Conditions.");
+    if (form.password !== form.confirmPassword) {
+      alert("Passwords do not match!");
     } else if (
       !form.name ||
       !form.email ||
@@ -69,8 +115,8 @@ const SignUpUxResearcher = () => {
       !form.confirmPassword
     ) {
       alert("All mandatory fields must be provided.");
-    } else if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match!");
+    } else if (!isChecked) {
+      alert("Please accept the Terms and Conditions.");
     } else {
       // all validations were successful
       await axios
@@ -162,7 +208,7 @@ const SignUpUxResearcher = () => {
         size="small"
         mandatory
         onChange={(e) => {
-          console.log("Confirm Password");
+          updateForm({ confirmPassword: e.target.value });
         }}
       />
       {/* if not company */}
@@ -204,11 +250,13 @@ const SignUpUxResearcher = () => {
       />
 
       {/* PROFILE PHOTO INPUT */}
-      {/* <ProfilePicInput
+      <ProfilePicInput
         title="Profile Picture"
-        src=""
-        imgDetails="picture.jpg"
-      /> */}
+        src={form.profilePhoto || ""}
+        imgDetails={form.imgDetails || ""}
+        onChange={handleProfilePicChange}
+        onDelete={handleProfilePicDelete}
+      />
 
       <div className={styles.checkboxTAndCGeneral}>
         <div
@@ -224,7 +272,9 @@ const SignUpUxResearcher = () => {
           />
           <label>I have read and accept the</label>
         </div>
-        <Link href="/termsAndConditions">Terms and Conditions</Link>
+        <Link href="/termsAndConditions">
+          Terms and Conditions<span>*</span>
+        </Link>
       </div>
 
       <Button
@@ -401,7 +451,9 @@ const SignUpTester = () => {
           />
           <label>I have read and accept the</label>
         </div>
-        <Link href="/termsAndConditions">Terms and Conditions</Link>
+        <Link href="/termsAndConditions">
+          Terms and Conditions<span>*</span>
+        </Link>
       </div>
 
       <Button text="Sign Up" type="primary" size="extra-large" />

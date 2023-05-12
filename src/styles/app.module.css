@@ -242,6 +242,11 @@ input.mandatoryOptInput {
   color: var(--color-rocketest-9);
 }
 
+.profilePicInputContainer .profilePicUploadContainer img {
+  /* Delete Icon */
+  cursor: pointer;
+}
+
 /* Case: Double Input */
 .doubleInputContainer {
   display: flex;
@@ -353,7 +358,6 @@ button.buttonTertiarySecondary {
   height: auto !important;
   max-width: 8rem;
   min-height: 8rem;
-  background-color: var(--color-rocketest-3);
 }
 
 .sideMenu .profile span:last-child {
@@ -679,7 +683,7 @@ button.buttonTertiarySecondary {
 .authContainer .checkboxTAndCGeneral {
   display: flex;
   justify-content: space-between;
-  width: 20.8rem;
+  width: 21.2rem;
 }
 
 .checkboxContainer label {
@@ -690,6 +694,11 @@ button.buttonTertiarySecondary {
 
 .authContainer .checkboxTAndCGeneral a {
   margin-top: 0.57rem;
+}
+
+.authContainer .checkboxTAndCGeneral a > span {
+  font-weight: 600;
+  color: var(--color-rocketest-10);
 }
 
 .checkboxContainer {

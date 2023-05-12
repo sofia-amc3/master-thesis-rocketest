@@ -9,10 +9,12 @@ import SideMenuAuth from "@/components/SideMenuAuth";
 import { NextRouter, useRouter } from "next/router";
 
 interface userAuth {
-  id: number;
-  email: string;
-  password: string;
+  // id: number;
+  // email: string;
+  // password: string;
   type: number;
+  name: string;
+  profilePhoto: string;
 }
 
 const unprotectedRoutes = [
@@ -72,7 +74,14 @@ export default function App({ Component, pageProps }: AppProps) {
           <>Loading...</>
         ) : (
           <>
-            {auth ? <SideMenu /> : <SideMenuAuth />}
+            {auth ? (
+              <SideMenu
+                userName={auth.name}
+                userProfilePhoto={auth.profilePhoto}
+              />
+            ) : (
+              <SideMenuAuth />
+            )}
             <Component {...pageProps} userType={auth && auth.type} />
             {/* <BackToTopArrow /> */}
           </>
