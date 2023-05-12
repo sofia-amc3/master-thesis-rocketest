@@ -48,6 +48,31 @@ const registerUxRHandler = async (
         return res.status(400).send("Invalid E-mail.");
       }
 
+      // website validation
+      const websiteRegex =
+        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w.-]*)*\/?$/;
+      if (website && !websiteRegex.test(website)) {
+        return res.status(400).send("Invalid Website URL.");
+      }
+
+      // location validation
+      const locationRegex = /^[A-Za-z, ]{1,30}$/;
+      if (location && !locationRegex.test(location)) {
+        return res
+          .status(400)
+          .send(
+            "Invalid location. Only letters and ',' allowed, with a maximum of 30 characters."
+          );
+      }
+
+      // job title validation
+      const jobTitleRegex = /^[A-Za-z, .]+$/;
+      if (jobTitle && !jobTitleRegex.test(jobTitle)) {
+        return res
+          .status(400)
+          .send("Invalid job title. Only letters, ',' and '.' allowed.");
+      }
+
       // checks if mandatory fields were fulfilled
       if (!name || !email || !password)
         return res.status(400).send("All mandatory fields must be provided.");
