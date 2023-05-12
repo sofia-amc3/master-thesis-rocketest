@@ -21,6 +21,16 @@ const registerUxRHandler = async (
         profilePhoto,
       } = req.body;
 
+      // name validation
+      const nameRegex = /^[a-zA-Z0-9. ]{1,20}$/;
+      if (!nameRegex.test(name)) {
+        return res
+          .status(400)
+          .send(
+            "Invalid Name. It should contain only letters, numbers, spaces, and dots (.) with a maximum of 20 characters."
+          );
+      }
+
       // password validation
       const passwordRegex =
         /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
