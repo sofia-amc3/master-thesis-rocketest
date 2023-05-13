@@ -2,12 +2,13 @@ import React from "react";
 import Head from "next/head";
 import PopUp from "@/components/PopUp";
 import { useRouter } from "next/router";
+import { userSession } from "@/utils/user";
 
 const Signout = () => {
   const router = useRouter();
 
   const signOutHandler = () => {
-    localStorage.removeItem("auth");
+    userSession.removeItem();
     router.push("/");
   };
 

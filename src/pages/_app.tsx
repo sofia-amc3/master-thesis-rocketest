@@ -7,15 +7,7 @@ import BackToTopArrow from "@/components/BackToTopArrow";
 import { useEffect, useState } from "react";
 import SideMenuAuth from "@/components/SideMenuAuth";
 import { NextRouter, useRouter } from "next/router";
-
-interface userAuth {
-  // id: number;
-  // email: string;
-  // password: string;
-  type: number;
-  name: string;
-  profilePhoto: string;
-}
+import { userAuth, userSession } from "@/utils/user";
 
 const unprotectedRoutes = [
   "/createAccount",
@@ -47,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const loadPage = async () => {
     setLoading(true);
-    const authLogin = await localStorage.getItem("auth");
+    const authLogin = await userSession.getItem();
     await setAuth(authLogin ? JSON.parse(authLogin) : null);
 
     // sends user to login page if he's unauthenticated and inside any page that requires authentication
@@ -82,7 +74,11 @@ export default function App({ Component, pageProps }: AppProps) {
             ) : (
               <SideMenuAuth />
             )}
-            <Component {...pageProps} userType={auth && auth.type} />
+            <Component
+              {...pageProps}
+              auth={auth}
+              userType={auth && auth.type}
+            />
             {/* <BackToTopArrow /> */}
           </>
         )}

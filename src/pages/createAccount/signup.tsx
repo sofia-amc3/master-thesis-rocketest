@@ -11,6 +11,7 @@ import CheckboxRatioBtnInput from "@/components/input-components/CheckboxRatioBt
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { userSession } from "@/utils/user";
 
 export interface OptionList {
   value: string;
@@ -123,7 +124,7 @@ const SignUpUxResearcher = () => {
         .post("/api/user/registerUxResearcher", form)
         .then(async (res) => {
           console.log("Register UX R. Info", res.data);
-          await localStorage.setItem("auth", JSON.stringify(res.data));
+          await userSession.setItem(JSON.stringify(res.data), false);
           router.push("/tests");
         })
         .catch((error) => {

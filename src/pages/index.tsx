@@ -6,14 +6,18 @@ import Button from "@/components/Button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { userAuth, userSession } from "@/utils/user";
 
 interface FormData {
   email: string;
   password: string;
   rememberMe: boolean;
 }
+interface Props {
+  auth?: userAuth;
+}
 
-const SignIn = () => {
+const SignIn = (props: Props) => {
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
@@ -32,7 +36,7 @@ const SignIn = () => {
 
   useEffect(() => {
     setLoading(true);
-    if (localStorage.getItem("auth")) {
+    if (props.auth) {
       router.push("/tests");
     } else {
       setLoading(false);
@@ -44,7 +48,7 @@ const SignIn = () => {
       .post("/api/user/login", form)
       .then(async (res) => {
         console.log("Login Info", res.data);
-        await localStorage.setItem("auth", JSON.stringify(res.data));
+        await userSession.setItem(JSON.stringify(res.data), form.rememberMe);
 
         router.push("/tests");
       })
