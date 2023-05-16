@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const loadPage = async () => {
     setLoading(true);
-    const authLogin = await userSession.getItem();
+    const authLogin = await userSession.getItem(); // verify if user is authenticated
     await setAuth(authLogin ? JSON.parse(authLogin) : null);
 
     // sends user to login page if he's unauthenticated and inside any page that requires authentication

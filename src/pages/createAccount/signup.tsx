@@ -124,7 +124,7 @@ const SignUpUxResearcher = () => {
         .post("/api/user/registerUxResearcher", form)
         .then(async (res) => {
           console.log("Register UX R. Info", res.data);
-          await userSession.setItem(JSON.stringify(res.data), false);
+          await userSession.setItem(JSON.stringify(res.data), false); // 'remember me' value is false by default
           router.push("/tests");
         })
         .catch((error) => {
