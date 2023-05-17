@@ -7,9 +7,11 @@ import DashboardCard from "@/components/tests-components/DashboardCard";
 import TestsSearch from "@/components/my-tests-components/TestsSearch";
 import TestCard from "@/components/my-tests-components/TestCard";
 import PagesSlider from "@/components/PagesSlider";
+import { userAuth } from "@/utils/user";
 
 export interface PropsTestPage {
   type: number;
+  auth?: userAuth;
 }
 
 const OverviewUXResearcher = () => {

@@ -991,6 +991,18 @@ button.buttonTertiarySecondary {
   cursor: pointer;
 }
 
+.testsFiltersContainer .sortIconContainer .sort {
+  margin-left: 0.2rem;
+}
+
+.testsFiltersContainer .sortIconContainer .sort.ASC {
+  transform: none;
+}
+
+.testsFiltersContainer .sortIconContainer .sort.DESC {
+  transform: scaleY(-1);
+}
+
 .selectContainer {
   position: relative;
   width: fit-content;

@@ -1,95 +1,160 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
 import TestsSearch from "@/components/my-tests-components/TestsSearch";
 import TestCard from "@/components/my-tests-components/TestCard";
 import styles from "@/styles/app.module.css";
-import { PropsTestPage } from "..";
+import axios from "axios";
+import { userAuth } from "@/utils/user";
+import { useRouter } from "next/router";
+import { PropsTestPage } from ".."; // Main props for wrapper MyTests
 
-const MyTestsUXResearcher = () => {
-  return (
+export interface MyTestsFilters {
+  search: string;
+  option: string;
+  filter: string;
+  sort: string;
+}
+
+// info coming from db
+interface TestData {
+  id: number;
+  testName: string;
+  testType: string;
+  testDeadline: string;
+  //testersCount: number;
+}
+
+// secondary Props for UX Researcher
+interface Props {
+  auth?: userAuth;
+}
+
+const MyTestsUXResearcher = (props: Props) => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [originalTests, setOriginalTests] = useState([] as TestData[]); // just for fallback to manage the information
+  const [tests, setTests] = useState([] as TestData[]); // to show the information filtered from originalTests
+  const [testOptions, setTestOptions] = useState({
+    // default values
+    search: "",
+    option: "In Progress",
+    filter: "Name",
+    sort: "ASC",
+  } as MyTestsFilters);
+
+  //update functions
+  const updateOptions = (valueToUpdate: Partial<MyTestsFilters>) => {
+    setTestOptions({
+      ...testOptions,
+      ...valueToUpdate,
+    });
+  };
+  useEffect(() => {
+    if (originalTests.length > 0) {
+      console.log("testOptions", testOptions);
+
+      //SEARCH FILTER
+      let result = originalTests.filter((testData) =>
+        testData.testName.includes(testOptions.search)
+      );
+
+      //IN PROGRESS FILTER
+      result = result.filter((testData) => {
+        if (testOptions.option === "In Progress")
+          return new Date(testData.testDeadline) > new Date();
+        else return new Date(testData.testDeadline) <= new Date();
+      });
+
+      //SORT BY FILTER
+      switch (testOptions.filter) {
+        case "No. Testers":
+          break;
+        case "Date":
+          break;
+        case "Test Type":
+          break;
+
+        default:
+          // NOT FINISHED
+          // result = result.sort((nextValue, curValue) => {
+          //   if (nextValue.testName > curValue.testName) return 1;
+          //   else if (nextValue.testName < curValue.testName) return -1;
+          //   else return 0;
+          // });
+          break;
+      }
+
+      setTests(result);
+    }
+  }, [testOptions, originalTests]);
+
+  //on loading page functions
+  const showTests = async () => {
+    const params = {
+      userId: props.auth?.id,
+    };
+
+    await axios
+      .get("/api/user/myTestsUxResearcher", { params })
+      .then(async (res) => {
+        setOriginalTests(res.data);
+        setTests(res.data); // TO REMOVE LATER
+      })
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          alert(error.response.data); // specific error messages defined in the login.tsx file
+        } else {
+          alert(error.message); // default error message
+        }
+      });
+
+    setLoading(false);
+  };
+  useEffect(() => {
+    setLoading(true);
+    if (router.isReady) {
+      showTests();
+    }
+  }, [router]);
+
+  return loading ? (
+    <></>
+  ) : (
     <>
       <TestsSearch
         options={["In Progress", "Finished"]}
         filters={["Name", "No. Testers", "Date", "Test Type"]}
+        testOptions={testOptions}
+        onChange={updateOptions}
       />
       <h1>In Progress</h1>
       <h6>Click in any test to edit it.</h6>
       <div
         className={`${styles.dashboardContainer} && ${styles.testCardsContainer}`}
       >
-        <TestCard
-          imageSrc="/tests_imgs/a-b-testing.jpg"
-          testTitle="Test Name"
-          testType="A/B Test"
-          noTesters="100"
-          deadline="16 Mar 2023"
-          page="/tests/myTests/testDetail/01"
-        />
-        <TestCard
-          imageSrc="/tests_imgs/a-b-testing.jpg"
-          testTitle="Test Name"
-          testType="A/B Test"
-          noTesters="100"
-          deadline="16 Mar 2023"
-          page=""
-        />
-        <TestCard
-          imageSrc="/tests_imgs/a-b-testing.jpg"
-          testTitle="Test Name"
-          testType="A/B Test"
-          noTesters="100"
-          deadline="16 Mar 2023"
-          page=""
-        />
-        <TestCard
-          imageSrc="/tests_imgs/a-b-testing.jpg"
-          testTitle="Test Name"
-          testType="A/B Test"
-          noTesters="100"
-          deadline="16 Mar 2023"
-          page=""
-        />
-        <TestCard
-          imageSrc="/tests_imgs/a-b-testing.jpg"
-          testTitle="Test Name"
-          testType="A/B Test"
-          noTesters="100"
-          deadline="16 Mar 2023"
-          page=""
-        />
-        <TestCard
-          imageSrc="/tests_imgs/a-b-testing.jpg"
-          testTitle="Test Name"
-          testType="A/B Test"
-          noTesters="100"
-          deadline="16 Mar 2023"
-          page=""
-        />
-        <TestCard
-          imageSrc="/tests_imgs/a-b-testing.jpg"
-          testTitle="Test Name"
-          testType="A/B Test"
-          noTesters="100"
-          deadline="16 Mar 2023"
-          page=""
-        />
-        <TestCard
-          imageSrc="/tests_imgs/a-b-testing.jpg"
-          testTitle="Test Name"
-          testType="A/B Test"
-          noTesters="100"
-          deadline="16 Mar 2023"
-          page=""
-        />
-        <TestCard
-          imageSrc="/tests_imgs/a-b-testing.jpg"
-          testTitle="Test Name"
-          testType="A/B Test"
-          noTesters="100"
-          deadline="16 Mar 2023"
-          page=""
-        />
+        {tests.length > 0 ? (
+          tests.map((testData, key) => (
+            <TestCard
+              key={key}
+              imageSrc="/tests_imgs/a-b-testing.jpg"
+              testTitle={testData.testName}
+              testType={testData.testType}
+              noTesters="100"
+              deadline={new Date(testData.testDeadline).toLocaleDateString(
+                "en-us",
+                {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                }
+              )}
+              page={`/tests/myTests/testDetail/${testData.id}`}
+            />
+          ))
+        ) : (
+          <>No tests available.</>
+        )}
       </div>
     </>
   );
@@ -129,8 +194,11 @@ const MyTests = (props: PropsTestPage) => {
       </Head>
       <main>
         <TestsTopMenu isTester={!!props.type} />
-        {/* Check User Type */}
-        {props.type ? <MyTestsTester /> : <MyTestsUXResearcher />}
+        {props.type ? (
+          <MyTestsTester />
+        ) : (
+          <MyTestsUXResearcher auth={props.auth} />
+        )}
       </main>
     </>
   );

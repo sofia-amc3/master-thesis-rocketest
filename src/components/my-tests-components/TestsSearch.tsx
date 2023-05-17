@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import styles from "../../styles/app.module.css";
+import { MyTestsFilters } from "@/pages/tests/myTests";
 
 interface Props {
   options: string[];
   filters: string[];
+  testOptions: MyTestsFilters;
+  onChange: (valueToUpdate: Partial<MyTestsFilters>) => void;
 }
 
 const TestsSearch = (props: Props) => {
+  const sortFunction = () => {
+    let sortType;
+    if (props.testOptions && props.testOptions.sort === "ASC") {
+      sortType = "DESC";
+    } else {
+      sortType = "ASC";
+    }
+
+    props.onChange({ sort: sortType });
+  };
+
   return (
     <div className={styles.testsFiltersContainer}>
       <div className={`${styles.searchbar} ${styles.testsSearchbar}`}>
@@ -21,12 +35,21 @@ const TestsSearch = (props: Props) => {
           type="text"
           id="fname"
           name="fname"
-          placeholder="Search for something..."
+          placeholder="Search for tests..."
+          value={props.testOptions.search}
+          onChange={(e) => {
+            props.onChange({ search: e.target.value });
+          }}
         />
       </div>
 
       <div className={styles.selectContainer}>
-        <select name="selection">
+        <select
+          name="selection"
+          onChange={(e) => {
+            props.onChange({ option: e.target.value });
+          }}
+        >
           {props.options.map((value, key) => {
             return (
               <option key={key} value={value}>
@@ -45,7 +68,12 @@ const TestsSearch = (props: Props) => {
       </div>
 
       <div className={styles.selectContainer}>
-        <select name="filters">
+        <select
+          name="filters"
+          onChange={(e) => {
+            props.onChange({ filter: e.target.value });
+          }}
+        >
           {props.filters.map((value, key) => {
             return (
               <option key={key} value={value}>
@@ -62,8 +90,14 @@ const TestsSearch = (props: Props) => {
         />
       </div>
 
-      <div className={styles.sortIconContainer}>
-        <Image src="/icons/sort.svg" alt="Sort Icon" width={19} height={19} />
+      <div className={styles.sortIconContainer} onClick={sortFunction}>
+        <Image
+          src="/icons/sort.svg"
+          alt="Sort Icon"
+          width={19}
+          height={19}
+          className={`${styles.sort} ${styles[props.testOptions.sort || ""]}`}
+        />
       </div>
     </div>
   );
