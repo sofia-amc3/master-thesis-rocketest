@@ -22,7 +22,7 @@ interface TestData {
   testName: string;
   testType: string;
   testDeadline: string;
-  //testersCount: number;
+  testersCount: number;
 }
 
 // secondary Props for UX Researcher
@@ -69,19 +69,66 @@ const MyTestsUXResearcher = (props: Props) => {
       //SORT BY FILTER
       switch (testOptions.filter) {
         case "No. Testers":
+          result = result.sort((nextValue, curValue) => {
+            const a = nextValue.testersCount;
+            const b = curValue.testersCount;
+
+            if (testOptions.sort === "ASC") {
+              if (a < b) return -1;
+              if (a > b) return 1;
+            } else if (testOptions.sort === "DESC") {
+              if (a > b) return -1;
+              if (a < b) return 1;
+            }
+            return 0;
+          });
           break;
         case "Date":
+          result = result.sort((nextValue, curValue) => {
+            const a = new Date(nextValue.testDeadline);
+            const b = new Date(curValue.testDeadline);
+
+            if (testOptions.sort === "ASC") {
+              if (a < b) return -1;
+              if (a > b) return 1;
+            } else if (testOptions.sort === "DESC") {
+              if (a > b) return -1;
+              if (a < b) return 1;
+            }
+            return 0;
+          });
           break;
         case "Test Type":
+          result = result.sort((nextValue, curValue) => {
+            const a = nextValue.testType.toLowerCase();
+            const b = curValue.testType.toLowerCase();
+
+            if (testOptions.sort === "ASC") {
+              if (a < b) return -1;
+              if (a > b) return 1;
+            } else if (testOptions.sort === "DESC") {
+              if (a > b) return -1;
+              if (a < b) return 1;
+            }
+            return 0;
+          });
           break;
 
         default:
-          // NOT FINISHED
-          // result = result.sort((nextValue, curValue) => {
-          //   if (nextValue.testName > curValue.testName) return 1;
-          //   else if (nextValue.testName < curValue.testName) return -1;
-          //   else return 0;
-          // });
+          // sort by name
+          result = result.sort((nextValue, curValue) => {
+            const a = nextValue.testName.toLowerCase();
+            const b = curValue.testName.toLowerCase();
+
+            if (testOptions.sort === "ASC") {
+              if (a < b) return -1;
+              if (a > b) return 1;
+            } else if (testOptions.sort === "DESC") {
+              if (a > b) return -1;
+              if (a < b) return 1;
+            }
+            return 0;
+          });
           break;
       }
 
@@ -140,7 +187,7 @@ const MyTestsUXResearcher = (props: Props) => {
               imageSrc="/tests_imgs/a-b-testing.jpg"
               testTitle={testData.testName}
               testType={testData.testType}
-              noTesters="100"
+              noTesters={testData.testersCount.toString()}
               deadline={new Date(testData.testDeadline).toLocaleDateString(
                 "en-us",
                 {

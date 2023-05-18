@@ -44,7 +44,7 @@ const TestCard = (props: Props) => {
             width={15}
             height={15}
           />
-          <span>{`${props.noTesters} testers`}</span>
+          <span>{`${props.noTesters} Contacted Testers`}</span>
         </div>
         <div className={styles.testInfo}>
           <Image

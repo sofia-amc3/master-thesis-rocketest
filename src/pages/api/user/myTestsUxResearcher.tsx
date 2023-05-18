@@ -11,11 +11,14 @@ const MyTestsUXResearcherHandler = async (
       try {
         const result = await pool.query(
           `SELECT T.ID,
-                 T."name" as "testName",
-                 T."type" as "testType",
-                 DEADLINE as "testDeadline"
-          FROM PUBLIC."Tests" T
-          WHERE T."userId" = ${userId}`
+                  T."name" AS "testName",
+                  T."type" AS "testType",
+                  DEADLINE AS "testDeadline",
+                  COUNT(C.ID) AS "testersCount"
+            FROM PUBLIC."Tests" T
+            LEFT JOIN PUBLIC."Contacted_Users" C ON C."testId" = T.ID
+            WHERE T."userId" = ${userId}
+            GROUP BY T.ID`
         );
         return res.status(200).send(result.rows);
       } catch (error) {
