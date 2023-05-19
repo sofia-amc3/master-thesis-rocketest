@@ -22,7 +22,7 @@ const CheckboxRatioBtnInput = (props: Props) => {
       {props.mandatory && <span>*</span>}
       <br />
       {props.options &&
-        props.options.map((value, key) => {
+        props.options.map((opt, key) => {
           return (
             <div className={styles.checkboxInputContainer} key={key}>
               <label>
@@ -31,11 +31,12 @@ const CheckboxRatioBtnInput = (props: Props) => {
                   className={styles.checkboxInput}
                   onChange={props.onChange}
                   name={props.name}
+                  value={opt.value}
                 />
-                {value.value}
+                {opt.value}
               </label>
-              {value.description && (
-                <span className={styles.description}>{value.description}</span>
+              {opt.description && (
+                <span className={styles.description}>{opt.description}</span>
               )}
             </div>
           );

@@ -11,6 +11,7 @@ interface Props {
   isTextarea?: boolean;
   isSelect?: boolean;
   options?: string[];
+  defaultValue?: string;
   textareaMaxLength?: number;
   onChange: (
     e: React.ChangeEvent<
@@ -49,7 +50,11 @@ const TextInput = (props: Props) => {
             {props.options &&
               props.options.map((value, key) => {
                 return (
-                  <option key={key} value={value}>
+                  <option
+                    key={key}
+                    value={value}
+                    selected={value === props.defaultValue}
+                  >
                     {value}
                   </option>
                 );
