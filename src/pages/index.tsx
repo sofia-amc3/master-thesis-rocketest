@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { userAuth, userSession } from "@/utils/user";
+import Loading from "@/components/Loading";
 
 interface FormData {
   email: string;
@@ -62,7 +63,7 @@ const SignIn = (props: Props) => {
   };
 
   return loading ? (
-    <>Loading...</>
+    <Loading />
   ) : (
     <>
       <Head>

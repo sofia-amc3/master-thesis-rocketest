@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import SideMenuAuth from "@/components/SideMenuAuth";
 import { NextRouter, useRouter } from "next/router";
 import { userAuth, userSession } from "@/utils/user";
+import Loading from "@/components/Loading";
 
 const unprotectedRoutes = [
   "/createAccount",
@@ -63,7 +64,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <div className={styles.app_layout}>
         {loading ? (
-          <>Loading...</>
+          <Loading />
         ) : (
           <>
             {auth ? (

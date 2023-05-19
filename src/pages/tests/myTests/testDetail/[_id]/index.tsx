@@ -15,6 +15,7 @@ import axios from "axios";
 import { userAuth } from "@/utils/user";
 import { PropsTestPage } from "@/pages/tests";
 import { TestData } from "../..";
+import Loading from "@/components/Loading";
 
 interface Props {
   auth?: userAuth;
@@ -94,7 +95,7 @@ const TestDetailUXResearcher = (props: Props) => {
   };
 
   return loading ? (
-    <></>
+    <Loading />
   ) : (
     <>
       <TestsTopMenu />
@@ -365,7 +366,7 @@ const TestDetail = (props: PropsTestPage) => {
       </Head>
       <main>
         {/* Check User Type */}
-        {props.type ? (
+        {props.auth?.type ? (
           <TestDetailTester />
         ) : (
           <TestDetailUXResearcher auth={props.auth} />
