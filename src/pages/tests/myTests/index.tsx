@@ -17,12 +17,13 @@ export interface MyTestsFilters {
 }
 
 // info coming from db
-interface TestData {
+export interface TestData {
   id: number;
   testName: string;
   testType: string;
   testDeadline: string;
   testersCount: number;
+  testPayment: number;
 }
 
 // secondary Props for UX Researcher
@@ -50,6 +51,7 @@ const MyTestsUXResearcher = (props: Props) => {
       ...valueToUpdate,
     });
   };
+  // filters
   useEffect(() => {
     if (originalTests.length > 0) {
       console.log("testOptions", testOptions);
@@ -143,14 +145,14 @@ const MyTestsUXResearcher = (props: Props) => {
     };
 
     await axios
-      .get("/api/user/myTestsUxResearcher", { params })
+      .get("/api/tests/myTestsUxResearcher", { params })
       .then(async (res) => {
         setOriginalTests(res.data);
         setTests(res.data); // TO REMOVE LATER
       })
       .catch((error) => {
         if (error.response && error.response.data) {
-          alert(error.response.data); // specific error messages defined in the login.tsx file
+          alert(error.response.data); // specific error messages
         } else {
           alert(error.message); // default error message
         }
@@ -175,7 +177,7 @@ const MyTestsUXResearcher = (props: Props) => {
         testOptions={testOptions}
         onChange={updateOptions}
       />
-      <h1>In Progress</h1>
+      <h1>{testOptions.option}</h1>
       <h6>Click in any test to edit it.</h6>
       <div
         className={`${styles.dashboardContainer} && ${styles.testCardsContainer}`}
@@ -200,7 +202,7 @@ const MyTestsUXResearcher = (props: Props) => {
             />
           ))
         ) : (
-          <>No tests available.</>
+          <span className={styles.noTestsAvailable}>No tests available.</span>
         )}
       </div>
     </>

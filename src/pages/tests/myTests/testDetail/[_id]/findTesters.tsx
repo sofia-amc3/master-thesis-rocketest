@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -9,18 +9,52 @@ import Button from "@/components/Button";
 import PagesSlider from "@/components/PagesSlider";
 import { useRouter } from "next/router";
 import styles from "@/styles/app.module.css";
+import { TestData } from "../..";
+import { userAuth } from "@/utils/user";
+import axios from "axios";
 
-interface PropsExample {
-  title: string;
-  subtitle: string;
+interface Props {
+  auth?: userAuth;
 }
 
-const FindTesters = (props: PropsExample) => {
+const FindTesters = (props: Props) => {
   const router = useRouter();
+  const { _id } = router.query; // access the test ID from the URL parameter
+
+  const [loading, setLoading] = useState(true);
+  const [testData, setTestData] = useState({} as TestData);
 
   const goBack = () => {
     router.back();
   };
+
+  const showTestDetail = async () => {
+    const params = {
+      userId: props.auth?.id,
+      testId: _id,
+    };
+
+    await axios
+      .get("/api/tests/testDetailUxResearcher", { params })
+      .then(async (res) => {
+        setTestData(res.data);
+      })
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          alert(error.response.data); // specific error messages
+        } else {
+          alert(error.message); // default error message
+        }
+      });
+
+    setLoading(false);
+  };
+  useEffect(() => {
+    setLoading(true);
+    if (router.isReady) {
+      showTestDetail();
+    }
+  }, [router]);
 
   return (
     <>
@@ -29,15 +63,15 @@ const FindTesters = (props: PropsExample) => {
       </Head>
       <main className={styles.findTestersMain}>
         <TestsTopMenu />
-        <Breadcrumbs link="/tests/myTests" pageName="My Tests" imageAppears />
+        <Breadcrumbs link="/tests/myTests/" pageName="My Tests" imageAppears />
         <Breadcrumbs
-          link="/tests/myTests/testDetail"
-          pageName="Test Name"
+          link={`/tests/myTests/testDetail/${_id}`}
+          pageName={testData.testName}
           imageAppears
         />
         <Breadcrumbs link="" pageName="Find Testers" activePage />
 
-        <h1>Name of Test</h1>
+        <h1>{testData.testName}</h1>
         <h6>Find testers using an external platform.</h6>
 
         <div className={styles.findTestersSearch}>
@@ -46,9 +80,8 @@ const FindTesters = (props: PropsExample) => {
             placeholder=""
             size="small"
             isSelect
-            option1="LinkedIn"
-            option2="Facebook"
-            option3="Instagram"
+            options={["LinkedIn", "Facebook", "Instagram"]}
+            onChange={(e) => console.log(e)}
           />
           <Button text="Search" size="small" type="tertiary" />
         </div>
@@ -114,6 +147,7 @@ const FindTesters = (props: PropsExample) => {
             placeholder="e.g. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
             size="small"
             isTextarea
+            onChange={(e) => console.log(e)}
           />
           <img
             src="/icons/test-information.svg"

@@ -1,23 +1,26 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { pool } from "@/lib/db";
 
-const MyTestsUXResearcherHandler = async (
+const TestDetailUXResearcherHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
   switch (req.method) {
     case "GET":
-      const { userId } = req.query;
+      const { userId, testId } = req.query;
       try {
         const result = await pool.query(
           `SELECT T.ID,
                   T."name" AS "testName",
                   T."type" AS "testType",
                   DEADLINE AS "testDeadline",
-                  COUNT(C.ID) AS "testersCount"
+                  COUNT(C.ID) AS "testersCount",
+                  T.PAYMENT AS "testPayment"
             FROM PUBLIC."Tests" T
             LEFT JOIN PUBLIC."Contacted_Users" C ON C."testId" = T.ID
             WHERE T."userId" = ${userId}
+                  AND T.ID = ${testId}
+                  AND T."isDeleted" = FALSE
             GROUP BY T.ID`
         );
         return res.status(200).send(result.rows);
@@ -32,4 +35,4 @@ const MyTestsUXResearcherHandler = async (
   }
 };
 
-export default MyTestsUXResearcherHandler;
+export default TestDetailUXResearcherHandler;

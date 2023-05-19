@@ -101,7 +101,7 @@ const registerUxRHandler = async (
                             FROM tmpUsers;`
           );
 
-          // check is user was created
+          // check if user was created
           const createdUser = await pool.query(
             `SELECT * FROM "Users" WHERE email = '${email}' AND password = '${password}';`
           );

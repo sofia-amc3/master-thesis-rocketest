@@ -1088,6 +1088,10 @@ img.arrowRotate {
   overflow: hidden;
 }
 
+.noTestsAvailable {
+  margin-left: 1.6rem;
+}
+
 /* Test Detail Page ------------------------------- */
 .testDetailContainer {
   width: 90.6rem;
@@ -1109,8 +1113,13 @@ img.arrowRotate {
   margin-right: 19.2rem;
 }
 
+.testDetailLeftContainer .testDetailTitle img {
+  cursor: pointer;
+}
+
 .testDetailLeftContainer .testDetailTitle a:hover,
-.testDetailLeftContainer > a:hover {
+.testDetailLeftContainer > a:hover,
+.testDetailLeftContainer .testDetailTitle img:hover {
   opacity: 0.85;
 }
 
@@ -1153,10 +1162,9 @@ img.arrowRotate {
 }
 
 .testDetailLeftContainer .smallInfoContainer {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-  width: 26rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 0.5rem;
 }
 
 .testDetailLeftContainer .testBtnsContainer {

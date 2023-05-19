@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
 import SearchBar from "@/components/SearchBar";
 import Button from "@/components/Button";
@@ -12,42 +11,113 @@ import PagesSlider from "@/components/PagesSlider";
 import Test from "@/components/test-content-components/Test";
 import { useRouter } from "next/router";
 import styles from "@/styles/app.module.css";
+import axios from "axios";
+import { userAuth } from "@/utils/user";
+import { PropsTestPage } from "@/pages/tests";
+import { TestData } from "../..";
 
-const TestDetailUXResearcher = () => {
+interface Props {
+  auth?: userAuth;
+}
+
+const TestDetailUXResearcher = (props: Props) => {
   const router = useRouter();
+  const { _id } = router.query; // access the test ID from the URL parameter
+
+  const [loading, setLoading] = useState(true);
+  const [testData, setTestData] = useState({} as TestData);
 
   const goToFindTestersPage = () => {
-    router.push("/tests/myTests/testDetail/findTesters");
+    router.push(`/tests/myTests/testDetail/${_id}/findTesters`);
   };
 
   const goToTestResultsPage = () => {
-    router.push("/tests/myTests/testDetail/testResults");
+    router.push(`/tests/myTests/testDetail/${_id}/testResults`);
   };
 
-  return (
+  const showTestDetail = async () => {
+    const params = {
+      userId: props.auth?.id,
+      testId: _id,
+    };
+
+    await axios
+      .get("/api/tests/testDetailUxResearcher", { params })
+      .then(async (res) => {
+        if (res.data.length === 1) setTestData(res.data[0]);
+        else router.push("/tests/myTests/");
+      })
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          alert(error.response.data); // specific error messages
+        } else {
+          alert(error.message); // default error message
+        }
+      });
+
+    setLoading(false);
+  };
+  useEffect(() => {
+    setLoading(true);
+    if (router.isReady) {
+      showTestDetail();
+    }
+  }, [router]);
+
+  const deleteTest = async () => {
+    // confirm alert
+    if (
+      confirm(
+        "Are you sure you want to delete this test? This action is irreversible."
+      )
+    ) {
+      setLoading(true);
+
+      await axios
+        .post("/api/tests/deleteTestUxResearcher", {
+          userId: props.auth?.id,
+          testId: Number(_id),
+        })
+        .then(async (res) => {
+          router.push("/tests/myTests/");
+        })
+        .catch((error) => {
+          if (error.response && error.response.data) {
+            alert(error.response.data); // specific error messages
+          } else {
+            alert(error.message); // default error message
+          }
+        });
+
+      setLoading(false);
+    }
+  };
+
+  return loading ? (
+    <></>
+  ) : (
     <>
       <TestsTopMenu />
       <SearchBar />
       <Breadcrumbs link="/tests/myTests" pageName="My Tests" imageAppears />
-      <Breadcrumbs link="" pageName="Test Name" activePage />
+      <Breadcrumbs link="" pageName={testData.testName} activePage />
       <div className={styles.testDetailContainer}>
         <div className={styles.testDetailLeftContainer}>
           <div className={styles.testDetailTitle}>
-            <h1>Name of Test</h1>
-            <Link href="">
-              <Image
-                src="/icons/trash.svg"
-                alt="Delete Test Icon"
-                width={25}
-                height={25}
-              />
-            </Link>
+            <h1>{testData.testName}</h1>
+            <Image
+              src="/icons/trash.svg"
+              alt="Delete Test Icon"
+              width={25}
+              height={25}
+              onClick={deleteTest}
+            />
           </div>
           <div className={styles.testImgContainer}>
             <img src="/tests_imgs/a-b-testing.jpg" alt="Test Image" />
           </div>
           <h2>Test&apos;s Link</h2>
-          <a href="">http://www.test-link.com/lorem-ipsum/</a>
+          <a href={`/tests/test/${testData.id}`}>Preview Test</a>
 
           <Button text="Copy Link" size="medium" type="tertiary" />
           <Button text="Share" size="medium" type="tertiary" />
@@ -56,24 +126,28 @@ const TestDetailUXResearcher = () => {
             <SmallInfo
               iconSrc="/icons/test-information.svg"
               iconWidth={24}
-              text="A/B Test"
+              text={testData.testType}
             />
             <SmallInfo
               iconSrc="/icons/test-testersNumber.svg"
               iconWidth={24}
-              text="100 testers"
+              text={`${testData.testersCount} Contacted Testers`}
             />
-          </div>
-          <div className={styles.smallInfoContainer}>
             <SmallInfo
               iconSrc="/icons/test-calendar.svg"
               iconWidth={24}
-              text="Ends in 16 Mar 2023"
+              text={`Ends in ${new Date(
+                testData.testDeadline
+              ).toLocaleDateString("en-us", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}`}
             />
             <SmallInfo
               iconSrc="/icons/money-spent.svg"
               iconWidth={24}
-              text="500$ spent"
+              text={`${testData.testPayment}$ per Test`}
             />
           </div>
 
@@ -283,7 +357,7 @@ const TestDetailTester = () => {
   );
 };
 
-const TestDetail = () => {
+const TestDetail = (props: PropsTestPage) => {
   return (
     <>
       <Head>
@@ -291,8 +365,11 @@ const TestDetail = () => {
       </Head>
       <main>
         {/* Check User Type */}
-        {/* <TestDetailUXResearcher /> */}
-        <TestDetailTester />
+        {props.type ? (
+          <TestDetailTester />
+        ) : (
+          <TestDetailUXResearcher auth={props.auth} />
+        )}
       </main>
     </>
   );
