@@ -7,9 +7,10 @@ interface Props {
   imageSrc: string;
   testTitle: string;
   testType: string;
-  noTesters: string;
+  noTesters?: string;
   deadline: string;
   page: string;
+  company?: string;
   paymentAmount?: string;
 }
 
@@ -40,11 +41,14 @@ const TestCard = (props: Props) => {
         <div className={styles.testInfo}>
           <Image
             src="/icons/test-testersNumber.svg"
-            alt="Number of Testers Icon"
+            alt="People Icon"
             width={15}
             height={15}
           />
-          <span>{`${props.noTesters} Contacted Testers`}</span>
+          {props.noTesters && (
+            <span>{`${props.noTesters} Contacted Testers`}</span>
+          )}
+          {props.company && <span>{`From ${props.company}`}</span>}
         </div>
         <div className={styles.testInfo}>
           <Image

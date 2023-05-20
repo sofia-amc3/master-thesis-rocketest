@@ -11,7 +11,7 @@ import { userAuth } from "@/utils/user";
 import { MyTestsFilters } from "./myTests";
 
 export interface PropsTestPage {
-  auth?: userAuth;
+  auth: userAuth;
 }
 
 const OverviewUXResearcher = () => {

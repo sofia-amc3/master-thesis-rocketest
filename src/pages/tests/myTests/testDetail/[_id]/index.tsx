@@ -18,7 +18,7 @@ import { TestData } from "../..";
 import Loading from "@/components/Loading";
 
 interface Props {
-  auth?: userAuth;
+  auth: userAuth;
 }
 
 const TestDetailUXResearcher = (props: Props) => {
@@ -242,7 +242,7 @@ const TestDetailUXResearcher = (props: Props) => {
   );
 };
 
-const TestDetailTester = () => {
+const TestDetailTester = (props: Props) => {
   const router = useRouter();
   const { _id } = router.query;
 
@@ -366,8 +366,8 @@ const TestDetail = (props: PropsTestPage) => {
       </Head>
       <main>
         {/* Check User Type */}
-        {props.auth?.type ? (
-          <TestDetailTester />
+        {props.auth.type ? (
+          <TestDetailTester auth={props.auth} />
         ) : (
           <TestDetailUXResearcher auth={props.auth} />
         )}
