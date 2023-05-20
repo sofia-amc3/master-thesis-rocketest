@@ -117,7 +117,6 @@ const registerTesterHandler = async (
             .send("There is already an account using this e-mail.");
         }
       } catch (error) {
-        console.log(error);
         return res.status(400).send(error);
       }
       break;

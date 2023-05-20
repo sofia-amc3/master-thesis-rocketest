@@ -48,7 +48,6 @@ const SignIn = (props: Props) => {
     await axios
       .post("/api/user/login", form)
       .then(async (res) => {
-        console.log("Login Info", res.data);
         await userSession.setItem(JSON.stringify(res.data), form.rememberMe);
 
         router.push("/tests");

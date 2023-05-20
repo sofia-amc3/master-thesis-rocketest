@@ -55,8 +55,6 @@ const MyTestsUXResearcher = (props: Props) => {
   // filters
   useEffect(() => {
     if (originalTests.length > 0) {
-      console.log("testOptions", testOptions);
-
       //SEARCH FILTER
       let result = originalTests.filter((testData) =>
         testData.testName.includes(testOptions.search)
@@ -229,8 +227,6 @@ const MyTestsTester = () => {
   // // filters
   // useEffect(() => {
   //   if (originalTests.length > 0) {
-  //     console.log("testOptions", testOptions);
-
   //     //SEARCH FILTER
   //     let result = originalTests.filter((testData) =>
   //       testData.testName.includes(testOptions.search)

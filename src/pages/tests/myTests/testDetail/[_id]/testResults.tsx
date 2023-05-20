@@ -14,7 +14,6 @@ const TestResults = () => {
 
   const downloadResults = () => {
     // download results
-    console.log("Results Download");
   };
 
   const goBack = () => {

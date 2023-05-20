@@ -126,7 +126,6 @@ const SignUpUxResearcher = () => {
       await axios
         .post("/api/user/registerUxResearcher", form)
         .then(async (res) => {
-          console.log("Register UX R. Info", res.data);
           await userSession.setItem(JSON.stringify(res.data), false); // 'remember me' value is false by default
           router.push("/tests");
         })
@@ -450,7 +449,6 @@ const SignUpTester = () => {
       await axios
         .post("/api/user/registerTester", form)
         .then(async (res) => {
-          console.log("Register Tester Info", res.data);
           await userSession.setItem(JSON.stringify(res.data), false); // 'remember me' value is false by default
           router.push("/tests");
         })
