@@ -365,6 +365,7 @@ button.buttonTertiarySecondary {
 }
 
 .sideMenu .profile .profilePic {
+  /* User Profile Picture */
   position: inherit !important;
   margin-bottom: 15px;
   border-radius: 10px;
@@ -372,6 +373,7 @@ button.buttonTertiarySecondary {
   height: auto !important;
   max-width: 8rem;
   min-height: 8rem;
+  object-fit: cover;
 }
 
 .sideMenu .profile span:last-child {
