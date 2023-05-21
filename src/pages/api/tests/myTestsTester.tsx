@@ -11,20 +11,18 @@ const MyTestsTesterHandler = async (
       try {
         const result = await pool.query(
           `SELECT DISTINCT T.ID,
-                             T."name" AS "testName",
-                             T."type" AS "testType",
-                             T.DEADLINE AS "testDeadline",
-                             U."name" AS "testCreator",
-                             T.PAYMENT AS "testPayment"
+                           T."name" AS "testName",
+                           T."type" AS "testType",
+                           T.DEADLINE AS "testDeadline",
+                           U."name" AS "testCreator",
+                           T.PAYMENT AS "testPayment"
             FROM "Tests" T,
-                 "Sections" S,
-                 "Questions" Q,
+                 "Questions_Sections" Q,
                  "Answers" A,
                  "Testers" TT,
                  "Users" U
             WHERE U.ID = T."userId"
-              AND T.ID = S."testId"
-              AND S.ID = Q."sectionId"
+              AND T.ID = Q."testId"
               AND Q.ID = A."questionId"
               AND A."userId" = TT."userId"
               AND TT."userId" = ${userId}
