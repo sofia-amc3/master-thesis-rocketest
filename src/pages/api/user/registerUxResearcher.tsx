@@ -22,7 +22,7 @@ const registerUxRHandler = async (
       } = req.body;
 
       // name validation
-      const nameRegex = /^[a-zA-Z0-9. ]{1,20}$/;
+      const nameRegex = /^[a-zA-Z0-9\u00C0-\u017F.]{1,20}$/;
       if (!nameRegex.test(name)) {
         return res
           .status(400)
