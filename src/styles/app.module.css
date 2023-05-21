@@ -630,10 +630,6 @@ button.buttonTertiarySecondary {
   bottom: 3.75rem;
 }
 
-.sideMenuAuth h5 {
-  margin: 13.5rem 0 2.25rem 0;
-}
-
 .sideMenuAuth .socialMediaContainer {
   display: flex;
   justify-content: space-between;
@@ -661,6 +657,40 @@ button.buttonTertiarySecondary {
 .sideMenuAuth .socialMediaContainer img:hover,
 .sideMenuAuth .linksContainer a:hover {
   opacity: 0.85;
+}
+
+/* Text Slider */
+.sideMenuAuth h5 {
+  margin: 14.5rem 0 2.25rem 0;
+}
+
+.sideMenuAuth p {
+  font-size: 1rem;
+  line-height: 1.7rem;
+}
+
+.sliderButtonsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.25rem;
+  width: 11.5rem;
+}
+
+.sliderButtonsContainer button {
+  width: 3.8rem;
+  height: 0.5rem;
+  border-radius: 4rem;
+  background-color: var(--color-rocketest-8);
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.sliderButtonsContainer button:hover {
+  opacity: 0.8;
+}
+
+.sliderButtonsContainer button.activeSliderButton {
+  opacity: 1;
 }
 
 /* Right Side Content -------- */
