@@ -3,7 +3,6 @@ import Head from "next/head";
 import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
 import SearchBar from "@/components/SearchBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Link from "next/link";
 import TextInput from "@/components/input-components/TextInput";
 import Button from "@/components/Button";
 import OptionInput from "@/components/input-components/OptionInput";
@@ -11,14 +10,7 @@ import { useRouter } from "next/router";
 import styles from "@/styles/app.module.css";
 import TestContentsMenu from "@/components/create-test-components/TestContentsMenu";
 
-interface PropsExample {
-  a: string;
-  b: string;
-  c?: string;
-  d?: boolean;
-}
-
-const EditTest = (props: PropsExample) => {
+const EditTest = () => {
   const router = useRouter();
 
   const goToTestDetailsPage = () => {
@@ -62,26 +54,36 @@ const EditTest = (props: PropsExample) => {
           isTextarea
         />
 
-        <TestContentsMenu />
+        {/* Create Test Controls - Side Menu */}
+        <TestContentsMenu isVisible={true} />
 
         <h3>Test Contents</h3>
-        <h4>Divider 01</h4>
-        <TextInput title="Name of Divider 01" placeholder="e.g. Section 01" />
+        <h4>Section 01</h4>
+        <TextInput title="Name of Section 01" placeholder="e.g. Section 01" />
         <TextInput
-          title="Description of Divider 01"
+          title="Description of Section 01"
           placeholder="e.g. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
           isTextarea
         />
 
-        <TextInput
-          title="Question 01"
-          placeholder="e.g. Which of these do you prefer?"
-          mandatory
-        />
-        <span className={styles.optionsText}>Options:</span>
-        <OptionInput letter="A" mandatory />
-        <OptionInput letter="B" mandatory plusIcon />
-        <OptionInput letter="C" plusIcon trashIcon />
+        <div
+          onFocus={() => {
+            console.log("focusing");
+          }}
+          onBlur={() => {
+            console.log("leaving");
+          }}
+        >
+          <TextInput
+            title="Question 01"
+            placeholder="e.g. Which of these do you prefer?"
+            mandatory
+          />
+          <span className={styles.optionsText}>Options:</span>
+          <OptionInput letter="A" mandatory />
+          <OptionInput letter="B" mandatory plusIcon />
+          <OptionInput letter="C" plusIcon trashIcon />
+        </div>
 
         <TextInput
           title="Question 02"

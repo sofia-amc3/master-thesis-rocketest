@@ -1435,19 +1435,15 @@ img.arrowRotate {
 .testContentsMenu {
   position: absolute;
   left: 44rem;
-}
-
-.testContentsMenuFixed {
-  position: fixed;
-  left: 60.9rem;
-}
-
-.testContentsMenu,
-.testContentsMenuFixed {
   top: 39.3rem;
   padding: 1.2rem;
   border-radius: 1.5rem;
   background-color: var(--color-rocketest-8);
+  visibility: visible;
+}
+
+.testsContentsMenuInvisible {
+  visibility: hidden;
 }
 
 .testContentsMenuRow {

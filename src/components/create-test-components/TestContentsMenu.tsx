@@ -2,9 +2,13 @@ import React from "react";
 import Image from "next/image";
 import styles from "@/styles/app.module.css";
 
-const TestContentsMenu = () => {
+const TestContentsMenu = ({ isVisible }: { isVisible: boolean }) => {
+  const menuClassName = isVisible
+    ? styles.testContentsMenu
+    : styles.testsContentsMenuInvisible;
+
   return (
-    <div className={styles.testContentsMenu}>
+    <div className={menuClassName}>
       <div className={styles.testContentsMenuRow}>
         <Image
           src="/icons/plus.svg"
@@ -18,11 +22,11 @@ const TestContentsMenu = () => {
       <div className={styles.testContentsMenuRow}>
         <Image
           src="/icons/plus.svg"
-          alt="Add Divider Icon"
+          alt="Add Section Icon"
           width={30}
           height={30}
         />
-        <span>Add Divider</span>
+        <span>Add Section</span>
       </div>
 
       <div className={styles.testContentsMenuRow}>
