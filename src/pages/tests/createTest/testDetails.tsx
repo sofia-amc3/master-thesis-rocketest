@@ -64,7 +64,7 @@ const TestDetails = () => {
             <img
               src="/icons/test-information.svg"
               alt="Information Icon"
-              title="Info Here"
+              title="It is not guaranteed that testers will have all these characteristics, but it is important to define them so that you can find the most suitable users for your product."
               className={styles.infoIcon}
             />
 

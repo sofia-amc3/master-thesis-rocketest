@@ -152,7 +152,7 @@ const FindTesters = (props: Props) => {
           <img
             src="/icons/test-information.svg"
             alt="Information Icon"
-            title="Info Here"
+            title="Ensure that the usability testing method is easily understood by the participants: they will have to register on Rocketest to respond to it. If there is some kind of monetary incentive, it could be a good way to convince users to participate in this task. Another important aspect to take into account is the confidentiality of the information present in the test, and, if necessary, you can send a document to the participant to sign before taking the test."
             className={styles.infoIcon}
           />
           <Button text="Send Message" size="medium" type="tertiary" />
