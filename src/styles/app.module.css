@@ -38,10 +38,15 @@ main.bgColorLight {
   z-index: 10;
 }
 
-.pageImgContainerScrollable {
+.pageImgContainerScrollable,
+.pageImgContainerDashboard {
   position: absolute;
   left: -18rem;
   height: auto;
+}
+
+.pageImgContainerDashboard {
+  top: 0;
 }
 
 .pageImgContainer img {
@@ -51,6 +56,11 @@ main.bgColorLight {
 }
 
 /* Special Pages' Content */
+.toTop {
+  position: relative;
+  z-index: 99;
+}
+
 .editProfileIcon,
 .backToProfileArrow {
   position: absolute;
@@ -454,6 +464,7 @@ button.buttonTertiarySecondary {
   position: absolute;
   top: 2rem;
   right: 4rem;
+  z-index: 99;
 }
 
 .searchbar input {
@@ -877,6 +888,7 @@ button.buttonTertiarySecondary {
 
 /* ---------------------------------------- TESTS PAGE: GENERAL ---------------------------------------------------- */
 .testsTopMenu {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   margin: 2.9rem 0 3.3rem 0;
@@ -885,6 +897,7 @@ button.buttonTertiarySecondary {
   color: var(--color-rocketest-2);
   font-weight: 500;
   cursor: pointer;
+  z-index: 99;
 }
 
 .testsTopMenu a {
