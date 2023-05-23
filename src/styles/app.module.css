@@ -881,6 +881,19 @@ button.buttonTertiarySecondary {
   text-align: justify;
 }
 
+.termsAndConditionsText a {
+  color: var(--color-rocketest-3);
+  text-decoration: underline;
+}
+
+.termsAndConditionsText span {
+  display: block;
+  color: var(--color-rocketest-3);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: -0.7rem;
+}
+
 /* Contact Us, Forgotten Password ----- */
 .authTwoButtonPages button:last-of-type {
   margin: 0;
