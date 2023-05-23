@@ -2,22 +2,14 @@ import React from "react";
 import Head from "next/head";
 import PageTemplate from "@/components/PageTemplate";
 
-interface PropsExample {
-  a: string;
-  b: string;
-  c?: string;
-  d?: boolean;
-}
-
-const Settings = (props: PropsExample) => {
+const Settings = () => {
   return (
     <>
       <Head>
         <title>Settings | Rocketest</title>
       </Head>
       <main>
-        {/* Change Page Height */}
-        <PageTemplate imgSrc="" />
+        <PageTemplate imgSrc="page_templates/settings.png" isScrollable />
       </main>
     </>
   );

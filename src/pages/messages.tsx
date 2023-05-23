@@ -2,21 +2,14 @@ import React from "react";
 import Head from "next/head";
 import PageTemplate from "@/components/PageTemplate";
 
-interface PropsExample {
-  a: string;
-  b: string;
-  c?: string;
-  d?: boolean;
-}
-
-const Messages = (props: PropsExample) => {
+const Messages = () => {
   return (
     <>
       <Head>
         <title>Messages | Rocketest</title>
       </Head>
       <main>
-        <PageTemplate imgSrc="" />
+        <PageTemplate imgSrc="page_templates/messages.png" />
       </main>
     </>
   );

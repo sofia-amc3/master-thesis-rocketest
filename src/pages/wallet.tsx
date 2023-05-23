@@ -1,23 +1,22 @@
 import React from "react";
 import Head from "next/head";
 import PageTemplate from "@/components/PageTemplate";
+import { PropsTestPage } from "./tests";
 
-interface PropsExample {
-  a: string;
-  b: string;
-  c?: string;
-  d?: boolean;
-}
-
-const Wallet = (props: PropsExample) => {
+const Wallet = (props: PropsTestPage) => {
   return (
     <>
       <Head>
         <title>Wallet | Rocketest</title>
       </Head>
       <main>
-        {/* Check User Type */}
-        <PageTemplate imgSrc="" />
+        {props.auth?.type ? (
+          // Tester
+          <PageTemplate imgSrc="page_templates/wallet-tester.png" />
+        ) : (
+          // UX Researcher
+          <PageTemplate imgSrc="page_templates/wallet-uxrsc.png" />
+        )}
       </main>
     </>
   );
