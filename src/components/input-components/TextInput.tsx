@@ -54,6 +54,7 @@ const TextInput = (props: Props) => {
                 ? `${styles.inputSmall}`
                 : `${styles.inputLarge}`
             }
+            defaultValue={props.defaultValue}
             onChange={props.onChange}
           >
             {props.options &&
@@ -62,7 +63,7 @@ const TextInput = (props: Props) => {
                   <option
                     key={key}
                     value={value}
-                    selected={value === props.defaultValue}
+                    //selected={value === props.defaultValue}
                   >
                     {value}
                   </option>

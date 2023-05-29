@@ -45,8 +45,13 @@ const TestDetailUXResearcher = (props: Props) => {
     await axios
       .get("/api/tests/testDetailUxResearcher", { params })
       .then(async (res) => {
-        if (res.data.length === 1) setTestData(res.data[0]);
-        else router.push("/tests/myTests/");
+        if (res.data.length === 1) {
+          setTestData(res.data[0]);
+          setLoading(false);
+        } else {
+          alert("There is no test available.");
+          router.push("/tests/myTests/");
+        }
       })
       .catch((error) => {
         if (error.response && error.response.data) {
@@ -54,9 +59,8 @@ const TestDetailUXResearcher = (props: Props) => {
         } else {
           alert(error.message); // default error message
         }
+        router.push("/tests/myTests/");
       });
-
-    setLoading(false);
   };
   useEffect(() => {
     setLoading(true);

@@ -12,6 +12,7 @@ import styles from "@/styles/app.module.css";
 import { TestData } from "../..";
 import { userAuth } from "@/utils/user";
 import axios from "axios";
+import Loading from "@/components/Loading";
 
 interface Props {
   auth?: userAuth;
@@ -20,7 +21,6 @@ interface Props {
 const FindTesters = (props: Props) => {
   const router = useRouter();
   const { _id } = router.query; // access the test ID from the URL parameter
-
   const [loading, setLoading] = useState(true);
   const [testData, setTestData] = useState({} as TestData);
 
@@ -37,7 +37,13 @@ const FindTesters = (props: Props) => {
     await axios
       .get("/api/tests/testDetailUxResearcher", { params })
       .then(async (res) => {
-        setTestData(res.data);
+        if (res.data.length === 1) {
+          setTestData(res.data[0]);
+          setLoading(false);
+        } else {
+          alert("There is no test available.");
+          router.push("/tests/myTests/");
+        }
       })
       .catch((error) => {
         if (error.response && error.response.data) {
@@ -45,9 +51,8 @@ const FindTesters = (props: Props) => {
         } else {
           alert(error.message); // default error message
         }
+        router.push("/tests/myTests/");
       });
-
-    setLoading(false);
   };
   useEffect(() => {
     setLoading(true);
@@ -56,7 +61,9 @@ const FindTesters = (props: Props) => {
     }
   }, [router]);
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <>
       <Head>
         <title>My Tests - Find Testers | Rocketest</title>
