@@ -84,6 +84,7 @@ const SignIn = (props: Props) => {
             type="password"
             size="small"
             onChange={(e) => updateForm({ password: e.target.value })}
+            onEnterKey={handleLogin}
           />
 
           <div className={styles.checkboxAndForgotPwContainer}>

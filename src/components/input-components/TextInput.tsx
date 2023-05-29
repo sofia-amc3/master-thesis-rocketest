@@ -1,4 +1,4 @@
-import React from "react";
+import React, { KeyboardEvent } from "react";
 import styles from "@/styles/app.module.css";
 import Image from "next/image";
 
@@ -18,9 +18,17 @@ interface Props {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => void;
+  onEnterKey?: () => void;
 }
 
 const TextInput = (props: Props) => {
+  const keyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (props.onEnterKey !== undefined && e.key === "Enter") {
+      console.log("enter key pressed");
+      props.onEnterKey();
+    }
+  };
+
   return (
     <div className={styles.textInput}>
       <label>{props.title}</label>
@@ -36,6 +44,7 @@ const TextInput = (props: Props) => {
           }
           maxLength={props.textareaMaxLength}
           onChange={props.onChange}
+          value={props.defaultValue}
         ></textarea>
       ) : props.isSelect ? (
         <div className={`${styles.selectContainer} ${styles.authSelect}`}>
@@ -77,7 +86,9 @@ const TextInput = (props: Props) => {
               ? `${styles.inputSmall}`
               : `${styles.inputLarge}`
           }
+          value={props.defaultValue}
           onChange={props.onChange}
+          onKeyUp={keyPress}
         />
       )}
     </div>
