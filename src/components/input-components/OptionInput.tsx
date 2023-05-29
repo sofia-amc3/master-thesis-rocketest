@@ -4,21 +4,59 @@ import Button from "../Button";
 import styles from "@/styles/app.module.css";
 
 interface Props {
-  letter: string;
+  id: number;
   mandatory?: boolean;
+  defaultValue?: string;
+  onChangeText: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => void;
   plusIcon?: boolean;
   trashIcon?: boolean;
 }
 
+const letterConverter = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
+
 const OptionInput = (props: Props) => {
   return (
     <div className={styles.optionInput}>
-      <label>{props.letter}</label>
+      {/* display the corresponding letter to the option id */}
+      <label>{letterConverter[props.id]}</label>
       {props.mandatory && <span>*</span>}
       <input
         type="text"
-        placeholder={`Name of Option ${props.letter}`}
+        placeholder={`Name of Option ${letterConverter[props.id]}`}
         className={props.mandatory ? styles.mandatoryOptInput : ""}
+        value={props.defaultValue}
+        onChange={props.onChangeText}
       />
 
       <Button text="Upload" type="tertiary" size="small" />

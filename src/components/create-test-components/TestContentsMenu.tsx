@@ -1,15 +1,35 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import styles from "@/styles/app.module.css";
+import {
+  Form,
+  Question,
+  Section,
+  question_sectionCreator,
+  question_sectionDelete,
+} from "@/utils/testCreatorHelper";
 
-const TestContentsMenu = ({ isVisible }: { isVisible: boolean }) => {
-  const menuClassName = isVisible
-    ? styles.testContentsMenu
-    : styles.testsContentsMenuInvisible;
+interface Props {
+  isVisible: boolean;
+  formData: Form;
+  setForm: Dispatch<SetStateAction<Form>>;
+  q_s: Question | Section;
+}
+
+/* Side Menu Controls for Creating a Test -> Add Question, Add Section, Delete, Move Up and Move Down */
+const TestContentsMenu = (props: Props) => {
+  const menuClassName = `${styles.testContentsMenu} ${
+    !props.isVisible ? styles.invisible : ""
+  }`;
 
   return (
-    <div className={menuClassName}>
-      <div className={styles.testContentsMenuRow}>
+    <div className={menuClassName} tabIndex={-1}>
+      <div
+        className={styles.testContentsMenuRow}
+        onMouseDown={() =>
+          props.setForm(question_sectionCreator(props.formData, false))
+        }
+      >
         <Image
           src="/icons/plus.svg"
           alt="Add Question Icon"
@@ -19,7 +39,12 @@ const TestContentsMenu = ({ isVisible }: { isVisible: boolean }) => {
         <span>Add Question</span>
       </div>
 
-      <div className={styles.testContentsMenuRow}>
+      <div
+        className={styles.testContentsMenuRow}
+        onMouseDown={() =>
+          props.setForm(question_sectionCreator(props.formData, true))
+        }
+      >
         <Image
           src="/icons/plus.svg"
           alt="Add Section Icon"
@@ -29,7 +54,12 @@ const TestContentsMenu = ({ isVisible }: { isVisible: boolean }) => {
         <span>Add Section</span>
       </div>
 
-      <div className={styles.testContentsMenuRow}>
+      <div
+        className={styles.testContentsMenuRow}
+        onMouseDown={() =>
+          props.setForm(question_sectionDelete(props.formData, props.q_s))
+        }
+      >
         <Image
           src="/icons/trash.svg"
           alt="Delete Icon"
@@ -39,7 +69,8 @@ const TestContentsMenu = ({ isVisible }: { isVisible: boolean }) => {
         <span>Delete</span>
       </div>
 
-      <div className={styles.testContentsMenuRow}>
+      {/* Disabled */}
+      <div className={`${styles.testContentsMenuRow} ${styles.disabled}`}>
         <Image
           src="/icons/arrow.svg"
           alt="Arrow Up Icon"
@@ -49,7 +80,7 @@ const TestContentsMenu = ({ isVisible }: { isVisible: boolean }) => {
         <span>Move Up</span>
       </div>
 
-      <div className={styles.testContentsMenuRow}>
+      <div className={`${styles.testContentsMenuRow} ${styles.disabled}`}>
         <Image
           src="/icons/arrow.svg"
           alt="Arrow Down Icon"
