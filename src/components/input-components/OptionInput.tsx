@@ -2,18 +2,24 @@ import React from "react";
 import Image from "next/image";
 import Button from "../Button";
 import styles from "@/styles/app.module.css";
+import { Option } from "@/utils/testCreatorHelper";
 
 interface Props {
   id: number;
   mandatory?: boolean;
-  defaultValue?: string;
+  questionId: number;
+  defaultValues: Option;
   onChangeText: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => void;
+  onChangeImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onDeleteImg: () => void;
   plusIcon?: boolean;
+  addOption?: () => void;
   trashIcon?: boolean;
+  deleteOption?: () => void;
 }
 
 const letterConverter = [
@@ -55,19 +61,50 @@ const OptionInput = (props: Props) => {
         type="text"
         placeholder={`Name of Option ${letterConverter[props.id]}`}
         className={props.mandatory ? styles.mandatoryOptInput : ""}
-        value={props.defaultValue}
+        value={props.defaultValues?.name}
         onChange={props.onChangeText}
       />
 
-      <Button text="Upload" type="tertiary" size="small" />
-      <span className={styles.uploadedImgDetails}>image01.jpg</span>
-      <Image
-        src="/icons/bin.svg"
-        alt="Delete Uploaded Image Icon"
-        width={15}
-        height={15}
-        className={styles.deleteImgIcon}
+      <input
+        type="file"
+        id={`OptionImg-Q${props.questionId}O${props.defaultValues.id}`}
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={props.onChangeImg}
       />
+      <Button
+        text="Upload"
+        type="tertiary"
+        size="small"
+        function={() =>
+          document
+            .getElementById(
+              `OptionImg-Q${props.questionId}O${props.defaultValues.id}`
+            )!
+            .click()
+        }
+      />
+
+      <span className={styles.uploadedImgDetails}>
+        {props.defaultValues?.imgName || "No image uploaded."}
+      </span>
+      {props.defaultValues?.imgSrc && (
+        <Image
+          src="/icons/bin.svg"
+          alt="Delete Uploaded Image Icon"
+          width={15}
+          height={15}
+          className={styles.deleteImgIcon}
+          onClick={() => {
+            props.onDeleteImg();
+            (
+              document.getElementById(
+                `OptionImg-Q${props.questionId}O${props.defaultValues.id}`
+              )! as HTMLInputElement
+            ).value = "";
+          }}
+        />
+      )}
 
       {props.plusIcon && (
         <Image
@@ -76,6 +113,7 @@ const OptionInput = (props: Props) => {
           width={20}
           height={20}
           className={styles.addOptionIcon}
+          onClick={props.addOption}
         />
       )}
       {props.trashIcon && (
@@ -85,6 +123,7 @@ const OptionInput = (props: Props) => {
           width={20}
           height={20}
           className={styles.deleteOptionIcon}
+          onClick={props.deleteOption}
         />
       )}
     </div>

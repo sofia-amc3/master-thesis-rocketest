@@ -36,6 +36,13 @@ const Test = (props: Props) => {
             section={section}
             key={sectionKey}
           />
+          // <Question
+          //   sectionNr={props.sectionNr}
+          //   currentQuestionNr={`${questionKey + 1}`}
+          //   totalQuestionsNr={`${props.section.questions.length}`}
+          //   question={question}
+          //   key={questionKey}
+          // />
         );
       })}
     </>
