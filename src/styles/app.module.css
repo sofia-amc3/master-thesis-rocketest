@@ -1577,3 +1577,60 @@ img.arrowRotate {
 .testDetailsContainer .rightSide button:first-of-type {
   margin-right: 1.6rem;
 }
+
+/* ----------------------------------------------- 404 PAGE --------------------------------------------------------- */
+.error404Container {
+  display: flex;
+  justify-content: space-between;
+  margin: 16rem auto auto auto;
+  width: 60rem;
+  height: 22.6rem;
+}
+
+.error404Container .leftContent {
+  position: relative;
+}
+
+.error404Container .leftContent div {
+  /* white background */
+  width: 21.25rem;
+  height: 21.25rem;
+  background-color: var(--color-rocketest-8);
+  border-radius: 100%;
+}
+
+.error404Container .leftContent img {
+  position: absolute;
+  top: 5rem;
+  left: 4.125rem;
+  width: 13rem;
+}
+
+.error404Container .rightContent {
+  width: 32rem;
+}
+
+.error404Container .rightContent span {
+  display: block;
+}
+
+.error404Container .rightContent span.redText01,
+.error404Container .rightContent span.redText02 {
+  font-weight: 700;
+  color: var(--color-rocketest-10);
+}
+
+.error404Container .rightContent span.redText01 {
+  font-size: 6.25rem;
+}
+
+.error404Container .rightContent span.redText02 {
+  font-size: 2.5rem;
+}
+
+.error404Container .rightContent span.blueText {
+  font-weight: 600;
+  color: var(--color-rocketest-2);
+  font-size: 1.25rem;
+  margin: 2.8rem 0 2.8rem 0;
+}
