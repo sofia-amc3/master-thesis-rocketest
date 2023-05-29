@@ -1130,6 +1130,7 @@ img.arrowRotate {
 }
 
 .testCardInfoContainer {
+  width: 16.9rem;
   padding: 1.6rem 1.25rem 1.6rem 1.25rem;
   border-radius: 0 0 1.6rem 1.6rem;
   background-color: var(--color-rocketest-8);
@@ -1144,10 +1145,6 @@ img.arrowRotate {
 
 .testCardImgContainer img {
   object-fit: cover;
-}
-
-.testCardInfoContainer {
-  width: 16.9rem;
 }
 
 .testCardInfoContainer > span:first-of-type {
@@ -1181,7 +1178,7 @@ img.arrowRotate {
 .testCardInfoContainer > span {
   /* Test Description */
   display: block;
-  height: 4.5rem;
+  height: auto;
   font-weight: 500;
   font-size: 0.8rem;
   color: var(--color-rocketest-9);
@@ -1190,6 +1187,10 @@ img.arrowRotate {
 
 .noTestsAvailable {
   margin-left: 1.6rem;
+}
+
+h6.testCategoryDescription {
+  width: 53rem;
 }
 
 /* Test Detail Page ------------------------------- */
