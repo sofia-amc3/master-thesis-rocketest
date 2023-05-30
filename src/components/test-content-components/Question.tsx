@@ -11,6 +11,8 @@ interface Props {
   currentQuestionNr: string;
   totalQuestionsNr: string;
   question: QuestionData;
+  questionId: number;
+  updateOptionAnswer?: (questionId: number, text: string) => void;
 }
 
 const QuestionEntry = (props: Props) => {
@@ -23,14 +25,15 @@ const QuestionEntry = (props: Props) => {
       {props.question.options.map((option, optionKey) => {
         return (
           <OptionEntry
-            imgSrc={option.imgSrc}
-            optionLabel={option.name}
             optionValue={`q${props.currentQuestionNr}`}
             selected={
               props.question.answer
                 ? props.question.answer === option.name
                 : undefined
             }
+            optionData={option}
+            questionId={props.questionId}
+            updateOptionAnswer={props.updateOptionAnswer}
             key={optionKey}
           />
         );

@@ -1,27 +1,33 @@
 import React from "react";
 import styles from "@/styles/app.module.css";
+import { Option } from "@/utils/testCreatorHelper";
 
 interface Props {
-  imgSrc: string;
-  optionLabel: string;
   optionValue: string;
   selected?: boolean;
+  optionData: Option;
+  questionId: number;
+  updateOptionAnswer?: (questionId: number, text: string) => void;
 }
 
 const OptionEntry = (props: Props) => {
   return (
     <div className={styles.testImgAndOptionContainer}>
       <div className={styles.testImgContainer}>
-        <img src={props.imgSrc} alt="Option Image" />
+        <img src={props.optionData.imgSrc} alt="Option Image" />
       </div>
       <div className={styles.testOptionContainer}>
         <input
           type="radio"
           name={props.optionValue}
-          readOnly={props.selected !== undefined}
-          checked={props.selected}
+          checked={props.selected || false}
+          value={props.optionData.name}
+          onChange={(e) => {
+            props.updateOptionAnswer &&
+              props.updateOptionAnswer(props.questionId, e.target.value);
+          }}
         />
-        <label>{props.optionLabel}</label>
+        <label>{props.optionData.name}</label>
       </div>
     </div>
   );

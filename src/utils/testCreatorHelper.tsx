@@ -64,6 +64,7 @@ export const exampleFormObject = {
           imgName: imgNameExample,
         },
       ],
+      answer: "",
       isSection: false,
     },
     {
@@ -89,6 +90,7 @@ export const exampleFormObject = {
           imgName: imgNameExample,
         },
       ],
+      answer: "",
       isSection: false,
     },
   ],

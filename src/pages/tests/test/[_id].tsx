@@ -5,13 +5,22 @@ import Test from "@/components/test-content-components/Test";
 import Button from "@/components/Button";
 import styles from "@/styles/app.module.css";
 import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
-import { exampleFormObject } from "@/utils/testCreatorHelper";
+import { exampleFormObject, Form } from "@/utils/testCreatorHelper";
+import { QuestionData } from "@/components/test-content-components/Question";
 
 const ToBeAnsweredTest = () => {
   const router = useRouter();
   const { _id } = router.query;
 
   const [formData, setFormData] = useState(exampleFormObject);
+
+  const updateOptionAnswer = (questionId: number, text: string): void => {
+    const updatedFormObj = { ...formData };
+
+    (updatedFormObj.question_section[questionId] as QuestionData).answer = text;
+
+    setFormData(updatedFormObj);
+  };
 
   return (
     <>
@@ -22,12 +31,19 @@ const ToBeAnsweredTest = () => {
         {/* Falta aviso se clicar em algum sítio irá perder as respostas já dadas */}
         <TestsTopMenu isTester />
 
-        <Test testData={formData} />
+        <Test testData={formData} updateOptionAnswer={updateOptionAnswer} />
 
         {/* Submit/Cancel */}
         <div className={styles.testButtonsContainer}>
           <Button text="Cancel" size="large" type="secondary" />
-          <Button text="Submit" size="large" type="primary" />
+          <Button
+            text="Submit"
+            size="large"
+            type="primary"
+            function={() => {
+              console.log(formData);
+            }}
+          />
         </div>
       </main>
     </>

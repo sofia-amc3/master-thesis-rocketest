@@ -6,6 +6,7 @@ import QuestionEntry from "./Question";
 
 interface Props {
   testData: Form;
+  updateOptionAnswer?: (questionId: number, text: string) => void;
 }
 
 const Test = (props: Props) => {
@@ -55,6 +56,8 @@ const Test = (props: Props) => {
             ).toString()}
             totalQuestionsNr={getTotalQuestionsNr().toString()}
             question={q_s}
+            questionId={q_sKey}
+            updateOptionAnswer={props.updateOptionAnswer}
             key={q_sKey}
           />
         );
