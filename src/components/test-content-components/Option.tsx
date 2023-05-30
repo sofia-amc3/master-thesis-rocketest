@@ -1,11 +1,6 @@
 import React from "react";
 import styles from "@/styles/app.module.css";
 
-export interface OptionData {
-  src: string;
-  name: string;
-}
-
 interface Props {
   imgSrc: string;
   optionLabel: string;
@@ -13,11 +8,11 @@ interface Props {
   selected?: boolean;
 }
 
-const Option = (props: Props) => {
+const OptionEntry = (props: Props) => {
   return (
     <div className={styles.testImgAndOptionContainer}>
       <div className={styles.testImgContainer}>
-        <img src="" alt="Option Image" />
+        <img src={props.imgSrc} alt="Option Image" />
       </div>
       <div className={styles.testOptionContainer}>
         <input
@@ -32,4 +27,4 @@ const Option = (props: Props) => {
   );
 };
 
-export default Option;
+export default OptionEntry;

@@ -13,7 +13,7 @@ interface Props {
   isVisible: boolean;
   formData: Form;
   setForm: Dispatch<SetStateAction<Form>>;
-  q_s: Question | Section;
+  q_sKey: number;
 }
 
 /* Side Menu Controls for Creating a Test -> Add Question, Add Section, Delete, Move Up and Move Down */
@@ -57,7 +57,7 @@ const TestContentsMenu = (props: Props) => {
       <div
         className={styles.testContentsMenuRow}
         onMouseDown={() =>
-          props.setForm(question_sectionDelete(props.formData, props.q_s))
+          props.setForm(question_sectionDelete(props.formData, props.q_sKey))
         }
       >
         <Image

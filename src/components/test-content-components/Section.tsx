@@ -1,19 +1,19 @@
 import React from "react";
-import Question, { QuestionData } from "./Question";
 import styles from "@/styles/app.module.css";
+import { Section } from "@/utils/testCreatorHelper";
 
-export interface SectionData {
-  name: string;
-  description?: string;
-  questions: QuestionData[];
-}
+// export interface SectionData {
+//   name: string;
+//   description?: string;
+//   questions: QuestionData[];
+// }
 
 interface Props {
   sectionNr: number;
-  section: SectionData;
+  section: Section;
 }
 
-const Section = (props: Props) => {
+const SectionEntry = (props: Props) => {
   return (
     <>
       <span className={styles.testSectionTitle}>
@@ -24,19 +24,8 @@ const Section = (props: Props) => {
           {props.section.description}
         </span>
       )}
-      {props.section.questions.map((question, questionKey) => {
-        return (
-          <Question
-            sectionNr={props.sectionNr}
-            currentQuestionNr={`${questionKey + 1}`}
-            totalQuestionsNr={`${props.section.questions.length}`}
-            question={question}
-            key={questionKey}
-          />
-        );
-      })}
     </>
   );
 };
 
-export default Section;
+export default SectionEntry;

@@ -22,34 +22,7 @@ interface Props {
   deleteOption?: () => void;
 }
 
-const letterConverter = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-];
+const letterConverter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
 const OptionInput = (props: Props) => {
   return (

@@ -1489,6 +1489,22 @@ h6.testCategoryDescription {
 
 .createTestWrapper {
   width: fit-content;
+  display: inline-block;
+}
+
+.createTestPreview {
+  display: inline-block;
+  transform: scale(75%) translate(-15%, -15%);
+  width: 35.5rem;
+  background-color: var(--color-rocketest-8);
+  padding: 2rem;
+  border-radius: 20px;
+  vertical-align: top;
+}
+
+.createTestPreview .testImgContainer {
+  width: 10rem !important;
+  height: 10rem !important;
 }
 
 .testContentWrapper {
@@ -1508,6 +1524,7 @@ h6.testCategoryDescription {
   padding: 1.2rem;
   border-radius: 1.5rem;
   background-color: var(--color-rocketest-8);
+  z-index: 1;
 }
 
 .disabled,
