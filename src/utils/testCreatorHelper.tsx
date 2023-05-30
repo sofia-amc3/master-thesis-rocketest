@@ -129,10 +129,18 @@ export const formTemplate = {
 export const optionCreator = (formObj: Form, q_s: Question): Form => {
   const updatedFormObj = { ...formObj };
 
-  // push a new option to the options array of the specified question
-  (updatedFormObj.question_section[q_s.id] as Question).options.push(
-    optionTemplate(q_s.options.length)
-  );
+  if (
+    (updatedFormObj.question_section[q_s.id] as Question).options.length >= 10
+  ) {
+    alert(
+      "Maximum number of options reached. Please add only up to 10 options."
+    );
+  } else {
+    // push a new option to the options array of the specified question
+    (updatedFormObj.question_section[q_s.id] as Question).options.push(
+      optionTemplate(q_s.options.length)
+    );
+  }
 
   return updatedFormObj;
 };

@@ -198,7 +198,7 @@ const EditTest = () => {
                                     deleteImageOption(formTest, q_s, opt)
                                   );
                                 }}
-                                plusIcon={key > 0} // we can add a new option in the B one
+                                plusIcon={key > 0 && key < 9} // we can add a new option in the B one, add up to 10 options
                                 addOption={() => {
                                   setFormTest(optionCreator(formTest, q_s));
                                 }}
