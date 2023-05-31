@@ -1,5 +1,3 @@
-import styles from "@/styles/app.module.css";
-
 // main form interfaces ----------------------------------------------------------------------------------
 export interface Option {
   id: number;

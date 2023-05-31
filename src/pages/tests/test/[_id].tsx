@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Test from "@/components/test-content-components/Test";
 import Button from "@/components/Button";
 import styles from "@/styles/app.module.css";
 import TestsTopMenu from "@/components/tests-components/TestsTopMenu";
-import { exampleFormObject, Form } from "@/utils/testCreatorHelper";
+import { Form } from "@/utils/testCreatorHelper";
 import { QuestionData } from "@/components/test-content-components/Question";
+import axios from "axios";
+import Loading from "@/components/Loading";
 
 const ToBeAnsweredTest = () => {
   const router = useRouter();
   const { _id } = router.query;
 
-  const [formData, setFormData] = useState(exampleFormObject);
+  const [formData, setFormData] = useState({} as Form);
+  const [loading, setLoading] = useState(true);
 
   const updateOptionAnswer = (questionId: number, text: string): void => {
     const updatedFormObj = { ...formData };
@@ -22,7 +25,37 @@ const ToBeAnsweredTest = () => {
     setFormData(updatedFormObj);
   };
 
-  return (
+  //on loading page functions
+  const getTestData = async () => {
+    const params = {
+      testId: _id,
+    };
+
+    await axios
+      .get("/api/tests/getTestForm", { params })
+      .then(async (res) => {
+        setFormData(res.data);
+      })
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          alert(error.response.data); // specific error messages
+        } else {
+          alert(error.message); // default error message
+        }
+      });
+
+    setLoading(false);
+  };
+  useEffect(() => {
+    setLoading(true);
+    if (router.isReady) {
+      getTestData();
+    }
+  }, [router]);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <>
       <Head>
         <title>{formData.testName} | Rocketest</title>
