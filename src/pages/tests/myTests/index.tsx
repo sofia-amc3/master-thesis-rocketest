@@ -145,7 +145,7 @@ const MyTestsUXResearcher = (props: Props) => {
     };
 
     await axios
-      .get("/api/tests/myTestsUxResearcher", { params })
+      .get("/api/tests/myTests/myTestsUxResearcher", { params })
       .then(async (res) => {
         setOriginalTests(res.data);
       })
@@ -321,7 +321,7 @@ const MyTestsTester = (props: Props) => {
     };
 
     await axios
-      .get("/api/tests/myTestsTester", { params })
+      .get("/api/tests/myTests/myTestsTester", { params })
       .then(async (res) => {
         setOriginalTests(res.data);
       })

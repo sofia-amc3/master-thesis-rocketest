@@ -16,6 +16,7 @@ import { userAuth } from "@/utils/user";
 import { PropsTestPage } from "@/pages/tests";
 import { TestData } from "../..";
 import Loading from "@/components/Loading";
+import { exampleFormObject } from "@/utils/testCreatorHelper";
 
 interface Props {
   auth: userAuth;
@@ -43,7 +44,7 @@ const TestDetailUXResearcher = (props: Props) => {
     };
 
     await axios
-      .get("/api/tests/testDetailUxResearcher", { params })
+      .get("/api/tests/myTests/testDetail/testDetailUxResearcher", { params })
       .then(async (res) => {
         if (res.data.length === 1) {
           setTestData(res.data[0]);
@@ -79,7 +80,7 @@ const TestDetailUXResearcher = (props: Props) => {
       setLoading(true);
 
       await axios
-        .post("/api/tests/deleteTestUxResearcher", {
+        .post("/api/tests/myTests/testDetail/deleteTestUxResearcher", {
           userId: props.auth?.id,
           testId: Number(_id),
         })
@@ -254,92 +255,6 @@ const TestDetailTester = (props: Props) => {
     router.push("/tests/myTests/");
   };
 
-  const objectExample = {
-    name: "Test Name",
-    author: "Sofia",
-    type: "A/B Test",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    sections: [
-      {
-        name: "Section 01",
-        description: "section description",
-        questions: [
-          {
-            text: "Which of these do you prefer?",
-            answer: "Option A",
-            options: [
-              {
-                src: "",
-                name: "Option A",
-              },
-              {
-                src: "",
-                name: "Option B",
-              },
-            ],
-          },
-          {
-            text: "Question 02",
-            answer: "Option B",
-            options: [
-              {
-                src: "",
-                name: "Option A",
-              },
-              {
-                src: "",
-                name: "Option B",
-              },
-              {
-                src: "",
-                name: "Option C",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        name: "Section 02",
-        description: "section description",
-        questions: [
-          {
-            text: "Which of these do you prefer?",
-            answer: "Option B",
-            options: [
-              {
-                src: "",
-                name: "Option A",
-              },
-              {
-                src: "",
-                name: "Option B",
-              },
-            ],
-          },
-          {
-            text: "Question 02",
-            answer: "Option C",
-            options: [
-              {
-                src: "",
-                name: "Option A",
-              },
-              {
-                src: "",
-                name: "Option B",
-              },
-              {
-                src: "",
-                name: "Option C",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  };
-
   return (
     <>
       <TestsTopMenu isTester />
@@ -348,7 +263,7 @@ const TestDetailTester = (props: Props) => {
       <Breadcrumbs link="" pageName="Test Name" activePage />
 
       {/* Return Test with Answers Here */}
-      <Test testData={objectExample} />
+      <Test testData={exampleFormObject} />
 
       <div className={styles.testButtonsContainer}>
         <Button

@@ -32,7 +32,7 @@ const ToBeAnsweredTest = () => {
     };
 
     await axios
-      .get("/api/tests/getTestForm", { params })
+      .get("/api/tests/test/getTestForm", { params })
       .then(async (res) => {
         setFormData(res.data);
       })

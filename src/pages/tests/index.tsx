@@ -144,7 +144,7 @@ const OverviewTester = () => {
             imageSrc="/tests_imgs/a-b-testing.jpg"
             testTitle="Test Name"
             testType="A/B Test"
-            noTesters="100"
+            company="UX researcher"
             deadline="16 Mar 2023"
             page="/tests/test/01"
             paymentAmount="5.99€"

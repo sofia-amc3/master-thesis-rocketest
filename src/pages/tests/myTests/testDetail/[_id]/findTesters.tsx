@@ -87,7 +87,7 @@ const FindTesters = (props: Props) => {
             placeholder=""
             size="small"
             isSelect
-            options={["LinkedIn", "Facebook", "Instagram"]}
+            options={["Custom API", "LinkedIn", "Facebook", "Instagram"]}
             onChange={(e) => console.log(e)}
           />
           <Button text="Search" size="small" type="tertiary" />
