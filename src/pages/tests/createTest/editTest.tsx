@@ -275,8 +275,16 @@ const EditTest = () => {
                 />
               </form>
             </div>
-            <div className={styles.createTestPreview}>
-              <Test testData={formTest} />
+            <div className={styles.createTestPreviewWrapper}>
+              <h3>Test Preview</h3>
+              <div className={styles.createTestPreview}>
+                <Test testData={formTest} />
+                <br />
+                <br />
+                <br />
+                <Button size="medium" text="Cancel" type="secondary" />
+                <Button size="medium" text="Submit Answers" type="primary" />
+              </div>
             </div>
           </>
         )}

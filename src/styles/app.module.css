@@ -1492,19 +1492,58 @@ h6.testCategoryDescription {
   display: inline-block;
 }
 
-.createTestPreview {
-  display: inline-block;
-  transform: scale(75%) translate(-15%, -15%);
+.createTestPreviewWrapper {
+  position: absolute;
+  right: 4.1rem;
+  top: 15.8rem;
   width: 35.5rem;
+}
+
+.createTestPreviewWrapper h3 {
+  text-align: center;
+}
+
+.createTestPreview {
+  margin-top: 1rem;
+  padding: 2.2rem;
+  border-radius: 30px;
   background-color: var(--color-rocketest-8);
-  padding: 2rem;
-  border-radius: 20px;
-  vertical-align: top;
+}
+
+.createTestPreview > button {
+  font-size: 0.8rem;
+}
+
+.createTestPreview > button:hover {
+  cursor: auto;
+  opacity: 1;
+}
+
+.createTestPreview > h1,
+.createTestPreview > .testQuestionTitle {
+  font-size: 1.1rem;
+}
+
+.createTestPreview > h4 {
+  margin-top: 0.7rem;
+  font-size: 0.8rem;
+}
+
+.createTestPreview > .testSectionDescription:first-of-type {
+  font-size: 0.75rem;
+}
+
+.createTestPreview > .testQuestionIndicator {
+  font-size: 0.7rem;
+}
+
+.createTestPreview > .testOptionContainer {
+  margin-bottom: 1.2rem;
 }
 
 .createTestPreview .testImgContainer {
-  width: 10rem !important;
-  height: 10rem !important;
+  width: 9.1rem !important;
+  height: 9.1rem !important;
 }
 
 .testContentWrapper {
