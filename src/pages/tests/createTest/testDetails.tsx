@@ -14,13 +14,16 @@ import CheckboxRatioBtnInput from "@/components/input-components/CheckboxRatioBt
 import MultiRangeSlider from "@/components/multi-range-slider/MultiRangeSlider";
 import Loading from "@/components/Loading";
 import { Form } from "@/utils/testCreatorHelper";
+import axios from "axios";
+import { userSession } from "@/utils/user";
+import { PropsTestPage } from "..";
 
 export interface OptionList {
   value: string;
   label: string;
 }
 
-interface FormCriteria extends Form {
+export interface FormCriteria extends Form {
   ageRange: [number, number];
   gender: string;
   location: string;
@@ -33,7 +36,7 @@ interface FormCriteria extends Form {
   privacy: boolean; //public = true
 }
 
-const TestDetails = () => {
+const TestDetails = (props: PropsTestPage) => {
   const [digiSavviness, setDigiSavviness] = useState([
     { value: "Not digitally savvy testers.", checked: false },
     { value: "Somewhat digitally savvy testers.", checked: false },
@@ -54,11 +57,26 @@ const TestDetails = () => {
     router.push("/tests/createTest/editTest");
   };
 
-  const saveTest = () => {
+  const saveTest = async () => {
     // Save Test & Go To Test Details
-    // router.push("/tests/myTests/testDetail");
+    const params = {
+      userId: props.auth.id,
+      formData: formTest,
+    };
 
-    console.log(formTest);
+    await axios
+      .post("/api/tests/createTest/insert", params)
+      .then(async (res) => {
+        sessionStorage.removeItem("currentTest");
+        router.push(`/tests/myTests/testDetail/${res.data[0].testId}`);
+      })
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          alert(error.response.data); // specific error messages defined in the registerTester.tsx file
+        } else {
+          alert(error.message); // default error message
+        }
+      });
   };
 
   useEffect(() => {

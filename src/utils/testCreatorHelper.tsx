@@ -177,6 +177,7 @@ export const question_sectionCreator = (
   const updatedFormObj = { ...formObj };
 
   if (
+    isSection &&
     updatedFormObj.question_section[formObj.question_section.length - 1]
       .isSection
   ) {

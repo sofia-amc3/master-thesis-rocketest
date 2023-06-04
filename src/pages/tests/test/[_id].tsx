@@ -9,8 +9,9 @@ import { Form } from "@/utils/testCreatorHelper";
 import { QuestionData } from "@/components/test-content-components/Question";
 import axios from "axios";
 import Loading from "@/components/Loading";
+import { PropsTestPage } from "..";
 
-const ToBeAnsweredTest = () => {
+const ToBeAnsweredTest = (props: PropsTestPage) => {
   const router = useRouter();
   const { _id } = router.query;
 
@@ -73,6 +74,7 @@ const ToBeAnsweredTest = () => {
             text="Submit"
             size="large"
             type="primary"
+            disabled={props.auth.type === 0}
             function={() => {
               console.log(formData);
             }}

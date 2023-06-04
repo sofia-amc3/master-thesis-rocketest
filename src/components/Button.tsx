@@ -6,6 +6,7 @@ interface Props {
   type: "primary" | "secondary" | "tertiary" | "tertiary-secondary";
   size: "small" | "medium" | "large" | "extra-large" | "extra-extra-large";
   function?: Function;
+  disabled?: boolean;
 }
 
 const Button = (props: Props) => {
@@ -13,6 +14,8 @@ const Button = (props: Props) => {
     <button
       type="button"
       className={
+        (props.disabled ? `${styles.disabled}` : "") +
+        " " +
         (props.type === "primary"
           ? `${styles.buttonPrimary}`
           : props.type === "secondary"
@@ -32,6 +35,7 @@ const Button = (props: Props) => {
           : `${styles.buttonExtraExtraLarge}`)
       }
       onClick={props.function && props.function.bind(this)}
+      disabled={props.disabled}
     >
       {props.text}
     </button>
