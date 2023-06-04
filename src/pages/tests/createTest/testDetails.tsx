@@ -6,23 +6,49 @@ import SearchBar from "@/components/SearchBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import styles from "@/styles/app.module.css";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { HobbiesList } from "@/utils/hobbies";
 import { CareersList } from "@/utils/careers";
 import CheckboxRatioBtnInput from "@/components/input-components/CheckboxRatioBtnInput";
 import MultiRangeSlider from "@/components/multi-range-slider/MultiRangeSlider";
+import Loading from "@/components/Loading";
+import { Form } from "@/utils/testCreatorHelper";
 
 export interface OptionList {
   value: string;
   label: string;
 }
 
+interface FormCriteria extends Form {
+  ageRange: [number, number];
+  gender: string;
+  location: string;
+  careers: string[];
+  hobbies: string[];
+  digitalSavviness: number[];
+  deadlineDate: Date;
+  incentiveType: string;
+  payment: number;
+  privacy: boolean; //public = true
+}
+
 const TestDetails = () => {
-  const [selectedOption, setSelectedOption] = useState<
-    null | readonly OptionList[]
-  >(null);
+  const [digiSavviness, setDigiSavviness] = useState([
+    { value: "Not digitally savvy testers.", checked: false },
+    { value: "Somewhat digitally savvy testers.", checked: false },
+    { value: "Very digitally savvy testers.", checked: false },
+  ]);
+  const [loading, setLoading] = useState(true);
+  const [formTest, setFormTest] = useState({} as FormCriteria);
   const router = useRouter();
+
+  const updateForm = (valueToUpdate: Partial<FormCriteria>) => {
+    setFormTest({
+      ...formTest,
+      ...valueToUpdate,
+    });
+  };
 
   const goToEditTestPage = () => {
     router.push("/tests/createTest/editTest");
@@ -30,10 +56,44 @@ const TestDetails = () => {
 
   const saveTest = () => {
     // Save Test & Go To Test Details
-    router.push("/tests/myTests/testDetail");
+    // router.push("/tests/myTests/testDetail");
+
+    console.log(formTest);
   };
 
-  return (
+  useEffect(() => {
+    const digitalSavResult = [] as number[];
+    digiSavviness.forEach((value, key) => {
+      if (value.checked) digitalSavResult.push(key);
+    });
+    updateForm({ digitalSavviness: digitalSavResult });
+  }, [digiSavviness]);
+
+  useEffect(() => {
+    const temp = sessionStorage.getItem("currentTest");
+    if (temp && router.isReady) {
+      setFormTest({
+        ...JSON.parse(temp),
+        ageRange: [0, 100],
+        gender: "-",
+        location: "",
+        careers: [],
+        hobbies: [],
+        digitalSavviness: [],
+        deadlineDate: new Date(),
+        incentiveType: "-",
+        payment: 0,
+        privacy: true,
+      } as FormCriteria);
+      setLoading(false);
+    } else {
+      router.push("/tests/createTest/");
+    }
+  }, [router]);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <>
       <Head>
         <title>Test Details | Rocketest</title>
@@ -74,9 +134,16 @@ const TestDetails = () => {
               <MultiRangeSlider
                 min={0}
                 max={100}
-                onChange={({ min, max }) =>
-                  console.log(`min = ${min}, max = ${max}`)
-                }
+                onChange={({ min, max }) => {
+                  console.log(`min = ${min}, max = ${max}`);
+                  if (
+                    !formTest.ageRange ||
+                    formTest.ageRange[0] != min ||
+                    formTest.ageRange[1] != max
+                  ) {
+                    updateForm({ ageRange: [Number(min), Number(max)] });
+                  }
+                }}
               />
             </div>
 
@@ -85,18 +152,20 @@ const TestDetails = () => {
                 title="Gender"
                 placeholder=""
                 isSelect
-                options={["Female", "Male", "Other"]}
+                options={["-", "Female Only", "Male Only", "Other"]}
                 size="small"
+                defaultValue={formTest.gender}
                 onChange={(e) => {
-                  console.log("gender", e.target.value);
+                  updateForm({ gender: e.target.value });
                 }}
               />
               <TextInput
                 title="Location"
                 placeholder="e.g. Porto, Portugal"
                 size="small"
+                defaultValue={formTest.location}
                 onChange={(e) => {
-                  console.log("Location", e.target.value);
+                  updateForm({ location: e.target.value });
                 }}
               />
             </div>
@@ -104,8 +173,13 @@ const TestDetails = () => {
             {/* Career - Multiselect Component */}
             <span className={styles.inputLabel}>Career</span>
             <Select
-              defaultValue={selectedOption}
-              onChange={setSelectedOption}
+              onChange={(e) => {
+                const tempArr = [] as string[];
+                e?.map((value) => {
+                  tempArr.push(value.value);
+                });
+                updateForm({ careers: tempArr });
+              }}
               options={CareersList}
               isMulti
             />
@@ -113,8 +187,13 @@ const TestDetails = () => {
             {/* Personal Interests - Multiselect Component */}
             <span className={styles.inputLabel}>Hobbies</span>
             <Select
-              defaultValue={selectedOption}
-              onChange={setSelectedOption}
+              onChange={(e) => {
+                const tempArr = [] as string[];
+                e?.map((value) => {
+                  tempArr.push(value.value);
+                });
+                updateForm({ hobbies: tempArr });
+              }}
               options={HobbiesList}
               isMulti
             />
@@ -122,43 +201,37 @@ const TestDetails = () => {
             {/* Digital Savviness - Checkboxes Input Component */}
             <CheckboxRatioBtnInput
               title="Digital Savviness"
-              options={[
-                { value: "Not digitally savvy testers." },
-                { value: "Somewhat digitally savvy testers." },
-                { value: "Very digitally savvy testers." },
-              ]}
+              options={digiSavviness}
               type="checkbox"
               name="digitalSavviness"
               onChange={(e) => {
-                console.log("Digital Savviness", e.target.checked);
+                const tempDigiSav = [...digiSavviness];
+                const index = digiSavviness.findIndex(
+                  (d) => d.value === e.target.value
+                );
+                tempDigiSav[index].checked = tempDigiSav[index].checked
+                  ? false
+                  : true;
+                setDigiSavviness(tempDigiSav);
               }}
             />
           </div>
 
           <div className={styles.rightSide}>
             <h2>Test&apos;s Information</h2>
-            <div className={styles.doubleInputContainer}>
-              <TextInput
-                title="Deadline Date"
-                placeholder=""
-                size="small"
-                type="date"
-                mandatory
-                onChange={(e) => {
-                  console.log("Deadline Date", e.target.value);
-                }}
-              />
-              <TextInput
-                title="Deadline Time"
-                placeholder=""
-                size="small"
-                type="time"
-                mandatory
-                onChange={(e) => {
-                  console.log("Deadline Time", e.target.value);
-                }}
-              />
-            </div>
+            <TextInput
+              title="Deadline"
+              placeholder=""
+              size="large"
+              type="date"
+              mandatory
+              defaultValue={formTest.deadlineDate
+                .toISOString()
+                .substring(0, 10)}
+              onChange={(e) => {
+                updateForm({ deadlineDate: new Date(e.target.value) });
+              }}
+            />
 
             <div className={styles.doubleInputContainer}>
               <TextInput
@@ -166,10 +239,12 @@ const TestDetails = () => {
                 placeholder=""
                 size="small"
                 type="date"
+                mandatory
                 isSelect
-                options={["Money Transfer", "Amazon Voucher"]}
+                defaultValue={formTest.incentiveType}
+                options={["-", "Money Transfer", "Amazon Voucher"]}
                 onChange={(e) => {
-                  console.log("Incentive", e.target.value);
+                  updateForm({ incentiveType: e.target.value });
                 }}
               />
               <TextInput
@@ -177,8 +252,15 @@ const TestDetails = () => {
                 placeholder="e.g. 25"
                 size="small"
                 type="number"
+                defaultValue={formTest.payment.toString()}
+                isDisabled={
+                  !(
+                    formTest.incentiveType === "Money Transfer" ||
+                    formTest.incentiveType === "Amazon Voucher"
+                  )
+                }
                 onChange={(e) => {
-                  console.log("Amount", e.target.value);
+                  updateForm({ payment: Number(e.target.value) });
                 }}
               />
             </div>
@@ -190,6 +272,7 @@ const TestDetails = () => {
                 {
                   value: "Public",
                   description: "Anyone in Rocketest can access this test",
+                  checked: true,
                 },
                 {
                   value: "Private",
@@ -199,7 +282,7 @@ const TestDetails = () => {
               type="radio"
               name="privacy"
               onChange={(e) => {
-                console.log("Privacy", e.target.checked);
+                updateForm({ privacy: e.target.value === "public" });
               }}
               mandatory
             />

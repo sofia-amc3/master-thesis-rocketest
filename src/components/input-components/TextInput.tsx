@@ -10,6 +10,7 @@ interface Props {
   mandatory?: boolean;
   isTextarea?: boolean;
   isSelect?: boolean;
+  isDisabled?: boolean;
   options?: string[];
   defaultValue?: string;
   textareaMaxLength?: number;
@@ -45,6 +46,7 @@ const TextInput = (props: Props) => {
           maxLength={props.textareaMaxLength}
           onChange={props.onChange}
           value={props.defaultValue}
+          disabled={props.isDisabled}
         ></textarea>
       ) : props.isSelect ? (
         <div className={`${styles.selectContainer} ${styles.authSelect}`}>
@@ -56,6 +58,7 @@ const TextInput = (props: Props) => {
             }
             defaultValue={props.defaultValue}
             onChange={props.onChange}
+            disabled={props.isDisabled}
           >
             {props.options &&
               props.options.map((value, key) => {
@@ -84,12 +87,13 @@ const TextInput = (props: Props) => {
           placeholder={props.placeholder}
           className={
             props.size === "small"
-              ? `${styles.inputSmall}`
-              : `${styles.inputLarge}`
+              ? `${styles.inputSmall} ${props.isDisabled && styles.disabled}`
+              : `${styles.inputLarge} ${props.isDisabled && styles.disabled}`
           }
-          value={props.defaultValue}
+          value={props.isDisabled ? 0 : props.defaultValue}
           onChange={props.onChange}
           onKeyUp={keyPress}
+          disabled={props.isDisabled}
         />
       )}
     </div>

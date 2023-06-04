@@ -4,6 +4,7 @@ import styles from "@/styles/app.module.css";
 interface SingleOption {
   value: string;
   description?: string;
+  checked?: boolean;
 }
 
 interface Props {
@@ -32,6 +33,7 @@ const CheckboxRatioBtnInput = (props: Props) => {
                   onChange={props.onChange}
                   name={props.name}
                   value={opt.value}
+                  checked={opt.checked}
                 />
                 {opt.value}
               </label>

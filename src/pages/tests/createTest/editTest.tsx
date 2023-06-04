@@ -38,8 +38,8 @@ const EditTest = () => {
   };
 
   const goToTestDetailsPage = () => {
-    // router.push("/tests/createTest/testDetails");
-    console.log(formTest);
+    sessionStorage.setItem("currentTest", JSON.stringify(formTest));
+    router.push("/tests/createTest/testDetails");
   };
 
   const goToCreateTestPage = () => {
