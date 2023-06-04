@@ -326,12 +326,9 @@ const MyTestsTester = (props: Props) => {
         setOriginalTests(res.data);
       })
       .catch((error) => {
-        console.log("0", error);
         if (error.response && error.response.data) {
-          console.log("a", error.response.data);
           alert(error.response.data); // specific error messages
         } else {
-          console.log("b", error.message);
           alert(error.message); // default error message
         }
       });
