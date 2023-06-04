@@ -30,9 +30,32 @@ const OverviewUXResearcher = () => {
 
 const OverviewTester = (props: Props) => {
   const router = useRouter();
+
   const [loading, setLoading] = useState(true);
+
   const [originalTests, setOriginalTests] = useState([] as TestData[]); // just for fallback to manage the information
   const [tests, setTests] = useState([] as TestData[]); // to show the information filtered from originalTests
+
+  // Pages' Slider
+  const cardsPerPage = 5; // limit number of cards per page
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  // Tests to Display
+  const startIndex = (currentPage - 1) * cardsPerPage;
+  const endIndex = startIndex + cardsPerPage;
+  const testsToDisplay = tests.slice(startIndex, endIndex);
+
+  // Handle previous and next page navigations
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
   const [testOptions, setTestOptions] = useState({
     // default values
@@ -145,6 +168,7 @@ const OverviewTester = (props: Props) => {
       .get("/api/tests/overviewTester", { params })
       .then(async (res) => {
         setOriginalTests(res.data);
+        setTotalPages(Math.ceil(res.data.length / cardsPerPage)); // defines total nr of pages in pages' slider after getting the tests
       })
       .catch((error) => {
         if (error.response && error.response.data) {
@@ -185,7 +209,7 @@ const OverviewTester = (props: Props) => {
           className={`${styles.dashboardContainer} && ${styles.testCardsContainer}`}
         >
           {tests.length > 0 ? (
-            tests.map((testData, key) => (
+            testsToDisplay.map((testData, key) => (
               <TestCard
                 key={key}
                 imageSrc="/tests_imgs/a-b-testing.jpg"
@@ -200,7 +224,7 @@ const OverviewTester = (props: Props) => {
                     day: "numeric",
                   }
                 )}
-                page={`/test/${testData.id}`}
+                page={`/tests/test/${testData.id}`}
                 paymentAmount={`${testData.testPayment}€`}
               />
             ))
@@ -209,12 +233,12 @@ const OverviewTester = (props: Props) => {
           )}
         </div>
         <PagesSlider
-          currentPageNr={1}
-          nextPageSrc=""
-          totalPagesNr={10}
-          previousPageSrc=""
-          nextPageArrow
-          previousPageArrow
+          currentPageNr={currentPage}
+          totalPagesNr={totalPages}
+          nextPageArrow={totalPages > 1 && totalPages != currentPage}
+          previousPageArrow={currentPage > 1}
+          nextPageFunction={goToNextPage}
+          previousPageFunction={goToPreviousPage}
         />
       </div>
     </>
@@ -231,7 +255,7 @@ const Overview = (props: PropsTestPage) => {
         <TestsTopMenu isTester={!!props.auth?.type} />
         {/* Check User Type */}
         {props.auth?.type ? (
-          <OverviewTester auth={props.auth} />
+          <OverviewTester auth={props.auth} matchCriteria={false} />
         ) : (
           <OverviewUXResearcher />
         )}

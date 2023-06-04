@@ -1,22 +1,28 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles/app.module.css";
 
 interface Props {
-  previousPageSrc: string;
   previousPageArrow?: boolean;
-  nextPageSrc: string;
   nextPageArrow?: boolean;
   currentPageNr: number;
   totalPagesNr: number;
+  nextPageFunction: MouseEventHandler<HTMLAnchorElement>;
+  previousPageFunction: MouseEventHandler<HTMLAnchorElement>;
 }
 
 const PagesSlider = (props: Props) => {
   return (
-    <div className={styles.pagesSlider}>
+    <div
+      className={`${styles.pagesSlider} ${
+        !props.previousPageArrow && !props.nextPageArrow
+          ? styles.sliderWithoutArrows
+          : ""
+      }`}
+    >
       {props.previousPageArrow && (
-        <Link href={props.previousPageSrc}>
+        <Link href="#" onClick={props.previousPageFunction}>
           <Image
             src="/icons/arrow-left.svg"
             alt="Arrow Left"
@@ -32,7 +38,7 @@ const PagesSlider = (props: Props) => {
       <span>{props.totalPagesNr}</span>
 
       {props.nextPageArrow && (
-        <Link href={props.nextPageSrc}>
+        <Link href="#" onClick={props.nextPageFunction}>
           <Image
             src="/icons/arrow-left.svg"
             alt="Arrow Right"

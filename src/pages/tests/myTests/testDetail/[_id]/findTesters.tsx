@@ -144,8 +144,8 @@ const FindTesters = (props: Props) => {
           totalPagesNr={50}
           nextPageArrow
           previousPageArrow
-          nextPageSrc=""
-          previousPageSrc=""
+          nextPageFunction={() => {}}
+          previousPageFunction={() => {}}
         />
 
         <div className={styles.findTestersMsg}>

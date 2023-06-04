@@ -568,6 +568,10 @@ button.buttonTertiarySecondary {
   width: 12.5rem;
 }
 
+.sliderWithoutArrows {
+  width: 10rem;
+}
+
 .arrowRight {
   transform: rotate(180deg);
 }

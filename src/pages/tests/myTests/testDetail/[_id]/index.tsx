@@ -235,11 +235,11 @@ const TestDetailUXResearcher = (props: Props) => {
           {/* Pages Component */}
           <PagesSlider
             previousPageArrow
-            previousPageSrc=""
             currentPageNr={10}
             totalPagesNr={50}
-            nextPageSrc=""
             nextPageArrow
+            nextPageFunction={() => {}}
+            previousPageFunction={() => {}}
           />
         </div>
       </div>
