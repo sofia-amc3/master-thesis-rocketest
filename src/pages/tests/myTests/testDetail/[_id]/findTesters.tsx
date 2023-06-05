@@ -35,7 +35,7 @@ const FindTesters = (props: Props) => {
     };
 
     await axios
-      .get("/api/tests/testDetailUxResearcher", { params })
+      .get("/api/tests/myTests/testDetail/testDetailUxResearcher", { params })
       .then(async (res) => {
         if (res.data.length === 1) {
           setTestData(res.data[0]);

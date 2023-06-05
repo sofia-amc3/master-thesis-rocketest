@@ -63,7 +63,7 @@ const ToBeAnsweredTest = (props: PropsTestPage) => {
       </Head>
       <main>
         {/* Falta aviso se clicar em algum sítio irá perder as respostas já dadas */}
-        <TestsTopMenu isTester />
+        {props.auth.type === 1 ? <TestsTopMenu isTester /> : <TestsTopMenu />}
 
         <Test testData={formData} updateOptionAnswer={updateOptionAnswer} />
 

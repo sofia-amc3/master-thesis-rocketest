@@ -10,10 +10,6 @@ interface Props {
 const TestsTopMenu = (props: Props) => {
   const router = useRouter();
 
-  const activeClassName = (url: string) => {
-    return router.pathname.includes(url) ? styles.topMenuActiveBorder : "";
-  };
-
   return (
     <div className={styles.testsTopMenu}>
       <Link
@@ -26,7 +22,15 @@ const TestsTopMenu = (props: Props) => {
         <div></div>
       </Link>
 
-      <Link href="/tests/myTests" className={activeClassName("/tests/myTests")}>
+      <Link
+        href="/tests/myTests"
+        className={
+          router.pathname.includes("/tests/myTests") ||
+          (!props.isTester && router.pathname.includes("/tests/test"))
+            ? styles.topMenuActiveBorder
+            : ""
+        }
+      >
         My Tests
         <div></div>
       </Link>
@@ -34,7 +38,11 @@ const TestsTopMenu = (props: Props) => {
       {!props.isTester && (
         <Link
           href="/tests/createTest"
-          className={activeClassName("/tests/createTest")}
+          className={
+            router.pathname.includes("/tests/createTest")
+              ? styles.topMenuActiveBorder
+              : ""
+          }
         >
           Create Test
           <div></div>

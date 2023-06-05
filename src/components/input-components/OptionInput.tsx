@@ -36,7 +36,7 @@ const OptionInput = (props: Props) => {
         className={props.mandatory ? styles.mandatoryOptInput : ""}
         value={props.defaultValues?.name}
         onChange={props.onChangeText}
-        maxLength={15}
+        maxLength={12}
       />
 
       <input
