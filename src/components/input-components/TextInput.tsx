@@ -20,6 +20,8 @@ interface Props {
     >
   ) => void;
   onEnterKey?: () => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  maxLength?: number;
 }
 
 const TextInput = (props: Props) => {
@@ -94,6 +96,8 @@ const TextInput = (props: Props) => {
           onChange={props.onChange}
           onKeyUp={keyPress}
           disabled={props.isDisabled}
+          maxLength={props.maxLength}
+          onKeyDown={props.onKeyDown}
         />
       )}
     </div>

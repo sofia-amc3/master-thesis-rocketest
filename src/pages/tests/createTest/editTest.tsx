@@ -37,17 +37,60 @@ const EditTest = () => {
     });
   };
 
+  const verifyMandatoryFields = () => {
+    // if the following fields were not provided, the user can't proceed to the next page
+    if (!formTest.testName) return false;
+    if (formTest.question_section.length > 0) {
+      for (let i = 0; i < formTest.question_section.length; i++) {
+        const q_s = formTest.question_section[i];
+
+        if (!q_s.isSection) {
+          const options = q_s.options;
+
+          // question name is mandatory
+          if (!q_s.name || q_s.name.trim() === "") return false;
+
+          // all options created must provide an image and a name
+          for (let i = 0; i < options.length; i++) {
+            if (
+              !options[i].imgSrc ||
+              options[i].imgSrc.trim() === "" ||
+              !options[i].name ||
+              options[i].name.trim() === ""
+            )
+              return false;
+          }
+        }
+      }
+    }
+
+    return true;
+  };
+
   const goToTestDetailsPage = () => {
-    sessionStorage.setItem("currentTest", JSON.stringify(formTest));
-    router.push("/tests/createTest/testDetails");
+    if (verifyMandatoryFields()) {
+      // as we are not inserting any information in the database yet, we are saving it in the browser's session storage to access it later on the next page
+      sessionStorage.setItem("currentTest", JSON.stringify(formTest));
+      router.push("/tests/createTest/testDetails");
+    } else {
+      alert(
+        "All mandatory fields must be fulfilled. If you've created empty options please delete them."
+      );
+    }
   };
 
   const goToCreateTestPage = () => {
-    router.push("/tests/createTest/");
+    if (formTest.question_section.length > 0) {
+      if (
+        confirm(
+          "Are you sure you want to go back? All the fields will be lost."
+        )
+      )
+        router.push("/tests/createTest/");
+    } else router.push("/tests/createTest/");
   };
 
   useEffect(() => {
-    console.log("update");
     setLoading(false);
   }, [loading]);
 
@@ -86,6 +129,7 @@ const EditTest = () => {
                     updateForm({ testName: e.target.value });
                   }}
                   mandatory
+                  maxLength={40}
                 />
                 <TextInput
                   title="Test Description"
@@ -95,6 +139,7 @@ const EditTest = () => {
                     updateForm({ testDescription: e.target.value });
                   }}
                   isTextarea
+                  textareaMaxLength={1000}
                 />
 
                 <h3>Test Contents</h3>
@@ -137,6 +182,7 @@ const EditTest = () => {
                                   )
                                 );
                               }}
+                              maxLength={40}
                             />
                             <TextInput
                               title="Description of Section"
@@ -152,6 +198,7 @@ const EditTest = () => {
                                 );
                               }}
                               isTextarea
+                              textareaMaxLength={1000}
                             />
                           </>
                         ) : (
@@ -170,6 +217,7 @@ const EditTest = () => {
                                   )
                                 );
                               }}
+                              maxLength={40}
                             />
                             <span className={styles.optionsText}>Options:</span>
                             {q_s.options.map((opt, optKey) => {

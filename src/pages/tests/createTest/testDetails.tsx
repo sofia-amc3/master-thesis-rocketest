@@ -15,7 +15,6 @@ import MultiRangeSlider from "@/components/multi-range-slider/MultiRangeSlider";
 import Loading from "@/components/Loading";
 import { Form } from "@/utils/testCreatorHelper";
 import axios from "axios";
-import { userSession } from "@/utils/user";
 import { PropsTestPage } from "..";
 
 export interface OptionList {
@@ -33,7 +32,7 @@ export interface FormCriteria extends Form {
   deadlineDate: Date;
   incentiveType: string;
   payment: number;
-  privacy: boolean; //public = true
+  privacy: boolean; // public = true
 }
 
 const TestDetails = (props: PropsTestPage) => {
@@ -53,12 +52,44 @@ const TestDetails = (props: PropsTestPage) => {
     });
   };
 
+  const checkIfFieldsEdited = () => {
+    // compare the current values with the initial values and return true if any field was edited
+    if (formTest.ageRange[0] !== 0 || formTest.ageRange[1] !== 100) return true;
+    if (formTest.gender !== "-") return true;
+    if (formTest.location !== "") return true;
+    if (formTest.careers.length > 0) return true;
+    if (formTest.hobbies.length > 0) return true;
+    if (formTest.digitalSavviness.length > 0) return true;
+    if (
+      formTest.deadlineDate.toISOString().substring(0, 10) !==
+      new Date().toISOString().substring(0, 10)
+    )
+      return true;
+    if (
+      formTest.incentiveType === "Money Transfer" ||
+      formTest.incentiveType === "Amazon Voucher"
+    )
+      return true;
+    if (!formTest.privacy) return true;
+
+    return false; // return false if no field was edited
+  };
+
   const goToEditTestPage = () => {
-    router.push("/tests/createTest/editTest");
+    if (checkIfFieldsEdited()) {
+      if (
+        confirm(
+          "Are you sure you want to go back? All the fields will be lost."
+        )
+      ) {
+        router.push("/tests/createTest/editTest");
+      }
+    } else {
+      router.push("/tests/createTest/editTest");
+    }
   };
 
   const saveTest = async () => {
-    // Save Test & Go To Test Details
     const params = {
       userId: props.auth.id,
       formData: formTest,
@@ -67,12 +98,12 @@ const TestDetails = (props: PropsTestPage) => {
     await axios
       .post("/api/tests/createTest/insert", params)
       .then(async (res) => {
-        sessionStorage.removeItem("currentTest");
-        router.push(`/tests/myTests/testDetail/${res.data[0].testId}`);
+        sessionStorage.removeItem("currentTest"); // deletes the information that we stored earlier in the session
+        router.push(`/tests/myTests/testDetail/${res.data[0].testId}`); // goes to My Tests > Test Details
       })
       .catch((error) => {
         if (error.response && error.response.data) {
-          alert(error.response.data); // specific error messages defined in the registerTester.tsx file
+          alert(error.response.data); // specific error messages
         } else {
           alert(error.message); // default error message
         }
@@ -80,26 +111,29 @@ const TestDetails = (props: PropsTestPage) => {
   };
 
   useEffect(() => {
+    // because the digital savviness consists of 3 checkboxes, we want to know which of them are checked
+    // here we update the digital savviness value in the form when it changes
     const digitalSavResult = [] as number[];
     digiSavviness.forEach((value, key) => {
-      if (value.checked) digitalSavResult.push(key);
+      if (value.checked) digitalSavResult.push(key); // key can be 0, 1 or 2
     });
     updateForm({ digitalSavviness: digitalSavResult });
   }, [digiSavviness]);
 
   useEffect(() => {
-    const temp = sessionStorage.getItem("currentTest");
-    if (temp && router.isReady) {
+    // initialize the form with data from session storage or redirect to the create test page in case it doesn't exist
+    const editTestInfo = sessionStorage.getItem("currentTest");
+    if (editTestInfo && router.isReady) {
       setFormTest({
-        ...JSON.parse(temp),
+        ...JSON.parse(editTestInfo),
         ageRange: [0, 100],
-        gender: "-",
+        gender: "No preference",
         location: "",
         careers: [],
         hobbies: [],
         digitalSavviness: [],
         deadlineDate: new Date(),
-        incentiveType: "-",
+        incentiveType: "None",
         payment: 0,
         privacy: true,
       } as FormCriteria);
@@ -153,7 +187,6 @@ const TestDetails = (props: PropsTestPage) => {
                 min={0}
                 max={100}
                 onChange={({ min, max }) => {
-                  console.log(`min = ${min}, max = ${max}`);
                   if (
                     !formTest.ageRange ||
                     formTest.ageRange[0] != min ||
@@ -170,7 +203,12 @@ const TestDetails = (props: PropsTestPage) => {
                 title="Gender"
                 placeholder=""
                 isSelect
-                options={["-", "Female Only", "Male Only", "Other"]}
+                options={[
+                  "No preference",
+                  "Female Only",
+                  "Male Only",
+                  "Other Only",
+                ]}
                 size="small"
                 defaultValue={formTest.gender}
                 onChange={(e) => {
@@ -247,7 +285,17 @@ const TestDetails = (props: PropsTestPage) => {
                 .toISOString()
                 .substring(0, 10)}
               onChange={(e) => {
-                updateForm({ deadlineDate: new Date(e.target.value) });
+                const dateValue = e.target.value;
+                const currentDate = new Date().toISOString().substring(0, 10);
+
+                if (dateValue >= currentDate) {
+                  updateForm({ deadlineDate: new Date(dateValue) });
+                } else {
+                  alert("Invalid deadline date. Please enter a valid date.");
+                }
+              }}
+              onKeyDown={(e) => {
+                e.preventDefault();
               }}
             />
 
@@ -260,7 +308,7 @@ const TestDetails = (props: PropsTestPage) => {
                 mandatory
                 isSelect
                 defaultValue={formTest.incentiveType}
-                options={["-", "Money Transfer", "Amazon Voucher"]}
+                options={["None", "Money Transfer", "Amazon Voucher"]}
                 onChange={(e) => {
                   updateForm({ incentiveType: e.target.value });
                 }}

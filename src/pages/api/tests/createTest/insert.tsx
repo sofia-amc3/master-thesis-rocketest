@@ -20,6 +20,7 @@ const InsertTest = async (req: NextApiRequest, res: NextApiResponse) => {
         const tempDigiSavArray =
           "ARRAY " + JSON.stringify(_form.digitalSavviness) + "::integer[]";
 
+        // beginning of the query: tests general info and selection criteria
         let queryBuild = `
         WITH tmpTests AS (
             INSERT INTO "Tests" ("userId", name, type, description, deadline, payment, "isPublic")
@@ -33,6 +34,9 @@ const InsertTest = async (req: NextApiRequest, res: NextApiResponse) => {
         ),
         `;
 
+        // iterate through the "_form.question_section" array in reverse order
+        // to maintain the correct order of sections and questions in the database
+        // (they should be inserted in the same order as they appear in the array)
         for (
           let q_sKey = _form.question_section.length - 1;
           q_sKey >= 0;
@@ -69,13 +73,12 @@ const InsertTest = async (req: NextApiRequest, res: NextApiResponse) => {
           }
         }
 
+        // remove the final comma in the sql INSERT query
         queryBuild =
           queryBuild.substring(0, queryBuild.length - 14) +
           `
         SELECT * FROM tmpTests;
         `;
-
-        console.log("QueryBuilder", queryBuild);
 
         const result = await pool.query(queryBuild);
 
