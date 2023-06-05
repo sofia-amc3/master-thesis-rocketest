@@ -1508,6 +1508,7 @@ h6.testCategoryDescription {
 }
 
 .createTestPreview {
+  width: 35.5rem;
   margin-top: 1rem;
   padding: 2.2rem;
   border-radius: 30px;

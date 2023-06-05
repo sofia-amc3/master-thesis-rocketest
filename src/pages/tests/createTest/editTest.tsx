@@ -182,7 +182,7 @@ const EditTest = () => {
                                   )
                                 );
                               }}
-                              maxLength={40}
+                              maxLength={35}
                             />
                             <TextInput
                               title="Description of Section"
@@ -217,7 +217,7 @@ const EditTest = () => {
                                   )
                                 );
                               }}
-                              maxLength={40}
+                              maxLength={35}
                             />
                             <span className={styles.optionsText}>Options:</span>
                             {q_s.options.map((opt, optKey) => {
