@@ -3,6 +3,14 @@ import { pool } from "@/lib/db";
 import { FormCriteria } from "@/pages/tests/createTest/testDetails";
 import { Section, Question } from "@/utils/testCreatorHelper";
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "8mb",
+    },
+  },
+};
+
 const InsertTest = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "POST":

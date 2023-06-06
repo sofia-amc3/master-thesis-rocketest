@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "@/styles/app.module.css";
 import { Option } from "@/utils/testCreatorHelper";
+import FullscreenImage from "./FullscreenImage";
 
 interface Props {
   optionValue: string;
@@ -11,10 +12,27 @@ interface Props {
 }
 
 const OptionEntry = (props: Props) => {
+  const [isFullscreen, setIsFullscreen] = useState(false); // state to track fullscreen mode
+  const [selectedImage, setSelectedImage] = useState(""); // state to store the selected image URL
+
   return (
     <div className={styles.testImgAndOptionContainer}>
+      {/* render the FullscreenImage component when isFullscreen is true */}
+      {isFullscreen && (
+        <FullscreenImage
+          imageUrl={selectedImage}
+          closeFullscreen={() => setIsFullscreen(false)}
+        />
+      )}
       <div className={styles.testImgContainer}>
-        <img src={props.optionData.imgSrc} alt="Option Image" />
+        <img
+          src={props.optionData.imgSrc}
+          alt="Option Image"
+          onClick={() => {
+            setIsFullscreen(true);
+            setSelectedImage(props.optionData.imgSrc);
+          }}
+        />
       </div>
       <div className={styles.testOptionContainer}>
         <input

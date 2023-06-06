@@ -62,10 +62,11 @@ const ToBeAnsweredTest = (props: PropsTestPage) => {
         <title>{formData.testName} | Rocketest</title>
       </Head>
       <main>
-        {/* Falta aviso se clicar em algum sítio irá perder as respostas já dadas */}
         {props.auth.type === 1 ? <TestsTopMenu isTester /> : <TestsTopMenu />}
 
-        <Test testData={formData} updateOptionAnswer={updateOptionAnswer} />
+        <div className={styles.testContainer}>
+          <Test testData={formData} updateOptionAnswer={updateOptionAnswer} />
+        </div>
 
         {/* Submit/Cancel */}
         <div className={styles.testButtonsContainer}>
