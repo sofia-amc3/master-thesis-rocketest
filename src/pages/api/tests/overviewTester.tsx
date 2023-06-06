@@ -20,6 +20,7 @@ const OverviewTester = async (req: NextApiRequest, res: NextApiResponse) => {
               LEFT JOIN "Users" UTT ON TT."userId" = UTT.ID
               WHERE T."isPublic" = TRUE
                     AND T."isDeleted" = FALSE
+                    AND T.DEADLINE > NOW()
                     ${
                       matchCriteria === "true"
                         ? `

@@ -62,7 +62,7 @@ const TestDetails = (props: PropsTestPage) => {
     if (formTest.digitalSavviness.length > 0) return true;
     if (
       formTest.deadlineDate.toISOString().substring(0, 10) !==
-      new Date().toISOString().substring(0, 10)
+      new Date(datePlusOne()).toISOString().substring(0, 10)
     )
       return true;
     if (
@@ -120,6 +120,12 @@ const TestDetails = (props: PropsTestPage) => {
     updateForm({ digitalSavviness: digitalSavResult });
   }, [digiSavviness]);
 
+  const datePlusOne = (date = new Date()) => {
+    // the minimum test deadline is the day after the test is created
+    // otherwise, it would not appear as an available test
+    return date.setDate(date.getDate() + 1);
+  };
+
   useEffect(() => {
     // initialize the form with data from session storage or redirect to the create test page in case it doesn't exist
     const editTestInfo = sessionStorage.getItem("currentTest");
@@ -132,7 +138,7 @@ const TestDetails = (props: PropsTestPage) => {
         careers: [],
         hobbies: [],
         digitalSavviness: [],
-        deadlineDate: new Date(),
+        deadlineDate: new Date(datePlusOne()),
         incentiveType: "None",
         payment: 0,
         privacy: true,
@@ -288,7 +294,7 @@ const TestDetails = (props: PropsTestPage) => {
                 const dateValue = e.target.value;
                 const currentDate = new Date().toISOString().substring(0, 10);
 
-                if (dateValue >= currentDate) {
+                if (dateValue > currentDate) {
                   updateForm({ deadlineDate: new Date(dateValue) });
                 } else {
                   alert("Invalid deadline date. Please enter a valid date.");
