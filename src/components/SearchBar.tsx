@@ -11,6 +11,8 @@ const SearchBar = () => {
         id="fname"
         name="fname"
         placeholder="Search for something in this page..."
+        disabled
+        className={styles.disabled}
       />
     </div>
   );
