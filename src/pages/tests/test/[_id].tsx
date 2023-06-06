@@ -26,6 +26,13 @@ const ToBeAnsweredTest = (props: PropsTestPage) => {
     setFormData(updatedFormObj);
   };
 
+  const goToOverview = () => {
+    //if (verifyMandatoryFields()) {
+    // alert confirm
+    router.push("/tests");
+    //} else {
+  };
+
   //on loading page functions
   const getTestData = async () => {
     const params = {
@@ -54,6 +61,31 @@ const ToBeAnsweredTest = (props: PropsTestPage) => {
     }
   }, [router]);
 
+  const submitAnswers = async () => {
+    setLoading(true);
+
+    const params = {
+      userId: props.auth.id,
+      formData: formData,
+    };
+
+    await axios
+      .post("/api/tests/test/answerTest", params)
+      .then(async (res) => {
+        setLoading(false);
+        console.log(res);
+        alert("Test submitted successfully!");
+        router.push("/tests/myTests/");
+      })
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          alert(error.response.data); // specific error messages
+        } else {
+          alert(error.message); // default error message
+        }
+      });
+  };
+
   return loading ? (
     <Loading />
   ) : (
@@ -70,15 +102,18 @@ const ToBeAnsweredTest = (props: PropsTestPage) => {
 
         {/* Submit/Cancel */}
         <div className={styles.testButtonsContainer}>
-          <Button text="Cancel" size="large" type="secondary" />
+          <Button
+            text="Cancel"
+            size="large"
+            type="secondary"
+            function={goToOverview}
+          />
           <Button
             text="Submit"
             size="large"
             type="primary"
             disabled={props.auth.type === 0}
-            function={() => {
-              console.log(formData);
-            }}
+            function={submitAnswers}
           />
         </div>
       </main>
