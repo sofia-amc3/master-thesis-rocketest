@@ -7,20 +7,33 @@ const OverviewTester = async (req: NextApiRequest, res: NextApiResponse) => {
       const { userId, matchCriteria } = req.query;
       try {
         const result = await pool.query(
-          `SELECT T.ID,
-                    T."name" AS "testName",
-                    T."type" AS "testType",
-                    T.DEADLINE AS "testDeadline",
-                    U."name" AS "testCreator",
-                    T.PAYMENT AS "testPayment"
-              FROM "Tests" T
-              LEFT JOIN "Users" U ON T."userId" = U.ID
-              LEFT JOIN "Selection_Criteria" C ON C."testId" = T.ID
-              LEFT JOIN "Testers" TT ON TT."userId" = ${userId}
-              LEFT JOIN "Users" UTT ON TT."userId" = UTT.ID
-              WHERE T."isPublic" = TRUE
-                    AND T."isDeleted" = FALSE
-                    AND T.DEADLINE > NOW()
+          `SELECT DISTINCT T.ID,
+                           T."name" AS "testName",
+                           T."type" AS "testType",
+                           T.DEADLINE AS "testDeadline",
+                           U."name" AS "testCreator",
+                           T.PAYMENT AS "testPayment"
+            FROM "Tests" T
+            LEFT JOIN "Users" U ON T."userId" = U.ID
+            LEFT JOIN "Selection_Criteria" C ON C."testId" = T.ID
+            LEFT JOIN "Testers" TT ON TT."userId" = ${userId}
+            LEFT JOIN "Users" UTT ON TT."userId" = UTT.ID
+            WHERE T."isPublic" = TRUE
+              AND T."isDeleted" = FALSE
+              AND T.DEADLINE > NOW()
+              AND T.ID NOT IN
+                  (SELECT DISTINCT T.ID
+                    FROM "Tests" T,
+                         "Questions_Sections" Q,
+                         "Answers" A,
+                         "Testers" TT,
+                         "Users" U
+                    WHERE U.ID = T."userId"
+                      AND T.ID = Q."testId"
+                      AND Q.ID = A."questionId"
+                      AND A."userId" = TT."userId"
+                      AND TT."userId" = ${userId}
+                      AND T."isDeleted" = FALSE)
                     ${
                       matchCriteria === "true"
                         ? `

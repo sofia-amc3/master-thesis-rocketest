@@ -16,7 +16,7 @@ import { userAuth } from "@/utils/user";
 import { PropsTestPage } from "@/pages/tests";
 import { TestData } from "../..";
 import Loading from "@/components/Loading";
-import { exampleFormObject } from "@/utils/testCreatorHelper";
+import { exampleFormObject, Form } from "@/utils/testCreatorHelper";
 
 interface Props {
   auth: userAuth;
@@ -251,19 +251,53 @@ const TestDetailTester = (props: Props) => {
   const router = useRouter();
   const { _id } = router.query;
 
+  const [formData, setFormData] = useState({} as Form);
+  const [loading, setLoading] = useState(true);
+
   const goToMyTestsPage = () => {
     router.push("/tests/myTests/");
   };
 
-  return (
+  //on loading page functions
+  const getTestData = async () => {
+    const params = {
+      testId: _id,
+      userId: props.auth.id,
+    };
+
+    await axios
+      .get("/api/tests/test/getAnsweredTestForm", { params })
+      .then(async (res) => {
+        setFormData(res.data);
+      })
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          alert(error.response.data); // specific error messages
+        } else {
+          alert(error.message); // default error message
+        }
+      });
+
+    setLoading(false);
+  };
+  useEffect(() => {
+    setLoading(true);
+    if (router.isReady) {
+      getTestData();
+    }
+  }, [router]);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <>
       <TestsTopMenu isTester />
       <SearchBar />
       <Breadcrumbs link="/tests/myTests" pageName="My Tests" imageAppears />
-      <Breadcrumbs link="" pageName="Test Name" activePage />
+      <Breadcrumbs link="" pageName={formData.testName} activePage />
 
       {/* Return Test with Answers Here */}
-      <Test testData={exampleFormObject} />
+      <Test testData={formData} />
 
       <div className={styles.testButtonsContainer}>
         <Button
