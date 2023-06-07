@@ -18,22 +18,50 @@ const ToBeAnsweredTest = (props: PropsTestPage) => {
   const [formData, setFormData] = useState({} as Form);
   const [loading, setLoading] = useState(true);
 
+  const updatedFormObj = { ...formData };
+  const [answeredStatus, setAnsweredStatus] = useState<boolean[]>([]); // to track the answered status of each question
+
+  // --- function to update the selected option (answer) for each question
   const updateOptionAnswer = (questionId: number, text: string): void => {
-    const updatedFormObj = { ...formData };
-
+    // update the answer in the form data
     (updatedFormObj.question_section[questionId] as QuestionData).answer = text;
-
     setFormData(updatedFormObj);
+
+    // update the answered status for the question
+    const updatedAnsweredStatus = [...answeredStatus];
+    updatedAnsweredStatus[questionId] = true;
+    setAnsweredStatus(updatedAnsweredStatus);
+  };
+
+  // --- function to check if all questions are answered
+  const checkAllAnswers = () => {
+    // get all questions (excluding sections) from the form data
+    const getQuestions = formData.question_section.filter(
+      (item) => item.isSection === false
+    );
+    const questionsCount = getQuestions.length; // total number of questions
+    const answeredQsCount = answeredStatus.filter((status) => status).length; // total number of answered questions
+
+    if (questionsCount === answeredQsCount) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const goToOverview = () => {
-    //if (verifyMandatoryFields()) {
-    // alert confirm
-    router.push("/tests");
-    //} else {
+    const answeredQsCount = answeredStatus.filter((status) => status).length; // total number of answered questions
+
+    // check if any answer was given
+    if (answeredQsCount > 0) {
+      if (confirm("Are you sure you want to cancel? All answers will be lost."))
+        router.push("/tests");
+    } else {
+      router.push("/tests");
+    }
   };
 
-  //on loading page functions
+  // --- function to fetch the test data
   const getTestData = async () => {
     const params = {
       testId: _id,
@@ -61,29 +89,34 @@ const ToBeAnsweredTest = (props: PropsTestPage) => {
     }
   }, [router]);
 
+  // --- function to submit the test's answers
   const submitAnswers = async () => {
-    setLoading(true);
+    if (checkAllAnswers()) {
+      setLoading(true);
 
-    const params = {
-      userId: props.auth.id,
-      formData: formData,
-    };
+      const params = {
+        userId: props.auth.id,
+        formData: formData,
+      };
 
-    await axios
-      .post("/api/tests/test/answerTest", params)
-      .then(async (res) => {
-        setLoading(false);
-        console.log(res);
-        alert("Test submitted successfully!");
-        router.push("/tests/myTests/");
-      })
-      .catch((error) => {
-        if (error.response && error.response.data) {
-          alert(error.response.data); // specific error messages
-        } else {
-          alert(error.message); // default error message
-        }
-      });
+      await axios
+        .post("/api/tests/test/answerTest", params)
+        .then(async (res) => {
+          setLoading(false);
+          console.log(res);
+          alert("Test submitted successfully!");
+          router.push("/tests/myTests/");
+        })
+        .catch((error) => {
+          if (error.response && error.response.data) {
+            alert(error.response.data); // specific error messages
+          } else {
+            alert(error.message); // default error message
+          }
+        });
+    } else {
+      alert("Please answer all questions before submitting.");
+    }
   };
 
   return loading ? (
@@ -100,21 +133,33 @@ const ToBeAnsweredTest = (props: PropsTestPage) => {
           <Test testData={formData} updateOptionAnswer={updateOptionAnswer} />
         </div>
 
-        {/* Submit/Cancel */}
+        {/* Back/Cancel/Submit Buttons */}
         <div className={styles.testButtonsContainer}>
-          <Button
-            text="Cancel"
-            size="large"
-            type="secondary"
-            function={goToOverview}
-          />
-          <Button
-            text="Submit"
-            size="large"
-            type="primary"
-            disabled={props.auth.type === 0}
-            function={submitAnswers}
-          />
+          {props.auth.type === 0 ? (
+            //  UX R.
+            <Button
+              text="Back"
+              size="large"
+              type="secondary"
+              function={() => router.back()}
+            />
+          ) : (
+            // Tester
+            <Button
+              text="Cancel"
+              size="large"
+              type="secondary"
+              function={goToOverview}
+            />
+          )}
+          {props.auth.type === 1 && (
+            <Button
+              text="Submit Answers"
+              size="large"
+              type="primary"
+              function={submitAnswers}
+            />
+          )}
         </div>
       </main>
     </>
