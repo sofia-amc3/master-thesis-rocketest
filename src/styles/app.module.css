@@ -25,7 +25,6 @@ main.bgColorLight {
   left: 0;
   right: 0;
   margin: auto;
-  width: 100px;
 }
 
 /* Pages' Images */
@@ -1324,7 +1323,7 @@ h6.testCategoryDescription {
   padding: 1.8rem 3.1rem;
   width: 41.2rem;
   height: fit-content;
-  max-height: 46rem;
+  /* max-height: 46rem; */
   background-color: var(--color-rocketest-5);
 }
 
