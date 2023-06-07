@@ -374,7 +374,7 @@ const MyTestsTester = (props: Props) => {
                 }
               )}
               page={`/tests/myTests/testDetail/${testData.id}`}
-              paymentAmount={`${testData.testPayment}€`}
+              paymentAmount={`${testData.testPayment}$`}
             />
           ))
         ) : (

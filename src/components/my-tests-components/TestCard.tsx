@@ -67,7 +67,7 @@ const TestCard = (props: Props) => {
               width={15}
               height={15}
             />
-            <span>{`Pays ${props.paymentAmount}`}</span>
+            <span>{`Pays ${props.paymentAmount}$`}</span>
           </div>
         )}
       </div>

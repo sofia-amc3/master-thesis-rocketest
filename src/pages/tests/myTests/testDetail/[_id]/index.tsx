@@ -306,7 +306,7 @@ const TestDetailUXResearcher = (props: Props) => {
 
           {/* Follow People Component: Show Testers */}
           {testers.length > 0 ? (
-            testers.map((testerData, key) => (
+            testersToDisplay.map((testerData, key) => (
               <FollowPeople
                 key={key}
                 userImg={testerData.profilePic}

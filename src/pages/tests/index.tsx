@@ -225,7 +225,7 @@ const OverviewTester = (props: Props) => {
                   }
                 )}
                 page={`/tests/test/${testData.id}`}
-                paymentAmount={`${testData.testPayment}€`}
+                paymentAmount={`${testData.testPayment}$`}
               />
             ))
           ) : (
