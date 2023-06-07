@@ -16,10 +16,26 @@ import { userAuth } from "@/utils/user";
 import { PropsTestPage } from "@/pages/tests";
 import { TestData } from "../..";
 import Loading from "@/components/Loading";
-import { exampleFormObject, Form } from "@/utils/testCreatorHelper";
+import { Form } from "@/utils/testCreatorHelper";
+import TestersAnsweredSearch from "@/components/my-tests-components/TestersAnsweredSearch";
 
 interface Props {
   auth: userAuth;
+}
+
+export interface TestersSearchFilters {
+  search: string;
+  option: string;
+  sort: string;
+}
+
+// info coming from db
+interface TesterData {
+  name: string;
+  profilePic: string;
+  jobTitle: string;
+  location: string;
+  matchedCriteria?: boolean;
 }
 
 const TestDetailUXResearcher = (props: Props) => {
@@ -28,6 +44,78 @@ const TestDetailUXResearcher = (props: Props) => {
 
   const [loading, setLoading] = useState(true);
   const [testData, setTestData] = useState({} as TestData);
+
+  const [originalTesters, setOriginalTesters] = useState([] as TesterData[]); // just for fallback to manage the information
+  const [testers, setTesters] = useState([] as TesterData[]); // to show the information filtered from originalTesters
+
+  // Pages' Slider
+  const testerCardsPerPage = 8; // limit number of tester cards per page
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  // Testers to Display
+  const startIndex = (currentPage - 1) * testerCardsPerPage;
+  const endIndex = startIndex + testerCardsPerPage;
+  const testersToDisplay = testers.slice(startIndex, endIndex);
+
+  // Handle previous and next page navigations
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const [searchOptions, setSearchOptions] = useState({
+    // default values
+    search: "",
+    option: "All Testers",
+    sort: "ASC",
+  } as TestersSearchFilters);
+
+  //update functions
+  const updateOptions = (valueToUpdate: Partial<TestersSearchFilters>) => {
+    setSearchOptions({
+      ...searchOptions,
+      ...valueToUpdate,
+    });
+  };
+  // filters
+  useEffect(() => {
+    if (originalTesters.length > 0) {
+      //SEARCH FILTER
+      let result = originalTesters.filter((testerData) =>
+        testerData.name.includes(searchOptions.search)
+      );
+
+      //IN PROGRESS FILTER
+      result = result.filter((testerData) => {
+        if (searchOptions.option === "All Testers")
+          return console.log("All Testers");
+        else return console.log("Matched Criteria");
+      });
+
+      //SORT BY FILTER
+      result = result.sort((nextValue, curValue) => {
+        const a = nextValue.name.toLowerCase();
+        const b = curValue.name.toLowerCase();
+
+        if (searchOptions.sort === "ASC") {
+          if (a < b) return -1;
+          if (a > b) return 1;
+        } else if (searchOptions.sort === "DESC") {
+          if (a > b) return -1;
+          if (a < b) return 1;
+        }
+        return 0;
+      });
+
+      setTesters(result);
+    }
+  }, [searchOptions, originalTesters]);
 
   const goToFindTestersPage = () => {
     router.push(`/tests/myTests/testDetail/${_id}/findTesters`);
@@ -69,6 +157,35 @@ const TestDetailUXResearcher = (props: Props) => {
       showTestDetail();
     }
   }, [router]);
+
+  // const showTesters = async () => {
+  //   const params = {
+  //     userId: props.auth?.id,
+  //   };
+
+  //   await axios
+  //     .get("/api/tests/myTests/testDetail/getTestersWhoHaveAnsweredTest", {
+  //       params,
+  //     })
+  //     .then(async (res) => {
+  //       setOriginalTesters(res.data);
+  //     })
+  //     .catch((error) => {
+  //       if (error.response && error.response.data) {
+  //         alert(error.response.data); // specific error messages
+  //       } else {
+  //         alert(error.message); // default error message
+  //       }
+  //     });
+
+  //   setLoading(false);
+  // };
+  // useEffect(() => {
+  //   setLoading(true);
+  //   if (router.isReady) {
+  //     showTesters();
+  //   }
+  // }, [router]);
 
   const deleteTest = async () => {
     // confirm alert
@@ -122,11 +239,17 @@ const TestDetailUXResearcher = (props: Props) => {
           <div className={styles.testImgContainer}>
             <img src="/tests_imgs/a-b-testing.jpg" alt="Test Image" />
           </div>
-          <h2>Test&apos;s Link</h2>
-          <a href={`/tests/test/${testData.id}`}>Preview Test</a>
 
-          <Button text="Copy Link" size="medium" type="tertiary" />
-          <Button text="Share" size="medium" type="tertiary" />
+          <h2>Test Preview</h2>
+          <br />
+
+          <Button
+            text="Preview Test"
+            size="medium"
+            type="tertiary"
+            function={() => router.push(`/tests/test/${testData.id}`)}
+          />
+
           <h2>Test&apos;s Information</h2>
           <div className={styles.smallInfoContainer}>
             <SmallInfo
@@ -174,72 +297,37 @@ const TestDetailUXResearcher = (props: Props) => {
         </div>
         <div className={styles.testDetailRightContainer}>
           <h2>People that have taken this test:</h2>
-          {/* Follow People Component */}
-          <FollowPeople
-            userImg="/userExamples/user--05.svg"
-            userProfile=""
-            userName="Name of Person"
-            jobTitle="Job Title"
-            location="Location"
+          {/* Search and Filters */}
+          <TestersAnsweredSearch
+            options={["All Testers", "Matched Criteria"]}
+            testOptions={searchOptions}
+            onChange={updateOptions}
           />
-          <FollowPeople
-            userImg="/userExamples/user--05.svg"
-            userProfile=""
-            userName="Name of Person"
-            jobTitle="Job Title"
-            location="Location"
-          />
-          <FollowPeople
-            userImg="/userExamples/user--05.svg"
-            userProfile=""
-            userName="Name of Person"
-            jobTitle="Job Title"
-            location="Location"
-          />
-          <FollowPeople
-            userImg="/userExamples/user--05.svg"
-            userProfile=""
-            userName="Name of Person"
-            jobTitle="Job Title"
-            location="Location"
-          />
-          <FollowPeople
-            userImg="/userExamples/user--05.svg"
-            userProfile=""
-            userName="Name of Person"
-            jobTitle="Job Title"
-            location="Location"
-          />
-          <FollowPeople
-            userImg="/userExamples/user--05.svg"
-            userProfile=""
-            userName="Name of Person"
-            jobTitle="Job Title"
-            location="Location"
-          />
-          <FollowPeople
-            userImg="/userExamples/user--05.svg"
-            userProfile=""
-            userName="Name of Person"
-            jobTitle="Job Title"
-            location="Location"
-          />
-          <FollowPeople
-            userImg="/userExamples/user--05.svg"
-            userProfile=""
-            userName="Name of Person"
-            jobTitle="Job Title"
-            location="Location"
-          />
+
+          {/* Follow People Component: Show Testers */}
+          {testers.length > 0 ? (
+            testers.map((testerData, key) => (
+              <FollowPeople
+                key={key}
+                userImg={testerData.profilePic}
+                userName={testerData.name}
+                jobTitle={testerData.jobTitle}
+                location={testerData.location}
+                userProfile=""
+              />
+            ))
+          ) : (
+            <span className={styles.noTestsAvailable}>No testers to show.</span>
+          )}
 
           {/* Pages Component */}
           <PagesSlider
-            previousPageArrow
-            currentPageNr={10}
-            totalPagesNr={50}
-            nextPageArrow
-            nextPageFunction={() => {}}
-            previousPageFunction={() => {}}
+            previousPageArrow={currentPage > 1}
+            currentPageNr={currentPage}
+            totalPagesNr={totalPages}
+            nextPageArrow={totalPages > 1 && totalPages != currentPage}
+            nextPageFunction={goToNextPage}
+            previousPageFunction={goToPreviousPage}
           />
         </div>
       </div>

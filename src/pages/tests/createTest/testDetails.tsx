@@ -320,7 +320,7 @@ const TestDetails = (props: PropsTestPage) => {
                 }}
               />
               <TextInput
-                title="Amount (€)"
+                title="Amount ($)"
                 placeholder="e.g. 25"
                 size="small"
                 type="number"
@@ -348,7 +348,7 @@ const TestDetails = (props: PropsTestPage) => {
                 },
                 {
                   value: "Private",
-                  description: "Only people with the link can access this test",
+                  description: "Only invited testers can access this test",
                 },
               ]}
               type="radio"

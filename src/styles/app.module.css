@@ -1093,10 +1093,20 @@ button.buttonTertiarySecondary {
   width: 54.75rem;
 }
 
-.testsSearchbar {
+.testersFiltersContainer {
+  margin-bottom: 2rem;
+  width: auto;
+}
+
+.testsSearchbar,
+.testersSearchbar {
   position: relative;
   top: 0;
   right: 0;
+}
+
+.testersSearchbar > input {
+  width: 20rem;
 }
 
 .testsFiltersContainer select {
@@ -1313,6 +1323,8 @@ h6.testCategoryDescription {
   border-radius: 1.5rem;
   padding: 1.8rem 3.1rem;
   width: 41.2rem;
+  height: fit-content;
+  max-height: 46rem;
   background-color: var(--color-rocketest-5);
 }
 

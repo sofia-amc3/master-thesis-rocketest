@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import Button from "../Button";
 import styles from "@/styles/app.module.css";
@@ -40,9 +39,14 @@ const FollowPeople = (props: Props) => {
 
       <div className={styles.rightContent}>
         {props.isFollowing ? (
-          <Button text="Following" size="small" type="tertiary-secondary" />
+          <Button
+            text="Following"
+            size="small"
+            type="tertiary-secondary"
+            disabled
+          />
         ) : (
-          <Button text="Follow" size="small" type="tertiary" />
+          <Button text="Follow" size="small" type="tertiary" disabled />
         )}
       </div>
     </div>
