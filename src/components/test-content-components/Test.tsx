@@ -33,7 +33,7 @@ const Test = (props: Props) => {
     <>
       <h1>{props.testData.testName}</h1>
       <h4>
-        {props.testData.testType} from {props.testData.testCreator}
+        {props.testData.testType} test from {props.testData.testCreator}
       </h4>
 
       {props.testData.testDescription && (

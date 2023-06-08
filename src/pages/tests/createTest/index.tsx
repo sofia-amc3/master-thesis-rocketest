@@ -31,7 +31,7 @@ const CreateTest = () => {
             imageSrc="/tests_imgs/a-b-testing.jpg"
             testName="A/B Test"
             testDescription=" Compares two (A and B) or more versions of a design to determine which performs better."
-            page="/tests/createTest/editTest"
+            page="/tests/createTest/editTest?type=A%2FB"
           />
           <TestTemplateCard
             imageSrc="/tests_imgs/5-second-test.jpg"

@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import styles from "@/styles/app.module.css";
 import TestContentsMenu from "@/components/create-test-components/TestContentsMenu";
 import {
-  exampleFormObject,
   question_sectionCreator,
   Form,
   updateNameQuestionSection,
@@ -20,15 +19,19 @@ import {
   deleteImageOption,
   optionCreator,
   optionDelete,
+  formTemplate,
 } from "@/utils/testCreatorHelper";
 import Loading from "@/components/Loading";
 import Test from "@/components/test-content-components/Test";
+import { PropsTestPage } from "..";
 
-const EditTest = () => {
+const EditTest = (props: PropsTestPage) => {
   const router = useRouter();
   const [contentMenuFocus, setContentMenuFocus] = useState(-1);
-  const [formTest, setFormTest] = useState(exampleFormObject);
   const [loading, setLoading] = useState(true);
+  const [formTest, setFormTest] = useState(formTemplate as Form);
+
+  const { type } = router.query;
 
   const updateForm = (valueToUpdate: Partial<Form>) => {
     setFormTest({
@@ -94,6 +97,18 @@ const EditTest = () => {
     setLoading(false);
   }, [loading]);
 
+  useEffect(() => {
+    if (router.isReady) {
+      setFormTest({
+        ...formTemplate,
+        testType: type,
+        testCreator: props.auth.name,
+      } as Form);
+
+      setLoading(false);
+    }
+  }, [router]);
+
   return (
     <>
       <Head>
@@ -113,7 +128,7 @@ const EditTest = () => {
           activePage
         />
         <h1>Edit Test</h1>
-        <h4>A/B Test</h4>
+        <h4>{formTest.testType} Test</h4>
         {loading ? (
           <Loading />
         ) : (

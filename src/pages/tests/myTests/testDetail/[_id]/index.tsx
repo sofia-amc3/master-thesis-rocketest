@@ -30,12 +30,17 @@ export interface TestersSearchFilters {
 }
 
 // info coming from db
-interface TesterData {
-  name: string;
-  profilePic: string;
-  jobTitle: string;
-  location: string;
-  matchedCriteria?: boolean;
+interface TestersAns {
+  testerId: number;
+  testerName: string;
+  testerCareer: string;
+  testerLocation: string;
+  testerProfilePic: string;
+  matchedCriteria?: boolean; //! STILL MISSING FROM QUERY
+}
+
+interface CurrentTestData extends TestData {
+  testersAns: TestersAns[];
 }
 
 const TestDetailUXResearcher = (props: Props) => {
@@ -43,10 +48,8 @@ const TestDetailUXResearcher = (props: Props) => {
   const { _id } = router.query; // access the test ID from the URL parameter
 
   const [loading, setLoading] = useState(true);
-  const [testData, setTestData] = useState({} as TestData);
-
-  const [originalTesters, setOriginalTesters] = useState([] as TesterData[]); // just for fallback to manage the information
-  const [testers, setTesters] = useState([] as TesterData[]); // to show the information filtered from originalTesters
+  const [testData, setTestData] = useState({} as CurrentTestData); // has the original list of testers just for fallback to manage the information
+  const [testers, setTesters] = useState([] as TestersAns[]); // to show the information filtered from original testers list
 
   // Pages' Slider
   const testerCardsPerPage = 8; // limit number of tester cards per page
@@ -85,23 +88,22 @@ const TestDetailUXResearcher = (props: Props) => {
   };
   // filters
   useEffect(() => {
-    if (originalTesters.length > 0) {
+    if (testData.testersAns?.length > 0) {
       //SEARCH FILTER
-      let result = originalTesters.filter((testerData) =>
-        testerData.name.includes(searchOptions.search)
+      let result = testData.testersAns.filter((testerData) =>
+        testerData.testerName.includes(searchOptions.search)
       );
 
       //IN PROGRESS FILTER
       result = result.filter((testerData) => {
-        if (searchOptions.option === "All Testers")
-          return console.log("All Testers");
+        if (searchOptions.option === "All Testers") return 1;
         else return console.log("Matched Criteria");
       });
 
       //SORT BY FILTER
       result = result.sort((nextValue, curValue) => {
-        const a = nextValue.name.toLowerCase();
-        const b = curValue.name.toLowerCase();
+        const a = nextValue.testerName.toLowerCase();
+        const b = curValue.testerName.toLowerCase();
 
         if (searchOptions.sort === "ASC") {
           if (a < b) return -1;
@@ -115,7 +117,7 @@ const TestDetailUXResearcher = (props: Props) => {
 
       setTesters(result);
     }
-  }, [searchOptions, originalTesters]);
+  }, [searchOptions, testData.testersAns]);
 
   const goToFindTestersPage = () => {
     router.push(`/tests/myTests/testDetail/${_id}/findTesters`);
@@ -134,13 +136,8 @@ const TestDetailUXResearcher = (props: Props) => {
     await axios
       .get("/api/tests/myTests/testDetail/testDetailUxResearcher", { params })
       .then(async (res) => {
-        if (res.data.length === 1) {
-          setTestData(res.data[0]);
-          setLoading(false);
-        } else {
-          alert("There is no test available.");
-          router.push("/tests/myTests/");
-        }
+        setTestData(res.data);
+        setLoading(false);
       })
       .catch((error) => {
         if (error.response && error.response.data) {
@@ -168,7 +165,7 @@ const TestDetailUXResearcher = (props: Props) => {
   //       params,
   //     })
   //     .then(async (res) => {
-  //       setOriginalTesters(res.data);
+  //       settestData.testersAns(res.data);
   //     })
   //     .catch((error) => {
   //       if (error.response && error.response.data) {
@@ -309,10 +306,10 @@ const TestDetailUXResearcher = (props: Props) => {
             testersToDisplay.map((testerData, key) => (
               <FollowPeople
                 key={key}
-                userImg={testerData.profilePic}
-                userName={testerData.name}
-                jobTitle={testerData.jobTitle}
-                location={testerData.location}
+                userImg={testerData.testerProfilePic}
+                userName={testerData.testerName}
+                jobTitle={testerData.testerCareer}
+                location={testerData.testerLocation}
                 userProfile=""
               />
             ))

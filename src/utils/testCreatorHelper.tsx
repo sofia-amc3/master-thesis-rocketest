@@ -128,7 +128,7 @@ export const formTemplate = {
   testType: "",
   testCreator: "",
   testDescription: "",
-  question_section: [],
+  question_section: [] as (Section | Question)[],
 } as Form;
 
 // creators ---------------------------------------------------------------------------------------
@@ -176,7 +176,11 @@ export const question_sectionCreator = (
 ): Form => {
   const updatedFormObj = { ...formObj };
 
-  if (
+  if (updatedFormObj.question_section.length === 0) {
+    updatedFormObj.question_section.push(
+      question_sectionTemplate(formObj.question_section.length, isSection)
+    );
+  } else if (
     isSection &&
     updatedFormObj.question_section[formObj.question_section.length - 1]
       .isSection
@@ -185,7 +189,10 @@ export const question_sectionCreator = (
   } else {
     // create a new question or section and add it to the question_section array of the form
     updatedFormObj.question_section.push(
-      question_sectionTemplate(formObj.question_section.length, isSection)
+      question_sectionTemplate(
+        formObj.question_section[formObj.question_section.length - 1].id + 1,
+        isSection
+      )
     );
   }
 
