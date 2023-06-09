@@ -12,16 +12,11 @@ import Test from "@/components/test-content-components/Test";
 import { useRouter } from "next/router";
 import styles from "@/styles/app.module.css";
 import axios from "axios";
-import { userAuth } from "@/utils/user";
 import { PropsTestPage } from "@/pages/tests";
 import { TestData } from "../..";
 import Loading from "@/components/Loading";
 import { Form } from "@/utils/testCreatorHelper";
 import TestersAnsweredSearch from "@/components/my-tests-components/TestersAnsweredSearch";
-
-interface Props {
-  auth: userAuth;
-}
 
 export interface TestersSearchFilters {
   search: string;
@@ -39,11 +34,11 @@ interface TestersAns {
   matchedCriteria?: boolean; //! STILL MISSING FROM QUERY
 }
 
-interface CurrentTestData extends TestData {
+export interface CurrentTestData extends TestData {
   testersAns: TestersAns[];
 }
 
-const TestDetailUXResearcher = (props: Props) => {
+const TestDetailUXResearcher = (props: PropsTestPage) => {
   const router = useRouter();
   const { _id } = router.query; // access the test ID from the URL parameter
 
@@ -244,7 +239,7 @@ const TestDetailUXResearcher = (props: Props) => {
             text="Preview Test"
             size="medium"
             type="tertiary"
-            function={() => router.push(`/tests/test/${testData.id}`)}
+            function={() => router.push(`/tests/test/${testData.testId}`)}
           />
 
           <h2>Test&apos;s Information</h2>
@@ -332,7 +327,7 @@ const TestDetailUXResearcher = (props: Props) => {
   );
 };
 
-const TestDetailTester = (props: Props) => {
+const TestDetailTester = (props: PropsTestPage) => {
   const router = useRouter();
   const { _id } = router.query;
 

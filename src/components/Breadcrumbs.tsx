@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "@/styles/app.module.css";
+import { useRouter } from "next/router";
 
 interface Props {
   link: string;
@@ -11,10 +12,12 @@ interface Props {
 }
 
 const Breadcrumbs = (props: Props) => {
+  const router = useRouter();
+
   return (
     <div className={styles.createTestBreadcrumbs}>
       <Link
-        href={props.link}
+        href={props.activePage ? router.asPath : props.link}
         className={`${props.activePage && styles.createTestActivePage}`}
       >
         {props.pageName}

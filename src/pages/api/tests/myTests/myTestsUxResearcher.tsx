@@ -10,7 +10,7 @@ const MyTestsUXResearcherHandler = async (
       const { userId } = req.query;
       try {
         const result = await pool.query(
-          `SELECT T.ID,
+          `SELECT T.ID as "testId",
                   T."name" AS "testName",
                   T."type" AS "testType",
                   DEADLINE AS "testDeadline",

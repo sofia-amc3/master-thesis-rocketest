@@ -19,7 +19,7 @@ export interface MyTestsFilters {
 
 // info coming from db
 export interface TestData {
-  id: number;
+  testId: number;
   testName: string;
   testType: string;
   testDeadline: string;
@@ -197,7 +197,7 @@ const MyTestsUXResearcher = (props: Props) => {
                   day: "numeric",
                 }
               )}
-              page={`/tests/myTests/testDetail/${testData.id}`}
+              page={`/tests/myTests/testDetail/${testData.testId}`}
             />
           ))
         ) : (
@@ -373,7 +373,7 @@ const MyTestsTester = (props: Props) => {
                   day: "numeric",
                 }
               )}
-              page={`/tests/myTests/testDetail/${testData.id}`}
+              page={`/tests/myTests/testDetail/${testData.testId}`}
               paymentAmount={`${testData.testPayment}$`}
             />
           ))

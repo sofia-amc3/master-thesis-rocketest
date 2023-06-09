@@ -10,7 +10,7 @@ const MyTestsTesterHandler = async (
       const { userId } = req.query;
       try {
         const result = await pool.query(
-          `SELECT DISTINCT T.ID,
+          `SELECT DISTINCT T.ID AS "testId",
                            T."name" AS "testName",
                            T."type" AS "testType",
                            T.DEADLINE AS "testDeadline",
