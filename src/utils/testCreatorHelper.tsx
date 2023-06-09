@@ -206,12 +206,21 @@ export const question_sectionDelete = (
   const updatedFormObj = { ...formObj };
 
   if (
-    confirm(
-      "Are you sure you want to delete this Question/Section? All of its contents will be lost."
-    )
+    formObj.question_section[question_sectionId - 1]?.isSection &&
+    formObj.question_section[question_sectionId + 1]?.isSection
   ) {
-    // delete the specified question or section from the question_section array of the form
-    updatedFormObj.question_section.splice(question_sectionId, 1);
+    alert(
+      "You cannot delete this question. If you do, you will have 2 consecutive sections."
+    );
+  } else {
+    if (
+      confirm(
+        "Are you sure you want to delete this Question/Section? All of its contents will be lost."
+      )
+    ) {
+      // delete the specified question or section from the question_section array of the form
+      updatedFormObj.question_section.splice(question_sectionId, 1);
+    }
   }
 
   return updatedFormObj;

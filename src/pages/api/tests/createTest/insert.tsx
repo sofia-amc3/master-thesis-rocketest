@@ -70,14 +70,26 @@ const InsertTest = async (req: NextApiRequest, res: NextApiResponse) => {
                 RETURNING id AS questionId
             ),
             `;
-            q.options.forEach((opt, optKey) => {
+
+            for (let optKey = q.options.length - 1; optKey >= 0; optKey--) {
+              const opt = q.options[optKey];
+
               queryBuild += `tmpOptions${q_sKey}${optKey} AS (
-                  INSERT INTO "Options" ("questionId", name, image)
-                  SELECT questionId, '${opt.name}', '${opt.imgSrc}'
-                  FROM tmpQ_S${q_sKey}
+                INSERT INTO "Options" ("questionId", name, image)
+                SELECT questionId, '${opt.name}', '${opt.imgSrc}'
+                FROM tmpQ_S${q_sKey}
               ),
               `;
-            });
+            }
+
+            // q.options.forEach((opt, optKey) => {
+            //   queryBuild += `tmpOptions${q_sKey}${optKey} AS (
+            //       INSERT INTO "Options" ("questionId", name, image)
+            //       SELECT questionId, '${opt.name}', '${opt.imgSrc}'
+            //       FROM tmpQ_S${q_sKey}
+            //   ),
+            //   `;
+            // });
           }
         }
 

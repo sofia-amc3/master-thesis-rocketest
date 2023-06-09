@@ -287,7 +287,7 @@ const TestDetails = (props: PropsTestPage) => {
               size="large"
               type="date"
               mandatory
-              defaultValue={formTest.deadlineDate
+              defaultValue={new Date(formTest.deadlineDate)
                 .toISOString()
                 .substring(0, 10)}
               onChange={(e) => {

@@ -31,7 +31,7 @@ const EditTest = (props: PropsTestPage) => {
   const [loading, setLoading] = useState(true);
   const [formTest, setFormTest] = useState(formTemplate as Form);
 
-  const { type } = router.query;
+  const { type, rollback } = router.query;
 
   const updateForm = (valueToUpdate: Partial<Form>) => {
     setFormTest({
@@ -88,9 +88,14 @@ const EditTest = (props: PropsTestPage) => {
         confirm(
           "Are you sure you want to go back? All the fields will be lost."
         )
-      )
+      ) {
+        sessionStorage.removeItem("currentTest");
         router.push("/tests/createTest/");
-    } else router.push("/tests/createTest/");
+      }
+    } else {
+      sessionStorage.removeItem("currentTest");
+      router.push("/tests/createTest/");
+    }
   };
 
   useEffect(() => {
@@ -99,11 +104,16 @@ const EditTest = (props: PropsTestPage) => {
 
   useEffect(() => {
     if (router.isReady) {
-      setFormTest({
-        ...formTemplate,
-        testType: type,
-        testCreator: props.auth.name,
-      } as Form);
+      const curForm = sessionStorage.getItem("currentTest");
+      if (curForm) {
+        setFormTest(JSON.parse(curForm) as Form);
+      } else {
+        setFormTest({
+          ...formTemplate,
+          testType: type,
+          testCreator: props.auth.name,
+        } as Form);
+      }
 
       setLoading(false);
     }
