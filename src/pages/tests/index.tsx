@@ -19,7 +19,6 @@ export interface PropsTestPage {
 // secondary Props
 interface Props {
   auth: userAuth;
-  matchCriteria: boolean;
 }
 
 const OverviewUXResearcher = () => {
@@ -67,6 +66,10 @@ const OverviewTester = (props: Props) => {
 
   //update functions
   const updateOptions = (valueToUpdate: Partial<MyTestsFilters>) => {
+    if (valueToUpdate.option != undefined) {
+      showTests(valueToUpdate.option);
+    }
+
     setTestOptions({
       ...testOptions,
       ...valueToUpdate,
@@ -82,10 +85,10 @@ const OverviewTester = (props: Props) => {
       );
 
       //ALL TESTS/MATCHED CRITERIA FILTER
-      result = result.filter(() => {
-        if (testOptions.option === "All Tests") return !props.matchCriteria;
-        else props.matchCriteria;
-      });
+      // result = result.filter(() => {
+      //   if (testOptions.option === "All Tests") return !props.matchCriteria;
+      //   else props.matchCriteria;
+      // });
 
       //SORT BY FILTER
       switch (testOptions.filter) {
@@ -154,14 +157,16 @@ const OverviewTester = (props: Props) => {
       }
 
       setTests(result);
+    } else {
+      setTests(originalTests);
     }
   }, [testOptions, originalTests]);
 
   // on loading page functions
-  const showTests = async () => {
+  const showTests = async (matchCriteriaStr = "") => {
     const params = {
       userId: props.auth?.id,
-      matchCriteria: props.matchCriteria,
+      matchCriteria: matchCriteriaStr === "Matched Criteria",
     };
 
     await axios
@@ -224,7 +229,7 @@ const OverviewTester = (props: Props) => {
                     day: "numeric",
                   }
                 )}
-                page={`/tests/test/${testData.id}`}
+                page={`/tests/test/${testData.testId}`}
                 paymentAmount={`${testData.testPayment}$`}
               />
             ))
@@ -232,14 +237,16 @@ const OverviewTester = (props: Props) => {
             <span className={styles.noTestsAvailable}>No tests available.</span>
           )}
         </div>
-        <PagesSlider
-          currentPageNr={currentPage}
-          totalPagesNr={totalPages}
-          nextPageArrow={totalPages > 1 && totalPages != currentPage}
-          previousPageArrow={currentPage > 1}
-          nextPageFunction={goToNextPage}
-          previousPageFunction={goToPreviousPage}
-        />
+        {tests.length > 0 && (
+          <PagesSlider
+            currentPageNr={currentPage}
+            totalPagesNr={totalPages}
+            nextPageArrow={totalPages > 1 && totalPages != currentPage}
+            previousPageArrow={currentPage > 1}
+            nextPageFunction={goToNextPage}
+            previousPageFunction={goToPreviousPage}
+          />
+        )}
       </div>
     </>
   );
@@ -255,7 +262,7 @@ const Overview = (props: PropsTestPage) => {
         <TestsTopMenu isTester={!!props.auth?.type} />
         {/* Check User Type */}
         {props.auth?.type ? (
-          <OverviewTester auth={props.auth} matchCriteria={false} />
+          <OverviewTester auth={props.auth} />
         ) : (
           <OverviewUXResearcher />
         )}
