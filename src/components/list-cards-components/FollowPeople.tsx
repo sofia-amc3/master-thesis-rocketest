@@ -7,8 +7,8 @@ interface Props {
   userImg: string;
   userProfile: string;
   userName: string;
-  jobTitle?: string;
-  location?: string;
+  matchedCriteria?: boolean;
+  matchedCriteriaText?: string;
   isFollowing?: boolean;
 }
 
@@ -24,17 +24,25 @@ const FollowPeople = (props: Props) => {
             />
           </div>
         </Link>
-        <Link href={props.userProfile}>
-          <span className={styles.userNameTxt}>{props.userName}</span>
-        </Link>
-        <br />
-        {props.jobTitle && <span>{props.jobTitle}</span>}
-        {props.jobTitle && props.location ? (
-          <span className={styles.bullet}>•</span>
-        ) : (
-          ""
-        )}
-        {props.location && <span>{props.location}</span>}
+        <div className={styles.userMatchedCriteria}>
+          <Link href={props.userProfile}>
+            <span className={styles.userNameTxt}>{props.userName}</span>
+          </Link>
+          <br />
+          {props.matchedCriteria ? (
+            <>
+              <span>Matched Criteria</span>
+              <img
+                src="/icons/test-information.svg"
+                alt="Information Icon"
+                title={props.matchedCriteriaText}
+                className={`${styles.infoIcon}`}
+              />
+            </>
+          ) : (
+            <span>No Matched Criteria.</span>
+          )}
+        </div>
       </div>
 
       <div className={styles.rightContent}>

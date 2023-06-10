@@ -303,8 +303,8 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
                 key={key}
                 userImg={testerData.testerProfilePic}
                 userName={testerData.testerName}
-                jobTitle={testerData.testerCareer}
-                location={testerData.testerLocation}
+                matchedCriteria
+                matchedCriteriaText="Text"
                 userProfile=""
               />
             ))

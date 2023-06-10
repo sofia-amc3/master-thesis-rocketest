@@ -550,8 +550,23 @@ button.buttonTertiarySecondary {
   margin: 0 0.2rem;
 }
 
-.followPeopleCard .leftContent a {
-  float: left;
+.followPeopleCard .leftContent > * {
+  display: inline-block;
+}
+
+.followPeopleCard .leftContent .userMatchedCriteria {
+  vertical-align: top;
+}
+
+.followPeopleCard .leftContent .userMatchedCriteria span {
+  display: inline-block;
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+
+.followPeopleCard .leftContent .userMatchedCriteria img {
+  margin-left: 0.5rem;
+  margin-top: 0.1rem;
 }
 
 .followPeopleCard .rightContent button {
