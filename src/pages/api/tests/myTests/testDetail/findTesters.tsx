@@ -40,6 +40,19 @@ const TestDetailUXResearcherHandler = async (
       const { userId, testId } = req.query;
       try {
         const result = await pool.query(
+          // `SELECT T.ID,
+          //         T."name" AS "testName",
+          //         T."type" AS "testType",
+          //         DEADLINE AS "testDeadline",
+          //         COUNT(C.ID) AS "testersCount",
+          //         T.PAYMENT AS "testPayment"
+          //   FROM PUBLIC."Tests" T
+          //   LEFT JOIN PUBLIC."Contacted_Users" C ON C."testId" = T.ID
+          //   WHERE T."userId" = ${userId}
+          //         AND T.ID = ${testId}
+          //         AND T."isDeleted" = FALSE
+          //   GROUP BY T.ID`
+
           `
           SELECT DISTINCT *
           FROM
