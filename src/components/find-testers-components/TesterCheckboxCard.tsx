@@ -44,27 +44,27 @@ const TestersCheckboxCard = (props: Props) => {
         <br />
         <div className={styles.testerInfoContainer}>
           <TesterInfo
-            iconSrc="/icons/test-calendar.svg"
+            iconSrc="/icons/testerInfo-age.svg"
             info={props.userInfo?.age?.toString() || "N.A."}
           />
           <TesterInfo
-            iconSrc="/icons/test-calendar.svg"
+            iconSrc="/icons/testerInfo-gender.svg"
             info={props.userInfo?.gender || "N.A."}
           />
         </div>
         <TesterInfo
-          iconSrc="/icons/test-calendar.svg"
+          iconSrc="/icons/profile-location.svg"
           info={props.userInfo?.location || "N.A."}
         />
         <TesterInfo
-          iconSrc="/icons/test-calendar.svg"
+          iconSrc="/icons/testerInfo-career.svg"
           info={props.userInfo?.career || "N.A."}
         />
         <TesterInfo
-          iconSrc="/icons/test-calendar.svg"
+          iconSrc="/icons/testerInfo-ds.svg"
           info={props.userInfo?.digitalSavviness || "N.A."}
         />
-        <TesterInfo iconSrc="/icons/test-calendar.svg" info="Hobbies" />
+        <TesterInfo iconSrc="/icons/testerInfo-hobbies.svg" info={"N.A."} />
       </div>
     </div>
   );
