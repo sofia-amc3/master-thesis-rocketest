@@ -16,18 +16,11 @@ const FollowPeople = (props: Props) => {
   return (
     <div className={styles.followPeopleCard}>
       <div className={styles.leftContent}>
-        <Link href={props.userProfile}>
-          <div className={styles.userProfilePicContainer}>
-            <img
-              src={props.userImg}
-              alt={`${props.userName} Profile Picture`}
-            />
-          </div>
-        </Link>
+        <div className={styles.userProfilePicContainer}>
+          <img src={props.userImg} alt={`${props.userName} Profile Picture`} />
+        </div>
         <div className={styles.userMatchedCriteria}>
-          <Link href={props.userProfile}>
-            <span className={styles.userNameTxt}>{props.userName}</span>
-          </Link>
+          <span className={styles.userNameTxt}>{props.userName}</span>
           <br />
           {props.matchedCriteria ? (
             <>

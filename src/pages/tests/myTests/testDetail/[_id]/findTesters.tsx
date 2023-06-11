@@ -9,20 +9,16 @@ import Button from "@/components/Button";
 import PagesSlider from "@/components/PagesSlider";
 import { useRouter } from "next/router";
 import styles from "@/styles/app.module.css";
-import { TestData } from "../..";
-import { userAuth } from "@/utils/user";
 import axios from "axios";
 import Loading from "@/components/Loading";
+import { PropsTestPage } from "@/pages/tests";
+import { CurrentTestData } from ".";
 
-interface Props {
-  auth?: userAuth;
-}
-
-const FindTesters = (props: Props) => {
+const FindTesters = (props: PropsTestPage) => {
   const router = useRouter();
   const { _id } = router.query; // access the test ID from the URL parameter
   const [loading, setLoading] = useState(true);
-  const [testData, setTestData] = useState({} as TestData);
+  const [testData, setTestData] = useState({} as CurrentTestData);
 
   const goBack = () => {
     router.back();
@@ -37,13 +33,8 @@ const FindTesters = (props: Props) => {
     await axios
       .get("/api/tests/myTests/testDetail/testDetailUxResearcher", { params })
       .then(async (res) => {
-        if (res.data.length === 1) {
-          setTestData(res.data[0]);
-          setLoading(false);
-        } else {
-          alert("There is no test available.");
-          router.push("/tests/myTests/");
-        }
+        setTestData(res.data);
+        setLoading(false);
       })
       .catch((error) => {
         if (error.response && error.response.data) {
@@ -79,7 +70,7 @@ const FindTesters = (props: Props) => {
         <Breadcrumbs link="" pageName="Find Testers" activePage />
 
         <h1>{testData.testName}</h1>
-        <h6>Find testers using an external platform.</h6>
+        <h6>Find testers that match the previously defined criteria.</h6>
 
         <div className={styles.findTestersSearch}>
           <TextInput
@@ -87,7 +78,14 @@ const FindTesters = (props: Props) => {
             placeholder=""
             size="small"
             isSelect
-            options={["Custom API", "LinkedIn", "Facebook", "Instagram"]}
+            options={[
+              "Rocketest",
+              "Custom API",
+              "LinkedIn",
+              "Facebook",
+              "Instagram",
+            ]}
+            disableArray={["LinkedIn", "Facebook", "Instagram"]}
             onChange={(e) => console.log(e)}
           />
           <Button text="Search" size="small" type="tertiary" />
@@ -100,41 +98,26 @@ const FindTesters = (props: Props) => {
         <TestersSearch />
 
         <div className={styles.testersResultsContainer}>
+          <TestersCheckboxCard userName="Name of Person" />
           <TestersCheckboxCard
             userImgSrc="/userExamples/user--05.svg"
             userName="Name of Person"
-            description="Job Title"
-            userProfileLink="https://www.linkedin.com/in/sofiaamc3/"
           />
           <TestersCheckboxCard
             userImgSrc="/userExamples/user--05.svg"
             userName="Name of Person"
-            description="Job Title"
-            userProfileLink=""
           />
           <TestersCheckboxCard
             userImgSrc="/userExamples/user--05.svg"
             userName="Name of Person"
-            description="Job Title"
-            userProfileLink=""
           />
           <TestersCheckboxCard
             userImgSrc="/userExamples/user--05.svg"
             userName="Name of Person"
-            description="Job Title"
-            userProfileLink=""
           />
           <TestersCheckboxCard
             userImgSrc="/userExamples/user--05.svg"
             userName="Name of Person"
-            description="Job Title"
-            userProfileLink=""
-          />
-          <TestersCheckboxCard
-            userImgSrc="/userExamples/user--05.svg"
-            userName="Name of Person"
-            description="Job Title"
-            userProfileLink=""
             wasContacted
           />
         </div>

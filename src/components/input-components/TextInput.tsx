@@ -12,6 +12,7 @@ interface Props {
   isSelect?: boolean;
   isDisabled?: boolean;
   options?: string[];
+  disableArray?: string[];
   defaultValue?: string;
   textareaMaxLength?: number;
   onChange: (
@@ -68,7 +69,7 @@ const TextInput = (props: Props) => {
                   <option
                     key={key}
                     value={value}
-                    //selected={value === props.defaultValue}
+                    disabled={props.disableArray?.includes(value)}
                   >
                     {value}
                   </option>

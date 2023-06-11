@@ -520,11 +520,6 @@ button.buttonTertiarySecondary {
   height: 3.1rem;
 }
 
-.followPeopleCard .leftContent .userProfilePicContainer:hover,
-.followPeopleCard .leftContent span.userNameTxt:hover {
-  opacity: 0.85;
-}
-
 .followPeopleCard .leftContent .userProfilePicContainer img {
   border-radius: 0.6rem;
   width: 100%;
@@ -1416,17 +1411,19 @@ h6.testCategoryDescription {
 .testerCheckboxCard .testerSmallCard {
   border-radius: 0.625rem;
   width: 14.625rem;
+  height: 9.9rem;
   background-color: var(--color-rocketest-8);
 }
 
-.testerCheckboxCard .testerSmallCard > div {
+.testerCheckboxCard .testerSmallCard > div.profilePicWrapper {
   /* User Profile Picture Container */
   float: left;
-  width: 3.125rem;
-  height: 3.125rem;
+  margin: 0.4rem 0 0 0.4rem;
+  width: 3.5rem;
+  height: 3.5rem;
 }
 
-.testerCheckboxCard .testerSmallCard > div > img {
+.testerCheckboxCard .testerSmallCard > div.profilePicWrapper > img {
   /* User Profile Picture */
   border-radius: 0.625rem;
   width: 100%;
@@ -1435,16 +1432,50 @@ h6.testCategoryDescription {
 }
 
 .testerCheckboxCard .testerSmallCard span {
-  margin-left: 0.9rem;
+  margin-left: 0.8rem;
   font-weight: 400;
   font-size: 0.75rem;
   color: var(--color-rocketest-2);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 1rem;
 }
 
-.testerCheckboxCard .testerSmallCard span:first-of-type {
+.testerCheckboxCard .testerSmallCard > span:first-of-type {
   display: inline-block;
   margin-top: 0.4rem;
   font-weight: 600;
+  width: 9rem;
+}
+
+.wasContacted {
+  vertical-align: top;
+  margin-top: 0.4rem;
+}
+
+/* TesterInfo Component */
+.testerInfoContainer {
+  display: flex;
+}
+
+.testerInfoWrapper {
+  margin: 0.3rem 0 0 0.8rem;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.testerInfoWrapper:nth-of-type(2) {
+  margin-left: 0;
+}
+
+.testerInfoIcon {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.testerInfoText {
+  flex: 1;
 }
 
 /* Testers Checkbox Container */

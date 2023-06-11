@@ -1,12 +1,21 @@
 import React from "react";
+import TesterInfo from "./TesterInfo";
 import styles from "../../styles/app.module.css";
 
 interface Props {
-  userImgSrc: string;
+  userImgSrc?: string;
   userName: string;
-  description: string;
-  userProfileLink: string;
   wasContacted?: boolean;
+  userInfo?: UserInfo;
+}
+
+interface UserInfo {
+  age?: number;
+  gender?: string;
+  location?: string;
+  career?: string;
+  hobbies?: string[];
+  digitalSavviness?: string;
 }
 
 const TestersCheckboxCard = (props: Props) => {
@@ -21,25 +30,42 @@ const TestersCheckboxCard = (props: Props) => {
       ) : (
         <input type="checkbox" value="selectTesters" />
       )}
-      <a
-        href={props.userProfileLink}
-        className={styles.testerSmallCard}
-        target="_blank"
-      >
-        <div>
+      <div className={styles.testerSmallCard}>
+        <div className={styles.profilePicWrapper}>
           <img
-            src={props.userImgSrc}
-            alt={`${props.userName} Profile Picture`}
+            src={props.userImgSrc || "/userExamples/user--02.svg"}
+            alt={`User Profile Picture`}
           />
         </div>
         <span>{props.userName}</span>
+        <span className={styles.wasContacted}>
+          {props.wasContacted ? "Already Contacted" : "Not Contacted"}
+        </span>
         <br />
-        {props.wasContacted ? (
-          <span>Already Contacted</span>
-        ) : (
-          <span>{props.description}</span>
-        )}
-      </a>
+        <div className={styles.testerInfoContainer}>
+          <TesterInfo
+            iconSrc="/icons/test-calendar.svg"
+            info={props.userInfo?.age?.toString() || "N.A."}
+          />
+          <TesterInfo
+            iconSrc="/icons/test-calendar.svg"
+            info={props.userInfo?.gender || "N.A."}
+          />
+        </div>
+        <TesterInfo
+          iconSrc="/icons/test-calendar.svg"
+          info={props.userInfo?.location || "N.A."}
+        />
+        <TesterInfo
+          iconSrc="/icons/test-calendar.svg"
+          info={props.userInfo?.career || "N.A."}
+        />
+        <TesterInfo
+          iconSrc="/icons/test-calendar.svg"
+          info={props.userInfo?.digitalSavviness || "N.A."}
+        />
+        <TesterInfo iconSrc="/icons/test-calendar.svg" info="Hobbies" />
+      </div>
     </div>
   );
 };

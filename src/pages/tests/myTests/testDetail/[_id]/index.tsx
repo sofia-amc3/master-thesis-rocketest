@@ -305,7 +305,7 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
                 userName={testerData.testerName}
                 matchedCriteria
                 matchedCriteriaText="Text"
-                userProfile=""
+                userProfile={testerData.testerId.toString()}
               />
             ))
           ) : (
