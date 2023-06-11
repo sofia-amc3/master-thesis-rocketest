@@ -17,26 +17,23 @@ import { TestData } from "../..";
 import Loading from "@/components/Loading";
 import { Form } from "@/utils/testCreatorHelper";
 import TestersAnsweredSearch from "@/components/my-tests-components/TestersAnsweredSearch";
+import { TesterAnsData } from "@/pages/api/tests/myTests/testDetail/testDetailUxResearcher";
 
-export interface TestersSearchFilters {
+interface TestersSearchFilters {
   search: string;
   option: string;
   sort: string;
 }
 
-// info coming from db
-interface TestersAns {
-  testerId: number;
-  testerName: string;
-  testerCareer: string;
-  testerLocation: string;
-  testerProfilePic: string;
-  matchedCriteria?: boolean; //! STILL MISSING FROM QUERY
+interface CurrentTestData extends TestData {
+  testersAns: TesterAnsData[];
 }
 
-export interface CurrentTestData extends TestData {
-  testersAns: TestersAns[];
-}
+export const digitalSavvinessText = [
+  "Not digitally savvy",
+  "Somewhat digitally savvy",
+  "Very digitally savvy",
+];
 
 const TestDetailUXResearcher = (props: PropsTestPage) => {
   const router = useRouter();
@@ -44,7 +41,7 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
 
   const [loading, setLoading] = useState(true);
   const [testData, setTestData] = useState({} as CurrentTestData); // has the original list of testers just for fallback to manage the information
-  const [testers, setTesters] = useState([] as TestersAns[]); // to show the information filtered from original testers list
+  const [testers, setTesters] = useState([] as TesterAnsData[]); // to show the information filtered from original testers list
 
   // Pages' Slider
   const testerCardsPerPage = 8; // limit number of tester cards per page
@@ -150,35 +147,6 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
     }
   }, [router]);
 
-  // const showTesters = async () => {
-  //   const params = {
-  //     userId: props.auth?.id,
-  //   };
-
-  //   await axios
-  //     .get("/api/tests/myTests/testDetail/getTestersWhoHaveAnsweredTest", {
-  //       params,
-  //     })
-  //     .then(async (res) => {
-  //       settestData.testersAns(res.data);
-  //     })
-  //     .catch((error) => {
-  //       if (error.response && error.response.data) {
-  //         alert(error.response.data); // specific error messages
-  //       } else {
-  //         alert(error.message); // default error message
-  //       }
-  //     });
-
-  //   setLoading(false);
-  // };
-  // useEffect(() => {
-  //   setLoading(true);
-  //   if (router.isReady) {
-  //     showTesters();
-  //   }
-  // }, [router]);
-
   const deleteTest = async () => {
     // confirm alert
     if (
@@ -206,6 +174,26 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
 
       setLoading(false);
     }
+  };
+
+  const generateMatchCriteriaText = (profileData: TesterAnsData) => {
+    let generatedText = "";
+    if (profileData.withinAge)
+      generatedText += `Age • ${profileData.testerAge}\n`;
+    if (profileData.withinGender)
+      generatedText += `Gender • ${profileData.testerGender}\n`;
+    if (profileData.withinLocation)
+      generatedText += `Location • ${profileData.testerLocation}\n`;
+    if (profileData.withinCareer)
+      generatedText += `Career • ${profileData.testerCareer}\n`;
+    if (profileData.withinDigiSav)
+      generatedText += `Digital Savviness • ${
+        digitalSavvinessText[profileData.testerDigiSav]
+      }\n`;
+    if (profileData.withinHobbies)
+      generatedText += `Hobbies • ${profileData.sameHobbies.toString()}\n`;
+
+    return generatedText;
   };
 
   return loading ? (
@@ -303,8 +291,8 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
                 key={key}
                 userImg={testerData.testerProfilePic}
                 userName={testerData.testerName}
-                matchedCriteria
-                matchedCriteriaText="Text"
+                matchedCriteria={!!generateMatchCriteriaText(testerData)}
+                matchedCriteriaText={generateMatchCriteriaText(testerData)}
                 userProfile={testerData.testerId.toString()}
               />
             ))
