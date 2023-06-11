@@ -2,7 +2,11 @@ import React from "react";
 import Image from "next/image";
 import styles from "../../styles/app.module.css";
 
-const TestersSearch = () => {
+interface Props {
+  text?: string;
+}
+
+const TestersSearch = (props: Props) => {
   return (
     <div
       className={`${styles.testsFiltersContainer} ${styles.findTestersFiltersContainer}`}

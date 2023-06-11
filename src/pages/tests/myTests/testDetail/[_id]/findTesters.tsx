@@ -12,28 +12,28 @@ import styles from "@/styles/app.module.css";
 import axios from "axios";
 import Loading from "@/components/Loading";
 import { PropsTestPage } from "@/pages/tests";
-import { CurrentTestData } from ".";
+import { FindTestersResponse } from "@/pages/api/tests/myTests/testDetail/findTestersUxResearcher";
 
 const FindTesters = (props: PropsTestPage) => {
   const router = useRouter();
   const { _id } = router.query; // access the test ID from the URL parameter
   const [loading, setLoading] = useState(true);
-  const [testData, setTestData] = useState({} as CurrentTestData);
+  const [pageData, setPageData] = useState({} as FindTestersResponse);
 
   const goBack = () => {
     router.back();
   };
 
-  const showTestDetail = async () => {
+  const findTestersHandler = async () => {
     const params = {
       userId: props.auth?.id,
       testId: _id,
     };
 
     await axios
-      .get("/api/tests/myTests/testDetail/testDetailUxResearcher", { params })
+      .get("/api/tests/myTests/testDetail/findTestersUxResearcher", { params })
       .then(async (res) => {
-        setTestData(res.data);
+        setPageData(res.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -48,7 +48,7 @@ const FindTesters = (props: PropsTestPage) => {
   useEffect(() => {
     setLoading(true);
     if (router.isReady) {
-      showTestDetail();
+      findTestersHandler();
     }
   }, [router]);
 
@@ -64,12 +64,12 @@ const FindTesters = (props: PropsTestPage) => {
         <Breadcrumbs link="/tests/myTests/" pageName="My Tests" imageAppears />
         <Breadcrumbs
           link={`/tests/myTests/testDetail/${_id}`}
-          pageName={testData.testName}
+          pageName={pageData.testName}
           imageAppears
         />
         <Breadcrumbs link="" pageName="Find Testers" activePage />
 
-        <h1>{testData.testName}</h1>
+        <h1>{pageData.testName}</h1>
         <h6>Find testers that match the previously defined criteria.</h6>
 
         <div className={styles.findTestersSearch}>
@@ -98,7 +98,32 @@ const FindTesters = (props: PropsTestPage) => {
         <TestersSearch />
 
         <div className={styles.testersResultsContainer}>
-          <TestersCheckboxCard userName="Name of Person" />
+          {pageData.foundUsers.map((user, key) => {
+            return (
+              <TestersCheckboxCard
+                key={key}
+                userName={user.userName}
+                userInfo={{
+                  withinAge: user.withinAge,
+                  age: user.userAge,
+                  withinGender: user.withinGender,
+                  gender: user.userGender,
+                  withinLocation: user.withinLocation,
+                  location: user.userLocation,
+                  withinCareer: user.withinCareer,
+                  career: user.userCareer,
+                  withinHobbies: user.withinHobbies,
+                  hobbies: user.sameHobbies,
+                  withinDigiSav: user.withinDigiSav,
+                  digitalSavviness: user.userDigiSav,
+                }}
+                wasContacted={user.wasContacted}
+                userImgSrc={user.userProfilePhoto}
+                selected={user.selected || false}
+              />
+            );
+          })}
+          {/* <TestersCheckboxCard userName="Name of Person" />
           <TestersCheckboxCard
             userImgSrc="/userExamples/user--05.svg"
             userName="Name of Person"
@@ -119,7 +144,7 @@ const FindTesters = (props: PropsTestPage) => {
             userImgSrc="/userExamples/user--05.svg"
             userName="Name of Person"
             wasContacted
-          />
+          /> */}
         </div>
 
         <PagesSlider

@@ -1,21 +1,29 @@
 import React from "react";
 import TesterInfo from "./TesterInfo";
 import styles from "../../styles/app.module.css";
+import { digitalSavvinessText } from "@/pages/tests/myTests/testDetail/[_id]";
+
+interface UserInfo {
+  withinAge: boolean;
+  age: number;
+  withinGender: boolean;
+  gender: string;
+  withinLocation: boolean;
+  location: string;
+  withinCareer: boolean;
+  career: string;
+  withinHobbies: boolean;
+  hobbies: string[];
+  withinDigiSav: boolean;
+  digitalSavviness: number;
+}
 
 interface Props {
   userImgSrc?: string;
   userName: string;
   wasContacted?: boolean;
   userInfo?: UserInfo;
-}
-
-interface UserInfo {
-  age?: number;
-  gender?: string;
-  location?: string;
-  career?: string;
-  hobbies?: string[];
-  digitalSavviness?: string;
+  selected: boolean;
 }
 
 const TestersCheckboxCard = (props: Props) => {
@@ -28,7 +36,7 @@ const TestersCheckboxCard = (props: Props) => {
       {props.wasContacted ? (
         <input type="checkbox" value="selectTesters" disabled />
       ) : (
-        <input type="checkbox" value="selectTesters" />
+        <input type="checkbox" value="selectTesters" checked={props.selected} />
       )}
       <div className={styles.testerSmallCard}>
         <div className={styles.profilePicWrapper}>
@@ -45,24 +53,36 @@ const TestersCheckboxCard = (props: Props) => {
         <div className={styles.testerInfoContainer}>
           <TesterInfo
             iconSrc="/icons/testerInfo-age.svg"
-            info={props.userInfo?.age?.toString() || "N.A."}
+            info={
+              props.userInfo?.withinAge
+                ? props.userInfo?.age.toString()
+                : "N.A."
+            }
           />
           <TesterInfo
             iconSrc="/icons/testerInfo-gender.svg"
-            info={props.userInfo?.gender || "N.A."}
+            info={
+              props.userInfo?.withinGender ? props.userInfo?.gender : "N.A."
+            }
           />
         </div>
         <TesterInfo
           iconSrc="/icons/profile-location.svg"
-          info={props.userInfo?.location || "N.A."}
+          info={
+            props.userInfo?.withinLocation ? props.userInfo?.location : "N.A."
+          }
         />
         <TesterInfo
           iconSrc="/icons/testerInfo-career.svg"
-          info={props.userInfo?.career || "N.A."}
+          info={props.userInfo?.withinCareer ? props.userInfo?.career : "N.A."}
         />
         <TesterInfo
           iconSrc="/icons/testerInfo-ds.svg"
-          info={props.userInfo?.digitalSavviness || "N.A."}
+          info={
+            props.userInfo?.digitalSavviness
+              ? digitalSavvinessText[props.userInfo?.digitalSavviness]
+              : "N.A."
+          }
         />
         <TesterInfo iconSrc="/icons/testerInfo-hobbies.svg" info={"N.A."} />
       </div>
