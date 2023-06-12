@@ -1,9 +1,11 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import Image from "next/image";
 import styles from "../../styles/app.module.css";
 
 interface Props {
   text?: string;
+  selected: boolean;
+  onSelect: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TestersSearch = (props: Props) => {
@@ -31,7 +33,12 @@ const TestersSearch = (props: Props) => {
       </div>
 
       <div className={styles.testersSelectAllCheckbox}>
-        <input type="checkbox" value="selectTesters" />
+        <input
+          type="checkbox"
+          value="selectTesters"
+          checked={props.selected}
+          onChange={(e) => props.onSelect(e)}
+        />
         <label>Select All</label>
       </div>
     </div>

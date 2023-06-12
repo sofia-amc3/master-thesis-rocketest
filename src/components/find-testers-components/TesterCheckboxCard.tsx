@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import TesterInfo from "./TesterInfo";
 import styles from "../../styles/app.module.css";
 import { digitalSavvinessText } from "@/pages/tests/myTests/testDetail/[_id]";
@@ -24,6 +24,7 @@ interface Props {
   wasContacted?: boolean;
   userInfo?: UserInfo;
   selected: boolean;
+  onSelect: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const TestersCheckboxCard = (props: Props) => {
@@ -36,7 +37,12 @@ const TestersCheckboxCard = (props: Props) => {
       {props.wasContacted ? (
         <input type="checkbox" value="selectTesters" disabled />
       ) : (
-        <input type="checkbox" value="selectTesters" checked={props.selected} />
+        <input
+          type="checkbox"
+          value="selectTesters"
+          checked={props.selected}
+          onChange={(e) => props.onSelect(e)}
+        />
       )}
       <div className={styles.testerSmallCard}>
         <div className={styles.profilePicWrapper}>

@@ -1353,6 +1353,10 @@ h6.testCategoryDescription {
   font-size: 0.9rem;
 }
 
+.findTestersMain span.labelSpan:first-of-type {
+  margin-bottom: 0.3rem;
+}
+
 .findTestersMain .findTestersSearch {
   display: flex;
   justify-content: space-between;
@@ -1458,11 +1462,19 @@ h6.testCategoryDescription {
   display: flex;
 }
 
-.testerInfoWrapper {
-  margin: 0.3rem 0 0 0.8rem;
+.testerInfoWrapper,
+.testerInfoWrapperOutsideCard {
   display: flex;
   align-items: center;
   flex-grow: 1;
+}
+
+.testerInfoWrapper {
+  margin: 0.3rem 0 0 0.8rem;
+}
+
+.testerInfoWrapperOutsideCard {
+  margin: 0.3rem 0 0 0;
 }
 
 .testerInfoWrapper:nth-of-type(2) {
@@ -1482,6 +1494,11 @@ h6.testCategoryDescription {
 
 .testerInfoText {
   flex: 1;
+}
+
+.testerInfoWrapper .testerInfoText {
+  margin-left: 0.7rem;
+  font-size: 0.9rem;
 }
 
 /* Testers Checkbox Container */
