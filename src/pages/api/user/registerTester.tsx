@@ -67,6 +67,24 @@ const registerTesterHandler = async (
           .send("Invalid job title. Only letters, ',' and '.' allowed.");
       }
 
+      // birthdate validation
+      // calculate age based on birth date
+      const today = new Date();
+      let age = today.getFullYear() - new Date(birthDate).getFullYear(); // subtracts the user's birth year to the current year
+      const monthDiff = today.getMonth() - new Date(birthDate).getMonth(); // subtracts the user's birth month to the current month
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < new Date(birthDate).getDate())
+      ) {
+        age--;
+      }
+      // check if the user is above 18 years old
+      if (age < 18) {
+        return res
+          .status(400)
+          .send("You must be 18 years or older to register in Rocketest.");
+      }
+
       // checks if mandatory fields were fulfilled
       if (!name || !email || !password)
         return res.status(400).send("All mandatory fields must be provided.");
@@ -85,7 +103,7 @@ const registerTesterHandler = async (
           const tempHobbiesArray =
             "ARRAY " + JSON.stringify(hobbies).replace(/"/g, "'") + "::text[]";
 
-          const result = await pool.query(
+          await pool.query(
             `WITH tmpUsers AS (
               INSERT INTO "Users"
                      (email, password, name, career, location, "profilePhoto", type)

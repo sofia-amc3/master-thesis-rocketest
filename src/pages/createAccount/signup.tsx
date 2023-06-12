@@ -533,7 +533,7 @@ const SignUpTester = () => {
         size="small"
         isSelect
         defaultValue={form.gender}
-        options={["Female", "Male", "Other"]}
+        options={["Other", "Female", "Male"]}
         onChange={(e) => {
           updateForm({ gender: e.target.value });
         }}
