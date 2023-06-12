@@ -586,14 +586,14 @@ button.buttonTertiarySecondary {
 }
 
 .pagesSlider > * {
-  padding-top: 0.25rem;
+  margin: auto;
 }
 
-.pagesSlider > a {
-  padding-top: 0.32rem;
+.pagesSlider > img {
+  cursor: pointer;
 }
 
-.pagesSlider > a:hover {
+.pagesSlider > img:hover {
   opacity: 0.65;
 }
 

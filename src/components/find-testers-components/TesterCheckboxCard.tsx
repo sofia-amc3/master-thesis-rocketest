@@ -84,7 +84,14 @@ const TestersCheckboxCard = (props: Props) => {
               : "N.A."
           }
         />
-        <TesterInfo iconSrc="/icons/testerInfo-hobbies.svg" info={"N.A."} />
+        <TesterInfo
+          iconSrc="/icons/testerInfo-hobbies.svg"
+          info={
+            props.userInfo?.withinHobbies
+              ? props.userInfo?.hobbies.toString()
+              : "N.A."
+          }
+        />
       </div>
     </div>
   );

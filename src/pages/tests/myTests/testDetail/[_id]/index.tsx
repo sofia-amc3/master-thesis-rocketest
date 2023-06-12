@@ -129,6 +129,9 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
       .get("/api/tests/myTests/testDetail/testDetailUxResearcher", { params })
       .then(async (res) => {
         setTestData(res.data);
+        setTotalPages(
+          Math.ceil(res.data.testersAns.length / testerCardsPerPage)
+        ); // defines total nr of pages in pages' slider after getting the testers
         setLoading(false);
       })
       .catch((error) => {

@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { pool } from "@/lib/db";
 
-interface FoundUsers {
+export interface FoundUsers {
   selected?: boolean; // used only for the frontend
   userId: number;
   userName: string;
@@ -24,11 +24,23 @@ interface FoundUsers {
 interface FindTestersQuery extends FoundUsers {
   testId: number;
   testName: string;
+  criteriaAge: number[];
+  criteriaGender: string;
+  criteriaDigiSav: number[];
+  criteriaHobbies: string[];
+  criteriaLocation: string;
+  criteriaCareers: string[];
 }
 
 export interface FindTestersResponse {
   testId: number;
   testName: string;
+  criteriaAge: number[];
+  criteriaGender: string;
+  criteriaDigiSav: number[];
+  criteriaHobbies: string[];
+  criteriaLocation: string;
+  criteriaCareers: string[];
   foundUsers: FoundUsers[];
 }
 
@@ -44,6 +56,12 @@ const FindTestersUXResearcherHandler = async (
           `
           SELECT DISTINCT TEMP1."testId",
                           TEMP1."testName",
+                          TEMP1."criteriaAge",
+                          TEMP1."criteriaGender",
+                          TEMP1."criteriaDigiSav",
+                          TEMP1."criteriaHobbies",
+                          TEMP1."criteriaLocation",
+                          TEMP1."criteriaCareers",
                           TEMP2."userId",
                           TEMP2."userName",
                           TEMP2."wasContacted",
@@ -112,6 +130,12 @@ const FindTestersUXResearcherHandler = async (
           const response = {
             testId: list[0].testId,
             testName: list[0].testName,
+            criteriaAge: list[0].criteriaAge,
+            criteriaGender: list[0].criteriaGender,
+            criteriaDigiSav: list[0].criteriaDigiSav,
+            criteriaHobbies: list[0].criteriaHobbies,
+            criteriaLocation: list[0].criteriaLocation,
+            criteriaCareers: list[0].criteriaCareers,
             foundUsers: [],
           } as FindTestersResponse;
 

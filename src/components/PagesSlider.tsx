@@ -8,8 +8,8 @@ interface Props {
   nextPageArrow?: boolean;
   currentPageNr: number;
   totalPagesNr: number;
-  nextPageFunction: MouseEventHandler<HTMLAnchorElement>;
-  previousPageFunction: MouseEventHandler<HTMLAnchorElement>;
+  nextPageFunction: MouseEventHandler<HTMLElement>; //MouseEventHandler<HTMLAnchorElement>;
+  previousPageFunction: MouseEventHandler<HTMLElement>; //MouseEventHandler<HTMLAnchorElement>;
 }
 
 const PagesSlider = (props: Props) => {
@@ -22,14 +22,13 @@ const PagesSlider = (props: Props) => {
       }`}
     >
       {props.previousPageArrow && (
-        <Link href="#" onClick={props.previousPageFunction}>
-          <Image
-            src="/icons/arrow-left.svg"
-            alt="Arrow Left"
-            width={14}
-            height={14}
-          />
-        </Link>
+        <Image
+          src="/icons/arrow-left.svg"
+          alt="Arrow Left"
+          width={14}
+          height={14}
+          onClick={props.previousPageFunction}
+        />
       )}
 
       <span>Page</span>
@@ -38,15 +37,14 @@ const PagesSlider = (props: Props) => {
       <span>{props.totalPagesNr}</span>
 
       {props.nextPageArrow && (
-        <Link href="#" onClick={props.nextPageFunction}>
-          <Image
-            src="/icons/arrow-left.svg"
-            alt="Arrow Right"
-            width={14}
-            height={14}
-            className={styles.arrowRight}
-          />
-        </Link>
+        <Image
+          src="/icons/arrow-left.svg"
+          alt="Arrow Right"
+          width={14}
+          height={14}
+          className={styles.arrowRight}
+          onClick={props.nextPageFunction}
+        />
       )}
     </div>
   );
