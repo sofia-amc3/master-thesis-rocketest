@@ -20,15 +20,27 @@ import TesterInfo from "@/components/find-testers-components/TesterInfo";
 import { digitalSavvinessText } from ".";
 import { ContactedUserData } from "@/pages/api/tests/myTests/testDetail/contactUsersUxResearcher";
 
+export interface FindTestersSearchFilters {
+  search: string;
+  sort: string;
+}
+
 const FindTesters = (props: PropsTestPage) => {
   const router = useRouter();
   const { _id } = router.query; // access the test ID from the URL parameter
   const [loading, setLoading] = useState(true);
+
   const [pageData, setPageData] = useState({} as FindTestersResponse);
-  const [foundUsers, setFoundUsers] = useState([] as FoundUsers[]);
+
+  const [foundUsers, setFoundUsers] = useState([] as FoundUsers[]); // to manage the original information received
+  const [filteredFoundUsers, setFilteredFoundUsers] = useState(
+    [] as FoundUsers[]
+  ); // to show the information filtered
+
   const [showUsers, setShowUsers] = useState(false);
 
   const [searchFieldValue, setSearchFieldValue] = useState("Rocketest");
+
   const [textMessage, setTextMessage] = useState("");
 
   // Pages' Slider
@@ -38,7 +50,7 @@ const FindTesters = (props: PropsTestPage) => {
   // Testers to Display
   const startIndex = (currentPage - 1) * testerCardsPerPage;
   const endIndex = startIndex + testerCardsPerPage;
-  const testersToDisplay = foundUsers.slice(startIndex, endIndex);
+  const testersToDisplay = filteredFoundUsers.slice(startIndex, endIndex);
 
   // Handle previous and next page navigations
   const goToPreviousPage = () => {
@@ -55,6 +67,47 @@ const FindTesters = (props: PropsTestPage) => {
   const goBack = () => {
     router.back();
   };
+
+  const [testerSearchOptions, setTesterSearchOptions] = useState({
+    // default values
+    search: "",
+    sort: "ASC",
+  } as FindTestersSearchFilters);
+
+  //update functions
+  const updateOptions = (valueToUpdate: Partial<FindTestersSearchFilters>) => {
+    setTesterSearchOptions({
+      ...testerSearchOptions,
+      ...valueToUpdate,
+    });
+  };
+
+  // filters
+  useEffect(() => {
+    if (foundUsers.length > 0) {
+      //SEARCH FILTER
+      let result = foundUsers.filter((testerData) =>
+        testerData.userName.includes(testerSearchOptions.search)
+      );
+
+      //SORT BY FILTER (name)
+      result = result.sort((nextValue, curValue) => {
+        const a = nextValue.userName.toLowerCase();
+        const b = curValue.userName.toLowerCase();
+
+        if (testerSearchOptions.sort === "ASC") {
+          if (a < b) return -1;
+          if (a > b) return 1;
+        } else if (testerSearchOptions.sort === "DESC") {
+          if (a > b) return -1;
+          if (a < b) return 1;
+        }
+        return 0;
+      });
+
+      setFilteredFoundUsers(result);
+    }
+  }, [testerSearchOptions, foundUsers]);
 
   const findTestersHandler = async (reload = false) => {
     const params = {
@@ -292,9 +345,11 @@ const FindTesters = (props: PropsTestPage) => {
             <TestersSearch
               selected={areAllUsersSelected()}
               onSelect={(e) => selectAllUsersHandler(e.target.checked)}
+              testerOptions={testerSearchOptions}
+              onChange={updateOptions}
             />
             <div className={styles.testersResultsContainer}>
-              {foundUsers.length > 0 ? (
+              {filteredFoundUsers.length > 0 ? (
                 testersToDisplay.map((user, key) => (
                   <TestersCheckboxCard
                     key={key}

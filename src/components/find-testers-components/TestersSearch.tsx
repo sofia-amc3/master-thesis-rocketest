@@ -1,14 +1,28 @@
 import React, { ChangeEvent } from "react";
 import Image from "next/image";
 import styles from "../../styles/app.module.css";
+import { FindTestersSearchFilters } from "@/pages/tests/myTests/testDetail/[_id]/findTesters";
 
 interface Props {
   text?: string;
   selected: boolean;
   onSelect: (e: ChangeEvent<HTMLInputElement>) => void;
+  testerOptions: FindTestersSearchFilters;
+  onChange: (valueToUpdate: Partial<FindTestersSearchFilters>) => void;
 }
 
 const TestersSearch = (props: Props) => {
+  const sortFunction = () => {
+    let sortType;
+    if (props.testerOptions && props.testerOptions.sort === "ASC") {
+      sortType = "DESC";
+    } else {
+      sortType = "ASC";
+    }
+
+    props.onChange({ sort: sortType });
+  };
+
   return (
     <div
       className={`${styles.testsFiltersContainer} ${styles.findTestersFiltersContainer}`}
@@ -25,11 +39,21 @@ const TestersSearch = (props: Props) => {
           id="fname"
           name="fname"
           placeholder="Search for testers..."
+          value={props.testerOptions.search}
+          onChange={(e) => {
+            props.onChange({ search: e.target.value });
+          }}
         />
       </div>
 
-      <div className={styles.sortIconContainer}>
-        <Image src="/icons/sort.svg" alt="Sort Icon" width={19} height={19} />
+      <div className={styles.sortIconContainer} onClick={sortFunction}>
+        <Image
+          src="/icons/sort.svg"
+          alt="Sort Icon"
+          width={19}
+          height={19}
+          className={`${styles.sort} ${styles[props.testerOptions.sort || ""]}`}
+        />
       </div>
 
       <div className={styles.testersSelectAllCheckbox}>

@@ -19,7 +19,7 @@ import { Form } from "@/utils/testCreatorHelper";
 import TestersAnsweredSearch from "@/components/my-tests-components/TestersAnsweredSearch";
 import { TesterAnsData } from "@/pages/api/tests/myTests/testDetail/testDetailUxResearcher";
 
-interface TestersSearchFilters {
+export interface TestersSearchFilters {
   search: string;
   option: string;
   sort: string;
@@ -86,8 +86,8 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
         testerData.testerName.includes(searchOptions.search)
       );
 
-      //IN PROGRESS FILTER
-      result = result.filter((testerData) => {
+      //FILTER BY
+      result = result.filter(() => {
         if (searchOptions.option === "All Testers") return 1;
         else return console.log("Matched Criteria");
       });
