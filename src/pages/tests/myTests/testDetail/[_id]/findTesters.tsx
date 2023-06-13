@@ -93,28 +93,35 @@ const FindTesters = (props: PropsTestPage) => {
       );
 
       //FILTER BY
-      result = result.filter(() => {
-        if (testerSearchOptions.filter === "All Testers")
-          return console.log("All Testers");
+      result = result.filter((testerData) => {
+        if (testerSearchOptions.filter === "All Testers") return 1;
         else if (testerSearchOptions.filter === "Contacted")
-          return console.log("Contacted");
-        else return console.log("Not Contacted");
+          return testerData.wasContacted;
+        else return !testerData.wasContacted;
       });
 
-      //SORT BY FILTER (name)
-      result = result.sort((nextValue, curValue) => {
-        const a = nextValue.userName.toLowerCase();
-        const b = curValue.userName.toLowerCase();
+      if (testerSearchOptions.sort === "ASC") {
+        result;
+      } else if (testerSearchOptions.sort === "DESC") {
+        result.reverse();
+      }
 
-        if (testerSearchOptions.sort === "ASC") {
-          if (a < b) return -1;
-          if (a > b) return 1;
-        } else if (testerSearchOptions.sort === "DESC") {
-          if (a > b) return -1;
-          if (a < b) return 1;
-        }
-        return 0;
-      });
+      // //SORT BY FILTER (name)
+      // result = result.sort((nextValue, curValue) => {
+      //   const a1 = nextValue.userName.toLowerCase();
+      //   const b1 = curValue.userName.toLowerCase();
+      //   const a2 = nextValue.wasContacted;
+      //   const b2 = curValue.wasContacted;
+
+      //   if (testerSearchOptions.sort === "ASC") {
+      //     if (a1 < b1 && a2 < b2) return -1;
+      //     if (a1 > b1 && a2 > b2) return 1;
+      //   } else if (testerSearchOptions.sort === "DESC") {
+      //     if (a1 > b1 && a2 < b2) return -1;
+      //     if (a1 < b1 && a2 > b2) return 1;
+      //   }
+      //   return 0;
+      // });
 
       setFilteredFoundUsers(result);
     }
@@ -166,11 +173,50 @@ const FindTesters = (props: PropsTestPage) => {
     return digiSavText.toString();
   };
 
-  const searchButtonHandler = () => {
-    if (searchFieldValue === "Rocketest") {
+  const searchButtonHandler = async () => {
+    console.log("HERE", searchFieldValue.includes("Custom API"));
+    if (searchFieldValue.includes("Custom API")) {
+      let platform;
+      if (searchFieldValue === "Custom API (Simulating Facebook Users)") {
+        platform = "Facebook";
+      } else if (
+        searchFieldValue === "Custom API (Simulating LinkedIn Users)"
+      ) {
+        platform = "LinkedIn";
+      }
+
+      const params = {
+        testId: _id,
+        platform: platform,
+        ageRange: pageData.criteriaAge
+          .toString()
+          .substring(1, pageData.criteriaAge.toString().length - 1),
+        gender: pageData.criteriaGender,
+        location: pageData.criteriaLocation,
+        careers: pageData.criteriaCareers.toString(),
+        hobbies: pageData.criteriaHobbies.toString(),
+      };
+
+      await axios
+        .get(
+          "/api/tests/myTests/testDetail/findTesters/getTestersApiUxResearcher",
+          {
+            params,
+          }
+        )
+        .then(async (res) => {
+          console.log(res.data.foundUsers);
+          setFoundUsers(res.data.foundUsers);
+        })
+        .catch((error) => {
+          if (error.response && error.response.data) {
+            alert(error.response.data); // specific error messages
+          } else {
+            alert(error.message); // default error message
+          }
+        });
+    } else {
       setFoundUsers(pageData.foundUsers);
-    } else if (searchFieldValue === "Custom API (Simulating Facebook Users)") {
-    } else if (searchFieldValue === "Custom API (Simulating LinkedIn Users)") {
     }
     setShowUsers(true);
   };
@@ -228,8 +274,18 @@ const FindTesters = (props: PropsTestPage) => {
       userData: [] as ContactedUserData[],
     };
 
+    let platform = "";
+
+    if (searchFieldValue === "Custom API (Simulating Facebook Users)") {
+      platform = "Facebook";
+    } else if (searchFieldValue === "Custom API (Simulating LinkedIn Users)") {
+      platform = "LinkedIn";
+    } else {
+      platform = "Rocketest";
+    }
+
     selectedUsers.forEach((user) => {
-      params.userData.push({ platform: searchFieldValue, userId: user.userId });
+      params.userData.push({ platform: platform, userId: user.userId });
     });
 
     await axios
@@ -333,6 +389,7 @@ const FindTesters = (props: PropsTestPage) => {
             onChange={(e) => {
               setSearchFieldValue(e.target.value);
               setFoundUsers([]);
+              setShowUsers(false);
             }}
           />
           <Button

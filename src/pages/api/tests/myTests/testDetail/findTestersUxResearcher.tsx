@@ -24,7 +24,7 @@ export interface FoundUsers {
 interface FindTestersQuery extends FoundUsers {
   testId: number;
   testName: string;
-  criteriaAge: number[];
+  criteriaAge: string;
   criteriaGender: string;
   criteriaDigiSav: number[];
   criteriaHobbies: string[];
@@ -35,7 +35,7 @@ interface FindTestersQuery extends FoundUsers {
 export interface FindTestersResponse {
   testId: number;
   testName: string;
-  criteriaAge: number[];
+  criteriaAge: string;
   criteriaGender: string;
   criteriaDigiSav: number[];
   criteriaHobbies: string[];
@@ -109,7 +109,8 @@ const FindTestersUXResearcherHandler = async (
                               (SELECT COUNT(*)
                               FROM PUBLIC."Contacted_Users" CU
                               WHERE CU."internalUserId" = TT."userId"
-                              AND CU."testId" = ${testId} ) > 0
+                              AND CU."testId" = ${testId}
+                              AND CU.platform='Rocketest' ) > 0
                             THEN TRUE
                             ELSE FALSE
                       END AS "wasContacted",
