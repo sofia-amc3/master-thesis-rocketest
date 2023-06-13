@@ -22,6 +22,7 @@ import { ContactedUserData } from "@/pages/api/tests/myTests/testDetail/contactU
 
 export interface FindTestersSearchFilters {
   search: string;
+  filter: string;
   sort: string;
 }
 
@@ -71,6 +72,7 @@ const FindTesters = (props: PropsTestPage) => {
   const [testerSearchOptions, setTesterSearchOptions] = useState({
     // default values
     search: "",
+    filter: "All Testers",
     sort: "ASC",
   } as FindTestersSearchFilters);
 
@@ -89,6 +91,15 @@ const FindTesters = (props: PropsTestPage) => {
       let result = foundUsers.filter((testerData) =>
         testerData.userName.includes(testerSearchOptions.search)
       );
+
+      //FILTER BY
+      result = result.filter(() => {
+        if (testerSearchOptions.filter === "All Testers")
+          return console.log("All Testers");
+        else if (testerSearchOptions.filter === "Contacted")
+          return console.log("Contacted");
+        else return console.log("Not Contacted");
+      });
 
       //SORT BY FILTER (name)
       result = result.sort((nextValue, curValue) => {
@@ -158,12 +169,8 @@ const FindTesters = (props: PropsTestPage) => {
   const searchButtonHandler = () => {
     if (searchFieldValue === "Rocketest") {
       setFoundUsers(pageData.foundUsers);
-    } else if (
-      searchFieldValue === "Custom API 01 (Simulating Facebook Users)"
-    ) {
-    } else if (
-      searchFieldValue === "Custom API 02 (Simulating LinkedIn Users)"
-    ) {
+    } else if (searchFieldValue === "Custom API (Simulating Facebook Users)") {
+    } else if (searchFieldValue === "Custom API (Simulating LinkedIn Users)") {
     }
     setShowUsers(true);
   };
@@ -345,6 +352,7 @@ const FindTesters = (props: PropsTestPage) => {
             <TestersSearch
               selected={areAllUsersSelected()}
               onSelect={(e) => selectAllUsersHandler(e.target.checked)}
+              filters={["All Testers", "Contacted", "Not Contacted"]}
               testerOptions={testerSearchOptions}
               onChange={updateOptions}
             />
@@ -375,7 +383,7 @@ const FindTesters = (props: PropsTestPage) => {
                   />
                 ))
               ) : (
-                <span>No testers found yet.</span>
+                <span>No testers found.</span>
               )}
             </div>
             <PagesSlider

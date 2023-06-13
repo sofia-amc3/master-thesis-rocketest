@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { pool } from "@/lib/db";
-import { FormCriteria } from "@/pages/tests/createTest/testDetails";
-import { Section, Question } from "@/utils/testCreatorHelper";
 
 export interface ContactedUserData {
   userId: number | string;

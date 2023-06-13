@@ -1,12 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { pool } from "@/lib/db";
-import {
-  Form,
-  formTemplate,
-  Question,
-  Section,
-  Option,
-} from "@/utils/testCreatorHelper";
+import { Form, Question, Section, Option } from "@/utils/testCreatorHelper";
 
 interface Q_S_O {
   testName: string;
@@ -46,8 +40,6 @@ const GetTestForm = async (req: NextApiRequest, res: NextApiResponse) => {
           WHERE T.id='${testId}'
           ORDER BY Q_S.id ASC, O.id ASC;`
         );
-
-        // return res.status(200).send(result.rows);
 
         const data = result.rows as Q_S_O[];
 

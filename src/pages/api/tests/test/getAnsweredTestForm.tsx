@@ -56,8 +56,6 @@ const GetAnsweredTestForm = async (
           ORDER BY Q_S.id ASC, O.id ASC;`
         );
 
-        // return res.status(200).send(result.rows);
-
         const data = result.rows as Q_S_O[];
 
         if (data.length > 0) {

@@ -1120,8 +1120,8 @@ button.buttonTertiarySecondary {
 
 .testsFiltersContainer select {
   padding: 0 1.2rem 0 1.2rem;
-  border-radius: 9.75rem;
-  width: 9.75rem;
+  border-radius: 10.75rem;
+  width: 10.75rem;
   height: 2.8rem;
   font-family: "Montserrat";
   font-size: 0.9rem;
@@ -1375,7 +1375,7 @@ h6.testCategoryDescription {
 /* Find Testers Search Bar & Filters */
 .findTestersFiltersContainer {
   margin: 1rem 0 1.5rem 0;
-  width: 39rem;
+  width: 50rem;
 }
 
 .testersSelectAllCheckbox {

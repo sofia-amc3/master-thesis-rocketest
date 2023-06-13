@@ -7,6 +7,7 @@ interface Props {
   text?: string;
   selected: boolean;
   onSelect: (e: ChangeEvent<HTMLInputElement>) => void;
+  filters: string[];
   testerOptions: FindTestersSearchFilters;
   onChange: (valueToUpdate: Partial<FindTestersSearchFilters>) => void;
 }
@@ -43,6 +44,29 @@ const TestersSearch = (props: Props) => {
           onChange={(e) => {
             props.onChange({ search: e.target.value });
           }}
+        />
+      </div>
+
+      <div className={styles.selectContainer}>
+        <select
+          name="filters"
+          onChange={(e) => {
+            props.onChange({ filter: e.target.value });
+          }}
+        >
+          {props.filters.map((value, key) => {
+            return (
+              <option key={key} value={value}>
+                {value}
+              </option>
+            );
+          })}
+        </select>
+        <Image
+          src="/icons/filter.svg"
+          alt="Filter Icon"
+          width={14}
+          height={14}
         />
       </div>
 

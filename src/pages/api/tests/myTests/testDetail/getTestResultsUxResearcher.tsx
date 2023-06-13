@@ -69,7 +69,7 @@ const GetTestResultsUXResearcherHandler = async (
                         AND T.ID = ${testId}
                     GROUP BY ANS.ANSWER) TEMP2 ON TEMP1."optionName" = TEMP2."answerName"
             LEFT JOIN
-                (SELECT 10 AS "testId",
+                (SELECT ${testId} AS "testId",
                         COUNT("testers") AS "testersCount"
                     FROM
                         (SELECT DISTINCT ANS."userId" AS "testers"

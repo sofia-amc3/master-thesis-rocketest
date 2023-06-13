@@ -84,11 +84,8 @@ const OverviewTester = (props: Props) => {
         testData.testName.includes(testOptions.search)
       );
 
-      //ALL TESTS/MATCHED CRITERIA FILTER
-      // result = result.filter(() => {
-      //   if (testOptions.option === "All Tests") return !props.matchCriteria;
-      //   else props.matchCriteria;
-      // });
+      //FILTER
+      // match criteria filter is performed in database
 
       //SORT BY FILTER
       switch (testOptions.filter) {
