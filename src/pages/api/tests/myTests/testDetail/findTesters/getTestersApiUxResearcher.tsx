@@ -39,7 +39,7 @@ export interface ContactedUsersQuery {
   externalUserId: number | string;
 }
 
-const FindTestersUXResearcherHandler = async (
+const GetTestersApiUXResearcherHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
@@ -78,23 +78,23 @@ const FindTestersUXResearcherHandler = async (
           .then(async (response) => {
             const _data = response.data as FindExternalTestersRequest[];
 
+            //query to get contacted users from external platforms
+            let result = { rows: [] };
+
+            try {
+              result = await pool.query(`
+                SELECT C."externalUserId" 
+                FROM PUBLIC."Contacted_Users" C 
+                WHERE C."testId"=${testId} 
+                  AND C.platform='${platform}';
+              `);
+            } catch {}
+
+            const contactedUsers = (
+              result.rows?.length > 0 ? result.rows : []
+            ) as ContactedUsersQuery[];
+
             _data.map(async (foundUser, key) => {
-              //query to get contacted users from external platforms
-              let result = { rows: [] };
-
-              try {
-                result = await pool.query(`
-                  SELECT C."externalUserId" 
-                  FROM PUBLIC."Contacted_Users" C 
-                  WHERE C."testId"=${testId} 
-                    AND C.platform='${platform}';
-                `);
-              } catch {}
-
-              const contactedUsers = (
-                result.rows?.length > 0 ? result.rows : []
-              ) as ContactedUsersQuery[];
-
               // intersect careers from selection criteria with user's career
               const filteredUserCareer = finalCareers
                 .split(",")
@@ -104,6 +104,7 @@ const FindTestersUXResearcherHandler = async (
               const filteredUserHobbies = finalHobbies
                 .split(",")
                 .filter((value) => foundUser.hobbies?.includes(value));
+
 
               // building of foundUsers with necessary info to display in the frontend
               responseFindExternalTesters.foundUsers.push({
@@ -131,7 +132,7 @@ const FindTestersUXResearcherHandler = async (
                   filteredUserHobbies.length > 0 ? filteredUserHobbies : [],
                 wasContacted:
                   contactedUsers.findIndex(
-                    (user) => user.externalUserId === foundUser.id
+                    (user) => user.externalUserId.toString() === foundUser.id.toString()
                   ) > -1,
               });
             });
@@ -153,4 +154,4 @@ const FindTestersUXResearcherHandler = async (
   }
 };
 
-export default FindTestersUXResearcherHandler;
+export default GetTestersApiUXResearcherHandler;

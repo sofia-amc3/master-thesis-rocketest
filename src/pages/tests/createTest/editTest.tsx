@@ -31,7 +31,7 @@ const EditTest = (props: PropsTestPage) => {
   const [loading, setLoading] = useState(true);
   const [formTest, setFormTest] = useState(formTemplate as Form);
 
-  const { type, rollback } = router.query;
+  const { type } = router.query;
 
   const updateForm = (valueToUpdate: Partial<Form>) => {
     setFormTest({
@@ -70,30 +70,39 @@ const EditTest = (props: PropsTestPage) => {
     return true;
   };
 
+  const doQuestionsExists = () => {
+    let questionExist = false;
+    formTest.question_section?.forEach((q_s) => {
+      if (!q_s.isSection) questionExist = true;
+    });
+
+    return questionExist;
+  };
+
   const goToTestDetailsPage = () => {
-    if (verifyMandatoryFields()) {
-      // as we are not inserting any information in the database yet, we are saving it in the browser's session storage to access it later on the next page
-      sessionStorage.setItem("currentTest", JSON.stringify(formTest));
-      router.push("/tests/createTest/testDetails");
-    } else {
-      alert(
+    if (!doQuestionsExists())
+      return alert("This form must have at least one question!");
+
+    if (!verifyMandatoryFields())
+      return alert(
         "All mandatory fields must be fulfilled. If you've created empty options please delete them."
       );
-    }
+
+    sessionStorage.setItem("currentTest", JSON.stringify(formTest));
+    router.push("/tests/createTest/testDetails");
   };
 
   const goToCreateTestPage = () => {
+    sessionStorage.removeItem("currentTest");
     if (formTest.question_section.length > 0) {
       if (
         confirm(
           "Are you sure you want to go back? All the fields will be lost."
         )
       ) {
-        sessionStorage.removeItem("currentTest");
         router.push("/tests/createTest/");
       }
     } else {
-      sessionStorage.removeItem("currentTest");
       router.push("/tests/createTest/");
     }
   };

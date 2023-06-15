@@ -85,7 +85,7 @@ const TestersCheckboxCard = (props: Props) => {
         <TesterInfo
           iconSrc="/icons/testerInfo-ds.svg"
           info={
-            props.userInfo?.digitalSavviness
+            props.userInfo?.withinDigiSav
               ? digitalSavvinessText[props.userInfo?.digitalSavviness]
               : "N.A."
           }

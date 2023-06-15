@@ -54,9 +54,9 @@ const SignIn = (props: Props) => {
       })
       .catch((error) => {
         if (error.response && error.response.data) {
-          alert(error.response.data); // specific error messages defined in the login.tsx file
+          alert(error.response.data.toString()); // specific error messages defined in the login.tsx file
         } else {
-          alert(error.message); // default error message
+          alert(error.toString()); // default error message
         }
       });
   };

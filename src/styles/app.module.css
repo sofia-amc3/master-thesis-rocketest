@@ -1626,11 +1626,11 @@ h6.testCategoryDescription {
 
 .createTestPreview > button {
   font-size: 0.8rem;
+  opacity: 0.5;
 }
 
 .createTestPreview > button:hover {
   cursor: auto;
-  opacity: 1;
 }
 
 .createTestPreview > h1,

@@ -8,7 +8,7 @@ import TestersCheckboxCard from "@/components/find-testers-components/TesterChec
 import {
   FindTestersResponse,
   FoundUsers,
-} from "@/pages/api/tests/myTests/testDetail/findTestersUxResearcher";
+} from "@/pages/api/tests/myTests/testDetail/findTesters/findTestersUxResearcher";
 import Button from "@/components/Button";
 import PagesSlider from "@/components/PagesSlider";
 import { useRouter } from "next/router";
@@ -18,7 +18,7 @@ import Loading from "@/components/Loading";
 import { PropsTestPage } from "@/pages/tests";
 import TesterInfo from "@/components/find-testers-components/TesterInfo";
 import { digitalSavvinessText } from ".";
-import { ContactedUserData } from "@/pages/api/tests/myTests/testDetail/contactUsersUxResearcher";
+import { ContactedUserData } from "@/pages/api/tests/myTests/testDetail/findTesters/contactUsersUxResearcher";
 
 export interface FindTestersSearchFilters {
   search: string;
@@ -89,7 +89,9 @@ const FindTesters = (props: PropsTestPage) => {
     if (foundUsers.length > 0) {
       //SEARCH FILTER
       let result = foundUsers.filter((testerData) =>
-        testerData.userName.includes(testerSearchOptions.search)
+        testerData.userName
+          .toLowerCase()
+          .includes(testerSearchOptions.search.toLowerCase())
       );
 
       //FILTER BY
@@ -106,24 +108,11 @@ const FindTesters = (props: PropsTestPage) => {
         result.reverse();
       }
 
-      // //SORT BY FILTER (name)
-      // result = result.sort((nextValue, curValue) => {
-      //   const a1 = nextValue.userName.toLowerCase();
-      //   const b1 = curValue.userName.toLowerCase();
-      //   const a2 = nextValue.wasContacted;
-      //   const b2 = curValue.wasContacted;
-
-      //   if (testerSearchOptions.sort === "ASC") {
-      //     if (a1 < b1 && a2 < b2) return -1;
-      //     if (a1 > b1 && a2 > b2) return 1;
-      //   } else if (testerSearchOptions.sort === "DESC") {
-      //     if (a1 > b1 && a2 < b2) return -1;
-      //     if (a1 < b1 && a2 > b2) return 1;
-      //   }
-      //   return 0;
-      // });
-
       setFilteredFoundUsers(result);
+      setTotalPages(Math.ceil(result.length / testerCardsPerPage));
+    } else {
+      setFilteredFoundUsers([]);
+      setTotalPages(1);
     }
   }, [testerSearchOptions, foundUsers]);
 
@@ -134,12 +123,12 @@ const FindTesters = (props: PropsTestPage) => {
     };
 
     await axios
-      .get("/api/tests/myTests/testDetail/findTestersUxResearcher", { params })
+      .get(
+        "/api/tests/myTests/testDetail/findTesters/findTestersUxResearcher",
+        { params }
+      )
       .then(async (res) => {
         setPageData(res.data);
-        setTotalPages(
-          Math.ceil(res.data.foundUsers.length / testerCardsPerPage)
-        ); // defines total nr of pages in pages' slider after getting the testers
         setLoading(false);
 
         //if this function was called after contacting the users it will update the list
@@ -147,9 +136,9 @@ const FindTesters = (props: PropsTestPage) => {
       })
       .catch((error) => {
         if (error.response && error.response.data) {
-          alert(error.response.data); // specific error messages
+          alert(error.response.data.toString()); // specific error messages
         } else {
-          alert(error.message); // default error message
+          alert(error.toString()); // default error message
         }
         router.push("/tests/myTests/");
       });
@@ -205,20 +194,20 @@ const FindTesters = (props: PropsTestPage) => {
           }
         )
         .then(async (res) => {
-          console.log(res.data.foundUsers);
           setFoundUsers(res.data.foundUsers);
         })
         .catch((error) => {
           if (error.response && error.response.data) {
-            alert(error.response.data); // specific error messages
+            alert(error.response.data.toString()); // specific error messages
           } else {
-            alert(error.message); // default error message
+            alert(error.toString()); // default error message
           }
         });
     } else {
       setFoundUsers(pageData.foundUsers);
     }
     setShowUsers(true);
+    setCurrentPage(1);
   };
 
   const selectUserHandler = (user: FoundUsers, selected: boolean) => {
@@ -289,18 +278,22 @@ const FindTesters = (props: PropsTestPage) => {
     });
 
     await axios
-      .post("/api/tests/myTests/testDetail/contactUsersUxResearcher", params)
+      .post(
+        "/api/tests/myTests/testDetail/findTesters/contactUsersUxResearcher",
+        params
+      )
       .then(async (res) => {
         alert(res.data); // SUCCESSFUL MESSAGE
 
-        setLoading(true);
-        findTestersHandler(true);
+        platform === "Rocketest"
+          ? findTestersHandler(true)
+          : searchButtonHandler();
       })
       .catch((error) => {
         if (error.response && error.response.data) {
-          alert(error.response.data); // specific error messages
+          alert(error.response.data.toString()); // specific error messages
         } else {
-          alert(error.message); // default error message
+          alert(error.toString()); // default error message
         }
       });
 

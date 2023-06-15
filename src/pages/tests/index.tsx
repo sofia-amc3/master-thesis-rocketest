@@ -174,9 +174,9 @@ const OverviewTester = (props: Props) => {
       })
       .catch((error) => {
         if (error.response && error.response.data) {
-          alert(error.response.data); // specific error messages
+          alert(error.response.data.toString()); // specific error messages
         } else {
-          alert(error.message); // default error message
+          alert(error.toString()); // default error message
         }
       });
 

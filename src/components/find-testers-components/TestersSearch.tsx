@@ -50,6 +50,7 @@ const TestersSearch = (props: Props) => {
       <div className={styles.selectContainer}>
         <select
           name="filters"
+          defaultValue={props.testerOptions.filter}
           onChange={(e) => {
             props.onChange({ filter: e.target.value });
           }}

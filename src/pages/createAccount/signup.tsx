@@ -131,9 +131,9 @@ const SignUpUxResearcher = () => {
         })
         .catch((error) => {
           if (error.response && error.response.data) {
-            alert(error.response.data); // specific error messages defined in the registerUxResearcher.tsx file
+            alert(error.response.data.toString()); // specific error messages defined in the registerUxResearcher.tsx file
           } else {
-            alert(error.message); // default error message
+            alert(error.toString()); // default error message
           }
         });
     }
@@ -454,9 +454,9 @@ const SignUpTester = () => {
         })
         .catch((error) => {
           if (error.response && error.response.data) {
-            alert(error.response.data); // specific error messages defined in the registerTester.tsx file
+            alert(error.response.data.toString()); // specific error messages defined in the registerTester.tsx file
           } else {
-            alert(error.message); // default error message
+            alert(error.toString()); // default error message
           }
         });
     }

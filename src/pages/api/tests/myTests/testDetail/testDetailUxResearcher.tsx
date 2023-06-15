@@ -48,31 +48,34 @@ const TestDetailUXResearcherHandler = async (
       try {
         const result = await pool.query(
           `
-          SELECT DISTINCT TEMP1."testId",
-                          TEMP1."testName",
-                          TEMP1."testType",
-                          TEMP1."testDeadline",
-                          TEMP1."testersCount",
-                          TEMP1."testPayment",
-                          TEMP2."testerId",
-                          TEMP2."testerName",
-                          TEMP1."criteriaGender" = TEMP2."testerGender" AS "withinGender",
-                          TEMP2."testerGender",
-                          TEMP1."criteriaAge" @> TEMP2."testerAge" AS "withinAge",
-                          TEMP2."testerAge",
-                          TEMP1."criteriaLocation" = TEMP2."testerLocation" AS "withinLocation",
-                          TEMP2."testerLocation",
-                          TEMP1."criteriaCareers" @> ARRAY[TEMP2."testerCareer"] AS "withinCareer",
-                          TEMP2."testerCareer",
-                          TEMP1."criteriaHobbies" && TEMP2."testerHobbies" AS "withinHobbies",
-                          ARRAY (
-                                  SELECT UNNEST(TEMP1."criteriaHobbies")
-                                  INTERSECT
-                                  SELECT UNNEST(TEMP2."testerHobbies")
-                                ) AS "sameHobbies",
-                          TEMP1."criteriaDigiSav" @> ARRAY[TEMP2."testerDigiSav"] AS "withinDigiSav",
-                          TEMP2."testerDigiSav",
-                          TEMP2."testerProfilePic"
+          SELECT DISTINCT  TEMP1."testId",
+                            TEMP1."testName",
+                            TEMP1."testType",
+                            TEMP1."testDeadline",
+                            TEMP1."testersCount",
+                            TEMP1."testPayment",
+                            TEMP2."testerId",
+                            TEMP2."testerName",
+                            COALESCE(TEMP1."criteriaGender" = TEMP2."testerGender", FALSE) AS "withinGender",
+                            TEMP2."testerGender",
+                            COALESCE(TEMP1."criteriaAge" @> TEMP2."testerAge", FALSE) AS "withinAge",
+                            TEMP2."testerAge",
+                            COALESCE(TEMP1."criteriaLocation" = TEMP2."testerLocation", FALSE) AS "withinLocation",
+                            TEMP2."testerLocation",
+                            COALESCE(TEMP1."criteriaCareers" @> ARRAY[TEMP2."testerCareer"], FALSE) AS "withinCareer",
+                            TEMP2."testerCareer",
+                            COALESCE(TEMP1."criteriaHobbies" && TEMP2."testerHobbies", FALSE) AS "withinHobbies",
+                            COALESCE(
+                              ARRAY (
+                                SELECT UNNEST(TEMP1."criteriaHobbies")
+                                INTERSECT
+                                SELECT UNNEST(TEMP2."testerHobbies")
+                              ),
+                              '{}'::text[]
+                            ) AS "sameHobbies",
+                            COALESCE(TEMP1."criteriaDigiSav" @> ARRAY[COALESCE(TEMP2."testerDigiSav",-1)], FALSE) AS "withinDigiSav",
+                            TEMP2."testerDigiSav",
+                            TEMP2."testerProfilePic"
           FROM
             (SELECT T.ID AS "testId",
                 T."name" AS "testName",
@@ -166,7 +169,7 @@ const TestDetailUXResearcherHandler = async (
           } as testDetailsResponse;
 
           list.forEach((tester) => {
-            if (tester.testId) {
+            if (tester.testerId !== null) {
               response.testersAns.push({
                 testerId: tester.testerId,
                 testerName: tester.testerName,

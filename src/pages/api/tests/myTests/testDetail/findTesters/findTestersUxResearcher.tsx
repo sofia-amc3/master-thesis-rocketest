@@ -121,7 +121,8 @@ const FindTestersUXResearcherHandler = async (
               OR TEMP1."criteriaAge" @> TEMP2."userAge"
               OR TEMP1."criteriaLocation" = TEMP2."userLocation"
               OR TEMP1."criteriaCareers" @> ARRAY[TEMP2."userCareer"]
-              OR TEMP1."criteriaHobbies" && TEMP2."userHobbies")
+              OR TEMP1."criteriaHobbies" && TEMP2."userHobbies"
+              OR TEMP1."criteriaDigiSav" @> ARRAY[TEMP2."userDigiSav"])
           ORDER BY TEMP2."wasContacted" ASC, TEMP2."userName" ASC ;
           `
         );

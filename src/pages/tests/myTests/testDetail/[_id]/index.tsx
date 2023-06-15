@@ -136,9 +136,9 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
       })
       .catch((error) => {
         if (error.response && error.response.data) {
-          alert(error.response.data); // specific error messages
+          alert(error.response.data.toString()); // specific error messages
         } else {
-          alert(error.message); // default error message
+          alert(error.toString()); // default error message
         }
         router.push("/tests/myTests/");
       });
@@ -169,9 +169,9 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
         })
         .catch((error) => {
           if (error.response && error.response.data) {
-            alert(error.response.data); // specific error messages
+            alert(error.response.data.toString()); // specific error messages
           } else {
-            alert(error.message); // default error message
+            alert(error.toString()); // default error message
           }
         });
 
@@ -343,9 +343,9 @@ const TestDetailTester = (props: PropsTestPage) => {
       })
       .catch((error) => {
         if (error.response && error.response.data) {
-          alert(error.response.data); // specific error messages
+          alert(error.response.data.toString()); // specific error messages
         } else {
-          alert(error.message); // default error message
+          alert(error.toString()); // default error message
         }
       });
 

@@ -14,14 +14,15 @@ const ContactedUsersHandler = async (
     case "POST":
       const { testId, userData } = req.body;
       const _data = userData as ContactedUserData[];
+
       try {
         let queryBuild: string;
         if (_data[0].platform === "Rocketest") {
-          queryBuild = `INSERT INTO public."Contacted_Users"("internalUserId", "testId")
+          queryBuild = `INSERT INTO public."Contacted_Users"("internalUserId", "testId", platform)
                           VALUES `;
 
           _data.forEach((user) => {
-            queryBuild += `(${user.userId}, ${testId}), `;
+            queryBuild += `(${user.userId}, ${testId}, '${user.platform}'), `;
           });
         } else {
           queryBuild = `INSERT INTO public."Contacted_Users"("externalUserId", "testId", platform)
