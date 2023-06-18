@@ -13,17 +13,6 @@ interface Props {
 }
 
 const TestersSearch = (props: Props) => {
-  const sortFunction = () => {
-    let sortType;
-    if (props.testerOptions && props.testerOptions.sort === "ASC") {
-      sortType = "DESC";
-    } else {
-      sortType = "ASC";
-    }
-
-    props.onChange({ sort: sortType });
-  };
-
   return (
     <div
       className={`${styles.testsFiltersContainer} ${styles.findTestersFiltersContainer}`}
@@ -68,16 +57,6 @@ const TestersSearch = (props: Props) => {
           alt="Filter Icon"
           width={14}
           height={14}
-        />
-      </div>
-
-      <div className={styles.sortIconContainer} onClick={sortFunction}>
-        <Image
-          src="/icons/sort.svg"
-          alt="Sort Icon"
-          width={19}
-          height={19}
-          className={`${styles.sort} ${styles[props.testerOptions.sort || ""]}`}
         />
       </div>
 

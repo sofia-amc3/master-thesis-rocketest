@@ -105,7 +105,6 @@ const GetTestersApiUXResearcherHandler = async (
                 .split(",")
                 .filter((value) => foundUser.hobbies?.includes(value));
 
-
               // building of foundUsers with necessary info to display in the frontend
               responseFindExternalTesters.foundUsers.push({
                 userId: foundUser.id,
@@ -132,7 +131,8 @@ const GetTestersApiUXResearcherHandler = async (
                   filteredUserHobbies.length > 0 ? filteredUserHobbies : [],
                 wasContacted:
                   contactedUsers.findIndex(
-                    (user) => user.externalUserId.toString() === foundUser.id.toString()
+                    (user) =>
+                      user.externalUserId.toString() === foundUser.id.toString()
                   ) > -1,
               });
             });

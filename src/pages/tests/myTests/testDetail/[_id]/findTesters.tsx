@@ -16,14 +16,13 @@ import styles from "@/styles/app.module.css";
 import axios from "axios";
 import Loading from "@/components/Loading";
 import { PropsTestPage } from "@/pages/tests";
-import TesterInfo from "@/components/find-testers-components/TesterInfo";
 import { digitalSavvinessText } from ".";
 import { ContactedUserData } from "@/pages/api/tests/myTests/testDetail/findTesters/contactUsersUxResearcher";
+import TesterInfo from "@/components/find-testers-components/TesterInfo";
 
 export interface FindTestersSearchFilters {
   search: string;
   filter: string;
-  sort: string;
 }
 
 const FindTesters = (props: PropsTestPage) => {
@@ -45,7 +44,7 @@ const FindTesters = (props: PropsTestPage) => {
   const [textMessage, setTextMessage] = useState("");
 
   // Pages' Slider
-  const testerCardsPerPage = 10; // limit number of tester cards per page
+  const testerCardsPerPage = 20; // limit number of tester cards per page
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   // Testers to Display
@@ -73,7 +72,6 @@ const FindTesters = (props: PropsTestPage) => {
     // default values
     search: "",
     filter: "All Testers",
-    sort: "ASC",
   } as FindTestersSearchFilters);
 
   //update functions
@@ -101,12 +99,6 @@ const FindTesters = (props: PropsTestPage) => {
           return testerData.wasContacted;
         else return !testerData.wasContacted;
       });
-
-      if (testerSearchOptions.sort === "ASC") {
-        result;
-      } else if (testerSearchOptions.sort === "DESC") {
-        result.reverse();
-      }
 
       setFilteredFoundUsers(result);
       setTotalPages(Math.ceil(result.length / testerCardsPerPage));

@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from "react";
-import TesterInfo from "./TesterInfo";
 import styles from "../../styles/app.module.css";
 import { digitalSavvinessText } from "@/pages/tests/myTests/testDetail/[_id]";
 
@@ -57,47 +56,55 @@ const TestersCheckboxCard = (props: Props) => {
         </span>
         <br />
         <div className={styles.testerInfoContainer}>
-          <TesterInfo
-            iconSrc="/icons/testerInfo-age.svg"
-            info={
-              props.userInfo?.withinAge
-                ? props.userInfo?.age.toString()
-                : "N.A."
+          <img
+            src="/icons/testerInfo-age.svg"
+            alt="Age Icon"
+            title={
+              props.userInfo?.withinAge ? props.userInfo?.age.toString() : ""
             }
+            className={props.userInfo?.withinAge ? "" : styles.disabled}
           />
-          <TesterInfo
-            iconSrc="/icons/testerInfo-gender.svg"
-            info={
-              props.userInfo?.withinGender ? props.userInfo?.gender : "N.A."
+          <img
+            src="/icons/testerInfo-gender.svg"
+            alt="Gender Icon"
+            title={props.userInfo?.withinGender ? props.userInfo?.gender : ""}
+            className={props.userInfo?.withinGender ? "" : styles.disabled}
+          />
+          <img
+            src="/icons/profile-location.svg"
+            alt="Location Icon"
+            title={
+              props.userInfo?.withinLocation ? props.userInfo?.location : ""
             }
+            className={props.userInfo?.withinLocation ? "" : styles.disabled}
+          />
+          <img
+            src="/icons/testerInfo-career.svg"
+            alt="Career Icon"
+            title={props.userInfo?.withinCareer ? props.userInfo?.career : ""}
+            className={props.userInfo?.withinCareer ? "" : styles.disabled}
+          />
+          <img
+            src="/icons/testerInfo-hobbies.svg"
+            alt="Hobbies Icon"
+            title={
+              props.userInfo?.withinHobbies
+                ? props.userInfo?.hobbies.toString()
+                : ""
+            }
+            className={props.userInfo?.withinHobbies ? "" : styles.disabled}
+          />
+          <img
+            src="/icons/testerInfo-ds.svg"
+            alt="Digital Savviness Icon"
+            title={
+              props.userInfo?.withinDigiSav
+                ? digitalSavvinessText[props.userInfo?.digitalSavviness]
+                : ""
+            }
+            className={props.userInfo?.withinDigiSav ? "" : styles.disabled}
           />
         </div>
-        <TesterInfo
-          iconSrc="/icons/profile-location.svg"
-          info={
-            props.userInfo?.withinLocation ? props.userInfo?.location : "N.A."
-          }
-        />
-        <TesterInfo
-          iconSrc="/icons/testerInfo-career.svg"
-          info={props.userInfo?.withinCareer ? props.userInfo?.career : "N.A."}
-        />
-        <TesterInfo
-          iconSrc="/icons/testerInfo-ds.svg"
-          info={
-            props.userInfo?.withinDigiSav
-              ? digitalSavvinessText[props.userInfo?.digitalSavviness]
-              : "N.A."
-          }
-        />
-        <TesterInfo
-          iconSrc="/icons/testerInfo-hobbies.svg"
-          info={
-            props.userInfo?.withinHobbies
-              ? props.userInfo?.hobbies.toString()
-              : "N.A."
-          }
-        />
       </div>
     </div>
   );

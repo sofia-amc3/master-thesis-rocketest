@@ -1375,7 +1375,7 @@ h6.testCategoryDescription {
 /* Find Testers Search Bar & Filters */
 .findTestersFiltersContainer {
   margin: 1rem 0 1.5rem 0;
-  width: 50rem;
+  width: 47rem;
 }
 
 .testersSelectAllCheckbox {
@@ -1415,7 +1415,7 @@ h6.testCategoryDescription {
 .testerCheckboxCard .testerSmallCard {
   border-radius: 0.625rem;
   width: 14.625rem;
-  height: 9.9rem;
+  height: 4.5rem;
   background-color: var(--color-rocketest-8);
 }
 
@@ -1459,7 +1459,17 @@ h6.testCategoryDescription {
 
 /* TesterInfo Component */
 .testerInfoContainer {
+  margin-top: 0.2rem;
+  padding: 0 1rem 0 0.8rem;
   display: flex;
+  justify-content: space-between;
+  width: 10rem;
+}
+
+.testerInfoContainer > img {
+  width: 0.9rem;
+  height: 0.9rem;
+  object-fit: contain;
 }
 
 .testerInfoWrapper,
