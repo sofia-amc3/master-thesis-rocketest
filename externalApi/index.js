@@ -99,7 +99,9 @@ app.get("/api/simulatingLinkedIn/getUsers", (req, res) => {
   }
 });
 
+const PORT = 8080;
+
 // set port, listen for requests
-app.listen(8080, () => {
-  console.log(`Server is running on port ${8080}.`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
