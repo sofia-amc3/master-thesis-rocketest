@@ -111,14 +111,16 @@ const GetAnsweredTestForm = async (
 
           return res.status(200).send(FormData);
         }
-        return res.status(400).send("No test was found.");
+        return res.status(400).send({ message: "No test was found." });
       } catch (error) {
         return res.status(400).send(error);
       }
       break;
 
     default:
-      return res.status(500).send("There was a problem with the connection.");
+      return res
+        .status(500)
+        .send({ message: "There was a problem with the connection." });
       break;
   }
 };

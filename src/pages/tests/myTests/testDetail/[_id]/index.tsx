@@ -135,10 +135,10 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
         setLoading(false);
       })
       .catch((error) => {
-        if (error.response && error.response.data) {
-          alert(error.response.data.toString()); // specific error messages
+        if (error.response?.data?.message) {
+          alert(error.response.data.message); // specific error messages
         } else {
-          alert(error.toString()); // default error message
+          alert(JSON.stringify(error.response.data)); // default error message
         }
         router.push("/tests/myTests/");
       });
@@ -168,10 +168,10 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
           router.push("/tests/myTests/");
         })
         .catch((error) => {
-          if (error.response && error.response.data) {
-            alert(error.response.data.toString()); // specific error messages
+          if (error.response?.data?.message) {
+            alert(error.response.data.message); // specific error messages
           } else {
-            alert(error.toString()); // default error message
+            alert(JSON.stringify(error.response.data)); // default error message
           }
         });
 
@@ -342,10 +342,10 @@ const TestDetailTester = (props: PropsTestPage) => {
         setFormData(res.data);
       })
       .catch((error) => {
-        if (error.response && error.response.data) {
-          alert(error.response.data.toString()); // specific error messages
+        if (error.response?.data?.message) {
+          alert(error.response.data.message); // specific error messages
         } else {
-          alert(error.toString()); // default error message
+          alert(JSON.stringify(error.response.data)); // default error message
         }
       });
 

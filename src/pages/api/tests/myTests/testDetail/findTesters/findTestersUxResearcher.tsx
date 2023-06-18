@@ -164,14 +164,18 @@ const FindTestersUXResearcherHandler = async (
 
           return res.status(200).send(response);
         }
-        return res.status(400).send("Unable to get test information");
+        return res
+          .status(400)
+          .send({ message: "Unable to get test information" });
       } catch (error) {
         return res.status(400).send(error);
       }
       break;
 
     default:
-      return res.status(500).send("There was a problem with the connection.");
+      return res
+        .status(500)
+        .send({ message: "There was a problem with the connection." });
       break;
   }
 };

@@ -173,10 +173,10 @@ const OverviewTester = (props: Props) => {
         setTotalPages(Math.ceil(res.data.length / cardsPerPage)); // defines total nr of pages in pages' slider after getting the tests
       })
       .catch((error) => {
-        if (error.response && error.response.data) {
-          alert(error.response.data.toString()); // specific error messages
+        if (error.response?.data?.message) {
+          alert(error.response.data.message); // specific error messages
         } else {
-          alert(error.toString()); // default error message
+          alert(JSON.stringify(error.response.data)); // default error message
         }
       });
 

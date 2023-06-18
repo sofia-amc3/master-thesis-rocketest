@@ -25,46 +25,43 @@ const registerTesterHandler = async (
       // name validation
       const nameRegex = /^[a-zA-Z0-9 \u00C0-\u017F.]{1,20}$/;
       if (!nameRegex.test(name)) {
-        return res
-          .status(400)
-          .send(
-            "Invalid Name. It should contain only letters, numbers, spaces, and dots (.) with a maximum of 20 characters."
-          );
+        return res.status(400).send({
+          message:
+            "Invalid Name. It should contain only letters, numbers, spaces, and dots (.) with a maximum of 20 characters.",
+        });
       }
 
       // password validation
       const passwordRegex =
         /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
       if (!passwordRegex.test(password)) {
-        return res
-          .status(400)
-          .send(
-            "Password must have at least 8 characters, one uppercase letter, one special character, and one number."
-          );
+        return res.status(400).send({
+          message:
+            "Password must have at least 8 characters, one uppercase letter, one special character, and one number.",
+        });
       }
 
       // e-mail validation
       const emailRegex = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/;
       if (!emailRegex.test(email)) {
-        return res.status(400).send("Invalid E-mail.");
+        return res.status(400).send({ message: "Invalid E-mail." });
       }
 
       // location validation
       const locationRegex = /^[A-Za-z, ]{1,30}$/;
       if (location && !locationRegex.test(location)) {
-        return res
-          .status(400)
-          .send(
-            "Invalid location. Only letters and ',' allowed, with a maximum of 30 characters."
-          );
+        return res.status(400).send({
+          message:
+            "Invalid location. Only letters and ',' allowed, with a maximum of 30 characters.",
+        });
       }
 
       // job title validation
       const jobTitleRegex = /^[A-Za-z, .]+$/;
       if (jobTitle && !jobTitleRegex.test(jobTitle)) {
-        return res
-          .status(400)
-          .send("Invalid job title. Only letters, ',' and '.' allowed.");
+        return res.status(400).send({
+          message: "Invalid job title. Only letters, ',' and '.' allowed.",
+        });
       }
 
       // birthdate validation
@@ -80,14 +77,16 @@ const registerTesterHandler = async (
       }
       // check if the user is above 18 years old
       if (age < 18) {
-        return res
-          .status(400)
-          .send("You must be 18 years or older to register in Rocketest.");
+        return res.status(400).send({
+          message: "You must be 18 years or older to register in Rocketest.",
+        });
       }
 
       // checks if mandatory fields were fulfilled
       if (!name || !email || !password)
-        return res.status(400).send("All mandatory fields must be provided.");
+        return res
+          .status(400)
+          .send({ message: "All mandatory fields must be provided." });
 
       // if user did not upload a profile photo, replace it with a default user photo
       const profilePhotoPath = profilePhoto || DEFAULT_PROFILE_PHOTO_TESTER;
@@ -126,13 +125,13 @@ const registerTesterHandler = async (
             return res.status(200).send(createdUser.rows[0]);
           } else {
             // registration failed
-            throw "There was an error registering the user.";
+            throw { message: "There was an error registering the user." };
           }
         } else {
           // user already exists
-          return res
-            .status(400)
-            .send("There is already an account using this e-mail.");
+          return res.status(400).send({
+            message: "There is already an account using this e-mail.",
+          });
         }
       } catch (error) {
         return res.status(400).send(error);
@@ -140,7 +139,9 @@ const registerTesterHandler = async (
       break;
 
     default:
-      return res.status(500).send("There was a problem with the connection.");
+      return res
+        .status(500)
+        .send({ message: "There was a problem with the connection." });
       break;
   }
 };

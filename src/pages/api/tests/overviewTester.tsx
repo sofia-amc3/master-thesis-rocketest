@@ -106,7 +106,9 @@ const OverviewTester = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
 
     default:
-      return res.status(500).send("There was a problem with the connection.");
+      return res
+        .status(500)
+        .send({ message: "There was a problem with the connection." });
       break;
   }
 };

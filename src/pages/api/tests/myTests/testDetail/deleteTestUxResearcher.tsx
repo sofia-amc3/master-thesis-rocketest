@@ -28,7 +28,7 @@ const DeleteTestUXResearcherHandler = async (
           return res.status(200).send("The test was deleted successfully.");
         } else {
           // update failed
-          throw "There was an error deleting the test.";
+          throw { message: "There was an error deleting the test." };
         }
       } catch (error) {
         return res.status(400).send(error);
@@ -36,7 +36,9 @@ const DeleteTestUXResearcherHandler = async (
       break;
 
     default:
-      return res.status(500).send("There was a problem with the connection.");
+      return res
+        .status(500)
+        .send({ message: "There was a problem with the connection." });
       break;
   }
 };

@@ -73,10 +73,10 @@ const ToBeAnsweredTest = (props: PropsTestPage) => {
         setFormData(res.data);
       })
       .catch((error) => {
-        if (error.response && error.response.data) {
-          alert(error.response.data.toString()); // specific error messages
+        if (error.response?.data?.message) {
+          alert(error.response.data.message); // specific error messages
         } else {
-          alert(error.toString()); // default error message
+          alert(JSON.stringify(error.response.data)); // default error message
         }
       });
 
@@ -108,10 +108,10 @@ const ToBeAnsweredTest = (props: PropsTestPage) => {
           router.push("/tests/myTests/");
         })
         .catch((error) => {
-          if (error.response && error.response.data) {
-            alert(error.response.data.toString()); // specific error messages
+          if (error.response?.data?.message) {
+            alert(error.response.data.message); // specific error messages
           } else {
-            alert(error.toString()); // default error message
+            alert(JSON.stringify(error.response.data)); // default error message
           }
         });
     } else {

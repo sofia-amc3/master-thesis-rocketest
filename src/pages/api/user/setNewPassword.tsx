@@ -11,7 +11,9 @@ const setNewPasswordHandler = async (
 
       // Checks if field was fulfilled
       if (!password)
-        return res.status(400).send("Password fields cannot be empty.");
+        return res
+          .status(400)
+          .send({ message: "Password fields cannot be empty." });
 
       try {
         const result = await pool.query(
@@ -38,10 +40,12 @@ const setNewPasswordHandler = async (
             return res.status(200).send(updatedUser.rows[0]);
           } else {
             // update failed
-            throw "There was an error updating the user's password.";
+            throw {
+              message: "There was an error updating the user's password.",
+            };
           }
         } else {
-          return res.status(400).send("Invalid E-mail."); // The e-mail does not exist
+          return res.status(400).send({ message: "Invalid E-mail." }); // The e-mail does not exist
         }
       } catch (error) {
         return res.status(400).send(error);
@@ -49,7 +53,9 @@ const setNewPasswordHandler = async (
       break;
 
     default:
-      return res.status(500).send("There was a problem with the connection.");
+      return res
+        .status(500)
+        .send({ message: "There was a problem with the connection." });
       break;
   }
 };

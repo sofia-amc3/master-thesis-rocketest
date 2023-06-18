@@ -24,7 +24,7 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
           await transporter.sendMail(mailOptions);
           res.status(200).json({ message: "E-mail sent successfully." });
         } else {
-          return res.status(400).send("Invalid E-mail.");
+          return res.status(400).send({ message: "Invalid E-mail." });
         }
       } catch (error) {
         console.error(error);

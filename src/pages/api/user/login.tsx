@@ -8,7 +8,9 @@ const logInHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       // Checks if both fields were fulfilled
       if (!email || !password)
-        return res.status(400).send("Please provide both e-mail and password.");
+        return res
+          .status(400)
+          .send({ message: "Please provide both e-mail and password." });
 
       try {
         const result = await pool.query(
@@ -20,9 +22,9 @@ const logInHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
           if (user.password === password)
             return res.status(200).send(user); // Login successful
-          else return res.status(400).send("Incorrect Password."); // The password does not match the one in the database
+          else return res.status(400).send({ message: "Incorrect Password." }); // The password does not match the one in the database
         } else {
-          return res.status(400).send("Invalid E-mail."); // The e-mail does not exist
+          return res.status(400).send({ message: "Invalid E-mail." }); // The e-mail does not exist
         }
       } catch (error) {
         return res.status(400).send(error);
@@ -30,7 +32,9 @@ const logInHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
 
     default:
-      return res.status(500).send("There was a problem with the connection.");
+      return res
+        .status(500)
+        .send({ message: "There was a problem with the connection." });
       break;
   }
 };

@@ -1472,6 +1472,10 @@ h6.testCategoryDescription {
   object-fit: contain;
 }
 
+.testerInfoContainer > img.disabled {
+  opacity: 0.2;
+}
+
 .testerInfoWrapper,
 .testerInfoWrapperOutsideCard {
   display: flex;

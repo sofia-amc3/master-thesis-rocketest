@@ -40,16 +40,18 @@ const ContactedUsersHandler = async (
         if (result.rowCount > 0) {
           return res.status(200).send("Users were contacted successfully.");
         }
-        return res
-          .status(400)
-          .send("There was an error registering the contacted users.");
+        return res.status(400).send({
+          message: "There was an error registering the contacted users.",
+        });
       } catch (error) {
         return res.status(400).send(error);
       }
       break;
 
     default:
-      return res.status(500).send("There was a problem with the connection.");
+      return res
+        .status(500)
+        .send({ message: "There was a problem with the connection." });
       break;
   }
 };
