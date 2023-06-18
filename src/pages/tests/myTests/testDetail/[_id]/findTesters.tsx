@@ -155,7 +155,6 @@ const FindTesters = (props: PropsTestPage) => {
   };
 
   const searchButtonHandler = async () => {
-    console.log("HERE", searchFieldValue.includes("Custom API"));
     if (searchFieldValue.includes("Custom API")) {
       let platform;
       if (searchFieldValue === "Custom API (Simulating Facebook Users)") {
@@ -190,6 +189,7 @@ const FindTesters = (props: PropsTestPage) => {
         })
         .catch((error) => {
           console.log(error);
+          setFoundUsers([]);
           if (error.response?.data?.message) {
             alert(error.response.data.message); // specific error messages
           } else {
@@ -344,13 +344,13 @@ const FindTesters = (props: PropsTestPage) => {
           outsideCard
         />
         <TesterInfo
-          iconSrc="/icons/testerInfo-ds.svg"
-          info={buildDigiSavText()}
+          iconSrc="/icons/testerInfo-hobbies.svg"
+          info={pageData.criteriaHobbies.toString() || "Not Defined"}
           outsideCard
         />
         <TesterInfo
-          iconSrc="/icons/testerInfo-hobbies.svg"
-          info={pageData.criteriaHobbies.toString() || "Not Defined"}
+          iconSrc="/icons/testerInfo-ds.svg"
+          info={buildDigiSavText()}
           outsideCard
         />
         <br />

@@ -28,7 +28,6 @@ interface Props {
 const TextInput = (props: Props) => {
   const keyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (props.onEnterKey !== undefined && e.key === "Enter") {
-      console.log("enter key pressed");
       props.onEnterKey();
     }
   };

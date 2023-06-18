@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { pool } from "@/lib/db";
 import axios from "axios";
+import FakeUsersFacebook from "@/../externalApi/utils/fakeUsersFacebook.json";
+import FakeUsersLinkedIn from "@/../externalApi/utils/fakeUsersLinkedIn.json";
 
 export interface FoundUsers {
   selected?: boolean; // used only for the frontend
@@ -58,6 +60,10 @@ const GetTestersApiUXResearcherHandler = async (
         finalCareers = careers?.toString() || "",
         finalHobbies = hobbies?.toString() || "";
 
+      const responseFindExternalTesters = {
+        foundUsers: [],
+      } as FindExternalTestersResponse;
+
       try {
         const params = {
           ageRange: finalAgeRange,
@@ -67,12 +73,10 @@ const GetTestersApiUXResearcherHandler = async (
           hobbies: finalHobbies,
         };
 
-        const responseFindExternalTesters = {
-          foundUsers: [],
-        } as FindExternalTestersResponse;
+        const IN_USE_IP = process.env.EXTERNALAPI_IP || "localhost:8080"; //! PLEASE UPDATE THE LOCALHOST IP IF NECESSARY TO COMMUNICATE WITH EXTERNAL API
 
         await axios
-          .get(`http://localhost:8080/api/simulating${platform}/getUsers`, {
+          .get(`http://${IN_USE_IP}/api/simulating${platform}/getUsers`, {
             params,
           })
           .then(async (response) => {
@@ -140,13 +144,78 @@ const GetTestersApiUXResearcherHandler = async (
             return res.status(200).send(responseFindExternalTesters);
           })
           .catch((error) => {
-            return res.status(400).send(error);
+            throw error;
           });
         return res
           .status(400)
           .send({ message: "Unable to get test information" });
       } catch (error) {
         return res.status(400).send(error);
+
+        //! WARNING
+        //! VERCEL APP WOULD NOT ALLOW FOR EXTERNAL API TO RUN
+        //! IT COULD EITHER BE RUN EXTERNALLY OR THE INFORMATION COULD BE IMPORTED DIRECTLY WITH THE CODE BELOW
+        //! EXTERNAL API IP COULD BE CHANGED ABOVE (l76)
+        // let _data = [] as FindExternalTestersRequest[];
+        // if (platform === "LinkedIn") {
+        //   _data = FakeUsersLinkedIn as FindExternalTestersRequest[];
+        // } else {
+        //   _data = FakeUsersFacebook as FindExternalTestersRequest[];
+        // }
+        // //query to get contacted users from external platforms
+        // let result = { rows: [] };
+        // try {
+        //   result = await pool.query(`
+        //     SELECT C."externalUserId"
+        //     FROM PUBLIC."Contacted_Users" C
+        //     WHERE C."testId"=${testId}
+        //       AND C.platform='${platform}';
+        //   `);
+        // } catch {}
+        // const contactedUsers = (
+        //   result.rows?.length > 0 ? result.rows : []
+        // ) as ContactedUsersQuery[];
+        // _data.map(async (foundUser, key) => {
+        //   // intersect careers from selection criteria with user's career
+        //   const filteredUserCareer = finalCareers
+        //     .split(",")
+        //     .filter((value) => foundUser.career?.includes(value));
+        //   // intersect hobbies from selection criteria with user's hobbies
+        //   const filteredUserHobbies = finalHobbies
+        //     .split(",")
+        //     .filter((value) => foundUser.hobbies?.includes(value));
+        //   // building of foundUsers with necessary info to display in the frontend
+        //   responseFindExternalTesters.foundUsers.push({
+        //     userId: foundUser.id,
+        //     userName: foundUser.name,
+        //     userProfilePhoto: foundUser.profilePhoto || "",
+        //     withinAge:
+        //       (foundUser.age &&
+        //         foundUser.age > Number(finalAgeRange.split(",")[0]) &&
+        //         foundUser.age < Number(finalAgeRange.split(",")[1])) ||
+        //       false,
+        //     userAge: foundUser.age || 0,
+        //     withinGender:
+        //       finalGender === "No preference" ||
+        //       new RegExp(`^${finalGender}`).test(foundUser.gender || "") ||
+        //       false,
+        //     userGender: foundUser.gender || "",
+        //     withinLocation:
+        //       foundUser.location?.includes(finalLocation) || false,
+        //     userLocation: foundUser.location || "",
+        //     withinCareer: filteredUserCareer.length > 0,
+        //     userCareer: foundUser.career || "",
+        //     withinHobbies: filteredUserHobbies.length > 0,
+        //     sameHobbies:
+        //       filteredUserHobbies.length > 0 ? filteredUserHobbies : [],
+        //     wasContacted:
+        //       contactedUsers.findIndex(
+        //         (user) =>
+        //           user.externalUserId.toString() === foundUser.id.toString()
+        //       ) > -1,
+        //   });
+        // });
+        // return res.status(200).send(responseFindExternalTesters);
       }
       break;
 
