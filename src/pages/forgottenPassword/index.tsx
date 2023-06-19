@@ -33,7 +33,7 @@ const ForgottenPassword = () => {
         <>
           Please click{" "}
           <a
-            href={`http://localhost:3000/forgottenPassword/setPassword?email=${form.email}`}
+            href={`https://master-thesis-rocketest.vercel.app/forgottenPassword/setPassword?email=${form.email}`}
           >
             here
           </a>{" "}
