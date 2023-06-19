@@ -79,8 +79,8 @@ const GetTestersApiUXResearcherHandler = async (
           .get(`http://${IN_USE_IP}/api/simulating${platform}/getUsers`, {
             params,
           })
-          .then(async (response) => {
-            const _data = response.data as FindExternalTestersRequest[];
+          .then(async (extResponse) => {
+            const _data = extResponse.data as FindExternalTestersRequest[];
 
             //query to get contacted users from external platforms
             let result = { rows: [] };
@@ -144,16 +144,13 @@ const GetTestersApiUXResearcherHandler = async (
             return res.status(200).send(responseFindExternalTesters);
           })
           .catch((error) => {
-            throw error;
+            throw { message: "Unable to get test information", error };
           });
-        return res
-          .status(400)
-          .send({ message: "Unable to get test information" });
       } catch (error) {
         return res.status(400).send(error);
 
         //! WARNING
-        //! VERCEL APP WOULD NOT ALLOW FOR EXTERNAL API TO RUN
+        //! IF YOUR SYSTEM DOES NOT ALLOW FOR EXTERNAL API TO RUN
         //! IT COULD EITHER BE RUN EXTERNALLY OR THE INFORMATION COULD BE IMPORTED DIRECTLY WITH THE CODE BELOW
         //! EXTERNAL API IP COULD BE CHANGED ABOVE (l76)
         // let _data = [] as FindExternalTestersRequest[];

@@ -16,6 +16,8 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+Note that to run this project on your local environment you have to enter the credentials on `.env.local` file. `EXAMPLE.env.local` is an example of how this file should look like.
+
 ## How to Run the External API
 
 To use the external API on 'Find Testers' page of Rocketest, you must create a new terminal on its root folder (`master-thesis-rocketest\rocketest\externalApi`) and run it like this:
