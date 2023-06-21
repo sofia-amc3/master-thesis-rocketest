@@ -58,7 +58,9 @@ const MyTestsUXResearcher = (props: Props) => {
     if (originalTests.length > 0) {
       //SEARCH FILTER
       let result = originalTests.filter((testData) =>
-        testData.testName.includes(testOptions.search)
+        testData.testName
+          .toLowerCase()
+          .includes(testOptions.search.toLowerCase())
       );
 
       //IN PROGRESS FILTER
@@ -235,7 +237,9 @@ const MyTestsTester = (props: Props) => {
     if (originalTests.length > 0) {
       //SEARCH FILTER
       let result = originalTests.filter((testData) =>
-        testData.testName.includes(testOptions.search)
+        testData.testName
+          .toLowerCase()
+          .includes(testOptions.search.toLowerCase())
       );
 
       //PAID FILTER

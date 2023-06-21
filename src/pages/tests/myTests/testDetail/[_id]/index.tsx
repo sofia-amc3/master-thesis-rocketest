@@ -83,7 +83,9 @@ const TestDetailUXResearcher = (props: PropsTestPage) => {
     if (testData.testersAns?.length > 0) {
       //SEARCH FILTER
       let result = testData.testersAns.filter((testerData) =>
-        testerData.testerName.includes(searchOptions.search)
+        testerData.testerName
+          .toLowerCase()
+          .includes(searchOptions.search.toLowerCase())
       );
 
       //FILTER BY
