@@ -48,7 +48,7 @@ const registerTesterHandler = async (
       }
 
       // location validation
-      const locationRegex = /^[A-Za-z, ]{1,30}$/;
+      const locationRegex = /^[A-Za-z, \u00C0-\u017F.]{1,30}$/;
       if (location && !locationRegex.test(location)) {
         return res.status(400).send({
           message:
