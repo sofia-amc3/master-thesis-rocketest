@@ -5,9 +5,9 @@ import styles from "@/styles/app.module.css";
 import { useRouter } from "next/router";
 import GoBackArrow from "@/components/GoBackArrow";
 import TextInput from "@/components/input-components/TextInput";
-import Link from "next/link";
 import axios from "axios";
 import ReactDOMServer from "react-dom/server";
+import Loading from "@/components/Loading";
 
 interface FormData {
   email: string;
@@ -19,6 +19,8 @@ const ForgottenPassword = () => {
   const [form, setForm] = useState<FormData>({
     email: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const updateForm = (valueToUpdate: Partial<FormData>) => {
     setForm({
@@ -48,6 +50,7 @@ const ForgottenPassword = () => {
     if (!form.email) {
       alert("Please provide an e-mail.");
     } else {
+      setLoading(true);
       await axios
         .post("api/user/sendEmail", {
           ...form,
@@ -56,6 +59,7 @@ const ForgottenPassword = () => {
         })
         .then(async (res) => {
           alert("An e-mail was sent. Please open it to recover your password.");
+          setLoading(false);
           router.push("/");
         })
         .catch((error) => {
@@ -72,7 +76,9 @@ const ForgottenPassword = () => {
     router.back();
   };
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <>
       <Head>
         <title>Forgotten Password | Rocketest</title>
