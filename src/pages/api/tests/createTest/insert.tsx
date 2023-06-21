@@ -78,8 +78,12 @@ const InsertTest = async (req: NextApiRequest, res: NextApiResponse) => {
                 INSERT INTO "Options" ("questionId", name, image)
                 SELECT questionId, '${opt.name}', '${opt.imgSrc}'
                 FROM tmpQ_S${q_sKey}
-              ),
-              `;
+              )`;
+              // does not add the final comma in the sql INSERT query
+              if (optKey != 0) {
+                queryBuild += `,
+                `;
+              }
             }
 
             // q.options.forEach((opt, optKey) => {
@@ -93,12 +97,11 @@ const InsertTest = async (req: NextApiRequest, res: NextApiResponse) => {
           }
         }
 
-        // remove the final comma in the sql INSERT query
-        queryBuild =
-          queryBuild.substring(0, queryBuild.length - 14) +
-          `
-        SELECT * FROM tmpTests;
+        queryBuild += `
+        SELECT testid AS "testId" FROM tmpTests;
         `;
+
+        console.log("Insert Test: ", userId, queryBuild);
 
         const result = await pool.query(queryBuild);
 
