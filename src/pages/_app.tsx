@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import SideMenu from "@/components/SideMenu";
 import styles from "@/styles/app.module.css";
 import Head from "next/head";
-import BackToTopArrow from "@/components/BackToTopArrow";
 import { useEffect, useState } from "react";
 import SideMenuAuth from "@/components/SideMenuAuth";
 import { NextRouter, useRouter } from "next/router";
@@ -21,7 +20,7 @@ const isUnprotectedRoute = (router: NextRouter) => {
   const { pathname } = router;
   let isUnprotected = false;
 
-  // specific verification outside includes bc this expression is included everywhere and had to be checked precisely
+  // this expression is included everywhere and had to be checked precisely
   if (pathname === "/") isUnprotected = true;
   else {
     for (let i = 0; i < unprotectedRoutes.length; i++) {

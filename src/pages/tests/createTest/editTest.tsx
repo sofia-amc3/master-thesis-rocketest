@@ -70,7 +70,7 @@ const EditTest = (props: PropsTestPage) => {
     return true;
   };
 
-  const doQuestionsExists = () => {
+  const doQuestionsExist = () => {
     let questionExist = false;
     formTest.question_section?.forEach((q_s) => {
       if (!q_s.isSection) questionExist = true;
@@ -80,7 +80,7 @@ const EditTest = (props: PropsTestPage) => {
   };
 
   const goToTestDetailsPage = () => {
-    if (!doQuestionsExists())
+    if (!doQuestionsExist())
       return alert("This form must have at least one question!");
 
     if (!verifyMandatoryFields())

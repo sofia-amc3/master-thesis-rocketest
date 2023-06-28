@@ -249,7 +249,7 @@ const FindTesters = (props: PropsTestPage) => {
       return alert(`Message field cannot be empty.`);
     }
 
-    //-------------- ELSE {localhost:5000/sendmessage?users=asdasd,adasd,asdasd&body=asdasdsxgfgdfgddsda}
+    //-------------- ELSE {localhost:{port}/sendmessage?users=asdasd,adasd,asdasd&body=asdasdsxgfgdfgddsda}
 
     const params = {
       testId: _id,
@@ -289,14 +289,6 @@ const FindTesters = (props: PropsTestPage) => {
           alert(JSON.stringify(error.response.data)); // default error message
         }
       });
-
-    // verify if a message was provided
-    // verify if users were selected
-    // sucess = 1) alert saying that msg was sent, 2) update contacted users table
-    // fail = alert w/ error: "Message field cannot be empty." / "No users were selected to send a message."
-    // return alert(
-    //   `Message sent successfully! \n\nNote: Because the 'Messages' page of Rocketest is not yet working, there is not the possibility of actually sending a message to the participants. This button only works for demonstration purposes of distinguishing between contacted users and not contacted users in our database.`
-    // );
   };
 
   return loading ? (

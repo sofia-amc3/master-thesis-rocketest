@@ -657,6 +657,7 @@ const SignUp = () => {
     const temp_userType = router.query.userType as string;
 
     if (temp_userType === undefined || temp_userType === "") {
+      // does not let the user stay on this page if no user type was provided
       router.push({ pathname: "/createAccount" });
     }
     setUserType(temp_userType);
