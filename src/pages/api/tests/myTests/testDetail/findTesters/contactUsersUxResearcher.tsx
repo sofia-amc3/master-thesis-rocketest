@@ -18,6 +18,7 @@ const ContactedUsersHandler = async (
       try {
         let queryBuild: string;
         if (_data[0].platform === "Rocketest") {
+          // if the platform is Rocketest we are inserting users with an internal ID
           queryBuild = `INSERT INTO public."Contacted_Users"("internalUserId", "testId", platform)
                           VALUES `;
 
@@ -25,6 +26,7 @@ const ContactedUsersHandler = async (
             queryBuild += `(${user.userId}, ${testId}, '${user.platform}'), `;
           });
         } else {
+          // if not, we are inserting users with an external ID
           queryBuild = `INSERT INTO public."Contacted_Users"("externalUserId", "testId", platform)
                           VALUES `;
 
@@ -33,6 +35,7 @@ const ContactedUsersHandler = async (
           });
         }
 
+        // execute the query by removing the trailing comma and semicolon
         const result = await pool.query(
           queryBuild.substring(0, queryBuild.length - 2) + ";"
         );

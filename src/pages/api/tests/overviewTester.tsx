@@ -7,46 +7,18 @@ const OverviewTester = async (req: NextApiRequest, res: NextApiResponse) => {
       const { userId, matchCriteria } = req.query;
       try {
         const result = await pool.query(
-          // `SELECT DISTINCT T.ID,
-          //                  T."name" AS "testName",
-          //                  T."type" AS "testType",
-          //                  T.DEADLINE AS "testDeadline",
-          //                  U."name" AS "testCreator",
-          //                  T.PAYMENT AS "testPayment"
-          //   FROM "Tests" T
-          //   LEFT JOIN "Users" U ON T."userId" = U.ID
-          //   LEFT JOIN "Selection_Criteria" C ON C."testId" = T.ID
-          //   LEFT JOIN "Testers" TT ON TT."userId" = ${userId}
-          //   LEFT JOIN "Users" UTT ON TT."userId" = UTT.ID
-          //   WHERE T."isPublic" = TRUE
-          //     AND T."isDeleted" = FALSE
-          //     AND T.DEADLINE > NOW()
-          //     AND T.ID NOT IN
-          //         (SELECT DISTINCT T.ID
-          //           FROM "Tests" T,
-          //                "Questions_Sections" Q,
-          //                "Answers" A,
-          //                "Testers" TT,
-          //                "Users" U
-          //           WHERE U.ID = T."userId"
-          //             AND T.ID = Q."testId"
-          //             AND Q.ID = A."questionId"
-          //             AND A."userId" = TT."userId"
-          //             AND TT."userId" = ${userId}
-          //             AND T."isDeleted" = FALSE)
-          //           ${
-          //             matchCriteria === "true"
-          //               ? `
-          //                 AND date_part('year',age(TT."birthDate"))::integer <@ C."ageRange"
-          //                 AND C."gender" = TT.gender
-          //                 AND C."digitalSavviness" = TT."digitalSavviness"
-          //                 AND C."hobbies" && TT.hobbies
-
-          //                 AND C."location" = UTT.location
-          //                 AND C."careers" @> ARRAY[UTT.career]`
-          //               : ""
-          //           }`
-
+          // Query Explanation: retrieves information about tests and their associated data
+          //                    calculates a score for each test based on matching criteria between the tester and the test
+          //                    the results are then sorted by the score in descending order (the more matches, the better, so it should appear first)
+          // SELECT clause: selects columns and checks if various criteria match, assigning a value of 1 for each match, which is then summed up to calculate the total score
+          // FROM clause: specifies the tables involved in the query: "Tests" T, "Users" U, "Selection_Criteria" C, "Testers" TT, and "Users" UTT
+          // WHERE clause: includes the conditions to filter the results:
+          //                      - the test is marked as public
+          //                      - the test is not deleted
+          //                      - the test deadline has not passed
+          //                      - (subquery) the tester has not answered this test yet
+          //               the ${matchCriteria} conditional statement dynamically adds additional matching criteria to the WHERE clause based on the value of the matchCriteria variable
+          // ORDER BY clause: sorts the results based on the countOfMatches column in descending order
           `SELECT T.ID AS "testId",
                   T."name" AS "testName",
                   T."type" AS "testType",

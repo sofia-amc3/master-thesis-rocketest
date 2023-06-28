@@ -47,6 +47,13 @@ const TestDetailUXResearcherHandler = async (
       const { userId, testId } = req.query;
       try {
         const result = await pool.query(
+          // Query Explanation:
+          // This query aims to retrieve detailed information about a specific test and its corresponding testers, including whether each tester meets the specified criteria.
+          // TEMP1 (subquery): selects information on the "Tests" table (test general info and criteria)
+          // TEMP2 (subquery): selects information about the "Testers" (to check for matched criteria later on)
+          // Main Query: joins TEMP1 and TEMP2 based on the test ID
+          //             & calculates matched criteria on withinGender, withinAge, withinLocation, withinCareer, withinHobbies, sameHobbies, and withinDigiSav
+          //             using comparisons (COALESCE()) and array operations (for intersections between arrays)
           `
           SELECT DISTINCT  TEMP1."testId",
                             TEMP1."testName",
@@ -120,40 +127,6 @@ const TestDetailUXResearcherHandler = async (
                 AND T.ID = ${testId}
                 AND T."isDeleted" = FALSE ) TEMP2 ON TEMP1."testId" = TEMP2."testId";
           `
-
-          // `
-          // SELECT DISTINCT *
-          // FROM
-          //   (SELECT T.ID AS "testId",
-          //           T."name" AS "testName",
-          //           T."type" AS "testType",
-          //           DEADLINE AS "testDeadline",
-          //           COUNT(C.ID) AS "testersCount",
-          //           T.PAYMENT AS "testPayment"
-          //     FROM PUBLIC."Tests" T
-          //     LEFT JOIN PUBLIC."Contacted_Users" C ON C."testId" = T.ID
-          //     WHERE T."userId" = ${userId}
-          //       AND T.ID = ${testId}
-          //       AND T."isDeleted" = FALSE
-          //     GROUP BY T.ID) TEMP1
-          // LEFT JOIN
-          //   (SELECT DISTINCT T.ID AS "testId",
-          //                    U.ID AS "testerId",
-          //                    U."name" AS "testerName",
-          //                    U.CAREER AS "testerCareer",
-          //                    U."location" AS "testerLocation",
-          //                    U."profilePhoto" AS "testerProfilePic"
-          //     FROM PUBLIC."Tests" T,
-          //          PUBLIC."Questions_Sections" Q_S,
-          //          PUBLIC."Answers" ANS,
-          //          PUBLIC."Users" U
-          //     WHERE Q_S."testId" = T.ID
-          //       AND ANS."questionId" = Q_S.ID
-          //       AND U.ID = ANS."userId"
-          //       AND T."userId" = ${userId}
-          //       AND T.ID = ${testId}
-          //       AND T."isDeleted" = FALSE ) TEMP2 ON TEMP1."testId" = TEMP2."testId";
-          // `
         );
 
         if (result.rows.length > 0) {

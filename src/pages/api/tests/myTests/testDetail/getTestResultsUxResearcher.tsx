@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { pool } from "@/lib/db";
 
+// interfaces to represent the shape of the query and response data
 interface testResultsQuery {
   testId: number;
   testName: string;
@@ -41,6 +42,13 @@ const GetTestResultsUXResearcherHandler = async (
       const { testId } = req.query;
       try {
         const result = await pool.query(
+          // Query Explanation:
+          // TEMP1 (subquery): retrieves data from tables: "Tests", "Questions_Sections", and "Options", ensuring that their IDs match correctly
+          // TEMP2 (subquery): retrieves the answer names and their corresponding counts from the "Answers" table based on the relationship with the "Questions_Sections" table
+          // TEMP3 (subquery): 1) retrieves the count of distinct testers (user IDs) for the specified test ID value
+          //                    2) joins the "Tests," "Questions_Sections," and "Answers" tables based on their relationships
+          //                    3) filters the results to match the specified test ID.
+          // Main Query: joins TEMP1 and TEMP3 based on their respective test ID columns
           `
           SELECT *
             FROM
@@ -82,6 +90,7 @@ const GetTestResultsUXResearcherHandler = async (
         );
 
         if (result.rows.length > 0) {
+          // prepare the response object
           const list = result.rows as testResultsQuery[];
           const response = {
             success: true,
@@ -94,11 +103,13 @@ const GetTestResultsUXResearcherHandler = async (
 
           const questionMap: { [key: number]: QuestionInfo } = {};
 
+          // iterate over the query results and structure the data
           list.forEach((question) => {
             const Q_id = question.questionId;
             const Q_name = question.questionName;
 
             if (!questionMap[Q_id]) {
+              // create a new question object if it doesn't exist in the questionMap
               const question: QuestionInfo = {
                 questionId: Q_id,
                 questionName: Q_name,
@@ -109,6 +120,7 @@ const GetTestResultsUXResearcherHandler = async (
               response.questions.push(question);
             }
 
+            // create an option object for each question and add it to the corresponding question
             const option: OptionInfo = {
               optionName: question.optionName,
               answerCount:

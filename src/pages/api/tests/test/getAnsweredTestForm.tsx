@@ -1,14 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { pool } from "@/lib/db";
-import {
-  Form,
-  formTemplate,
-  Question,
-  Section,
-  Option,
-} from "@/utils/testCreatorHelper";
+import { Form, Question, Section, Option } from "@/utils/testCreatorHelper";
 import { QuestionData } from "@/components/test-content-components/Question";
 
+// interface to represent the structure of the result rows
 interface Q_S_O {
   testName: string;
   testType: string;
@@ -33,6 +28,8 @@ const GetAnsweredTestForm = async (
       const { testId, userId } = req.query;
       try {
         const result = await pool.query(
+          // Query Explanation: retrieves information about a specific test, including the test name, type, creator, description,
+          // and details of the questions, options, and answers associated with that test for a specific tester.
           `SELECT T.name AS "testName",
                   T.type AS "testType",
                   U.name AS "testCreator",
@@ -59,6 +56,7 @@ const GetAnsweredTestForm = async (
         const data = result.rows as Q_S_O[];
 
         if (data.length > 0) {
+          // initialize the FormData object with test's information
           const FormData: Form = {
             testName: data[0].testName,
             testType: data[0].testType,
@@ -67,9 +65,11 @@ const GetAnsweredTestForm = async (
             question_section: [],
           };
 
+          // map to store questions and sections using their IDs as keys
           const questionSectionMap: { [key: number]: QuestionData | Section } =
             {};
 
+          // process each entry in the result set
           data.forEach((entry) => {
             const QS_id = entry.QS_id;
             const QS_name = entry.QS_name;
@@ -77,7 +77,9 @@ const GetAnsweredTestForm = async (
             const QS_isSection = entry.QS_isSection;
             const ANS_answer = entry.ANS_answer;
 
+            // check if the question/section does not exist
             if (!questionSectionMap[QS_id]) {
+              // create a new question or section object based on the "isSection" boolean
               const questionSection: QuestionData | Section = QS_isSection
                 ? {
                     id: QS_id,
@@ -93,10 +95,12 @@ const GetAnsweredTestForm = async (
                     answer: ANS_answer,
                   };
 
+              // add the question/section to the FormData and the map
               questionSectionMap[QS_id] = questionSection;
               FormData.question_section.push(questionSection);
             }
 
+            // if it's not a section, create an Option object and add it to the corresponding Question's options array
             if (!QS_isSection) {
               const option: Option = {
                 id: entry.O_id,

@@ -53,6 +53,12 @@ const FindTestersUXResearcherHandler = async (
       const { userId, testId } = req.query;
       try {
         const result = await pool.query(
+          // Query Explanation:
+          // TEMP1 (subquery): retrieves data from tables: "Tests", "Selection_Criteria", "Contacted_Users" (test related info: id, name, & criteria for age, gender, d.s., hobbies, location and careers)
+          // TEMP2 (subquery): retrieves data from tables: "Users", "Testers" (user related info: id, name, age, gender, location, career, d.s., hobbies, contacted or not)
+          // Main Query: Joins TEMP1 and TEMP2 based on the test ID
+          //             The WHERE clause filters the results based on matching criteria between the test's selection criteria and the user's attributes
+          //             The results are then ordered by whether the user has been contacted for the test and the user's name in ascending order
           `
           SELECT DISTINCT TEMP1."testId",
                           TEMP1."testName",

@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { pool } from "@/lib/db";
 import { Form, Question, Section, Option } from "@/utils/testCreatorHelper";
 
+// interface for the result rows of the query
 interface Q_S_O {
   testName: string;
   testType: string;
@@ -22,6 +23,8 @@ const GetTestForm = async (req: NextApiRequest, res: NextApiResponse) => {
       const { testId } = req.query;
       try {
         const result = await pool.query(
+          // Query Explanation: retrieves information about a specific test, including its name, type, creator, description,
+          //                    as well as details about its associated questions, sections, and options
           `SELECT T.name AS "testName",
                   T.type AS "testType",
                   U.name AS "testCreator",
@@ -44,6 +47,7 @@ const GetTestForm = async (req: NextApiRequest, res: NextApiResponse) => {
         const data = result.rows as Q_S_O[];
 
         if (data.length > 0) {
+          // initialize the FormData object with test's information
           const FormData: Form = {
             testName: data[0].testName,
             testType: data[0].testType,
@@ -52,15 +56,19 @@ const GetTestForm = async (req: NextApiRequest, res: NextApiResponse) => {
             question_section: [],
           };
 
+          // map to store questions and sections using their IDs as keys
           const questionSectionMap: { [key: number]: Question | Section } = {};
 
+          // process each entry in the result set
           data.forEach((entry) => {
             const QS_id = entry.QS_id;
             const QS_name = entry.QS_name;
             const QS_description = entry.QS_description;
             const QS_isSection = entry.QS_isSection;
 
+            // check if the question/section does not exist
             if (!questionSectionMap[QS_id]) {
+              // create a new question or section object based on the "isSection" boolean
               const questionSection: Question | Section = QS_isSection
                 ? {
                     id: QS_id,
@@ -75,10 +83,12 @@ const GetTestForm = async (req: NextApiRequest, res: NextApiResponse) => {
                     isSection: QS_isSection,
                   };
 
+              // add the question/section to the FormData and the map
               questionSectionMap[QS_id] = questionSection;
               FormData.question_section.push(questionSection);
             }
 
+            // if it's not a section, create an Option object and add it to the corresponding Question's options array
             if (!QS_isSection) {
               const option: Option = {
                 id: entry.O_id,

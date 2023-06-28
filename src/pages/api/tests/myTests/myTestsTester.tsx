@@ -10,6 +10,15 @@ const MyTestsTesterHandler = async (
       const { userId } = req.query;
       try {
         const result = await pool.query(
+          // Query Explanation: retrieves test's information based on the provided user ID value
+          // -
+          // WHERE clause:
+          // U.ID = T."userId" -> matches the user ID from the "Users" table with the "userId" column in the "Tests" table, representing the TEST CREATOR (UX Researcher)
+          // T.ID = Q."testId" -> matches the test ID from the "Tests" table with the "testId" column in the "Questions_Sections" table
+          // Q.ID = A."questionId" -> matches the question ID from the "Questions_Sections" table with the "questionId" column in the "Answers" table
+          // A."userId" = TT."userId" -> matches the user ID from the "Answers" table with the "userId" column in the "Testers" table, representing the TESTER
+          // TT."userId" = ${userId} -> matches the tester's user ID with the provided userId value
+          // T."isDeleted" = FALSE -> ensures that the tests shown have not been deleted
           `SELECT DISTINCT T.ID AS "testId",
                            T."name" AS "testName",
                            T."type" AS "testType",

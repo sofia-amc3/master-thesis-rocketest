@@ -10,6 +10,8 @@ const MyTestsUXResearcherHandler = async (
       const { userId } = req.query;
       try {
         const result = await pool.query(
+          // Query Explanation: retrieves test's information created by a specific user
+          // it uses a LEFT JOIN to ensure that all tests are included in the result, regardless of whether they have associated contacted users
           `SELECT T.ID as "testId",
                   T."name" AS "testName",
                   T."type" AS "testType",

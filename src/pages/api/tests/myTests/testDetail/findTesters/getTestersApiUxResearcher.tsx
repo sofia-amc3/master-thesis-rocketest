@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { pool } from "@/lib/db";
 import axios from "axios";
-import FakeUsersFacebook from "@/../externalApi/utils/fakeUsersFacebook.json";
-import FakeUsersLinkedIn from "@/../externalApi/utils/fakeUsersLinkedIn.json";
 
 export interface FoundUsers {
   selected?: boolean; // used only for the frontend
@@ -50,6 +48,7 @@ const GetTestersApiUXResearcherHandler = async (
       const { testId, platform, ageRange, gender, location, careers, hobbies } =
         req.query;
 
+      // convert the query parameters to their final values
       const finalAgeRange = ageRange?.toString() || "",
         finalGender = gender
           ? gender === "No preference"
@@ -60,6 +59,7 @@ const GetTestersApiUXResearcherHandler = async (
         finalCareers = careers?.toString() || "",
         finalHobbies = hobbies?.toString() || "";
 
+      // initialize the object with an empty foundUsers array
       const responseFindExternalTesters = {
         foundUsers: [],
       } as FindExternalTestersResponse;
@@ -75,6 +75,9 @@ const GetTestersApiUXResearcherHandler = async (
 
         const IN_USE_IP = process.env.EXTERNALAPI_IP || "localhost:8080"; //! PLEASE UPDATE THE LOCALHOST IP IF NECESSARY TO COMMUNICATE WITH EXTERNAL API
 
+        // send a GET request to the external API endpoint to retrieve external testers
+        // note: we are only getting the external testers because rocketest's users don't require an external API
+        //       and they are retrieved in findTestersUxResearchers.tsx
         await axios
           .get(`http://${IN_USE_IP}/api/simulating${platform}/getUsers`, {
             params,
@@ -82,7 +85,7 @@ const GetTestersApiUXResearcherHandler = async (
           .then(async (extResponse) => {
             const _data = extResponse.data as FindExternalTestersRequest[];
 
-            //query to get contacted users from external platforms
+            // query to get contacted users from external platforms
             let result = { rows: [] };
 
             try {
@@ -94,10 +97,12 @@ const GetTestersApiUXResearcherHandler = async (
               `);
             } catch {}
 
+            // extract the contacted users from the query result
             const contactedUsers = (
               result.rows?.length > 0 ? result.rows : []
             ) as ContactedUsersQuery[];
 
+            // process each found user from the external API response
             _data.map(async (foundUser, key) => {
               // intersect careers from selection criteria with user's career
               const filteredUserCareer = finalCareers
