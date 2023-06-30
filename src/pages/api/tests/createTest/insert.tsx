@@ -33,7 +33,7 @@ const InsertTest = async (req: NextApiRequest, res: NextApiResponse) => {
         let queryBuild = `
         WITH tmpTests AS (
             INSERT INTO "Tests" ("userId", name, type, description, deadline, payment, "isPublic")
-            VALUES (${userId}, '${_form.testName}', '${_form.testType}', '${_form.testCreator}', '${_form.deadlineDate}' , ${_form.payment}, ${_form.privacy})
+            VALUES (${userId}, '${_form.testName}', '${_form.testType}', '${_form.testDescription}', '${_form.deadlineDate}' , ${_form.payment}, ${_form.privacy})
             RETURNING id AS testId
         ),
         tmpSelectionCriteria AS (
