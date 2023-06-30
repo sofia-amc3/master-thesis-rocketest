@@ -13,7 +13,7 @@ interface Props {
 
 const TestTemplateCard = (props: Props) => {
   return (
-    <Link href={props.page}>
+    <a href={props.page}>
       <div
         className={`${styles.testCardImgContainer} ${
           props.disabled && styles.disabled
@@ -35,7 +35,7 @@ const TestTemplateCard = (props: Props) => {
         <span>{props.testName}</span>
         <span>{props.testDescription}</span>
       </div>
-    </Link>
+    </a>
   );
 };
 

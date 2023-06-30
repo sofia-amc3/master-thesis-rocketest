@@ -29,7 +29,7 @@ const EditTest = (props: PropsTestPage) => {
   const router = useRouter();
   const [contentMenuFocus, setContentMenuFocus] = useState(-1);
   const [loading, setLoading] = useState(true);
-  const [formTest, setFormTest] = useState(formTemplate as Form);
+  const [formTest, setFormTest] = useState({ ...formTemplate } as Form);
 
   const { type } = router.query;
 
